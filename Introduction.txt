@@ -4,6 +4,6 @@ Project: World of Tank
 
 Member: 
    - Hua Viet Ngoc (ID: 11020219)
-   - Nguyen Khac Quan (ID: )
+   - Nguyen Khac Quan (ID: 11020250)
    - Ngo Le Bao Trung (ID: )
 
