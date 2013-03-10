@@ -7,3 +7,9 @@ Member:
    - Nguyen Khac Quan (ID: 11020250)
    - Ngo Le Bao Trung (ID: 11020351)
 
+Short description:
+   - This is a simple game, multiplayer, auto-control
+   - Player use a provided tool to create a brain
+   - Brain is loaded into a tank, after that, tank is set in battle field
+   - Game will simulate a battle, tank will move obey brain
+   - Game over if there is only a tank in battle field
