@@ -1,1 +1,9 @@
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.exe.config
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.exe.config
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.exe
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.pdb
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.Properties.Resources.resources
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.csproj.GenerateResource.Cache
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.exe
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.pdb
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.Form1.resources
