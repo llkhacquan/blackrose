@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonStart = new System.Windows.Forms.Button();
             this.panelControl = new System.Windows.Forms.Panel();
             this.panelConsole = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.timerControl = new System.Windows.Forms.Timer(this.components);
+            this.imageTankDemo = new System.Windows.Forms.PictureBox();
             this.panelControl.SuspendLayout();
             this.panelConsole.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageTankDemo)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonStart
@@ -61,20 +63,26 @@
             // panelConsole
             // 
             this.panelConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelConsole.Controls.Add(this.pictureBox1);
+            this.panelConsole.Controls.Add(this.imageTankDemo);
             this.panelConsole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelConsole.Location = new System.Drawing.Point(0, 0);
             this.panelConsole.Name = "panelConsole";
             this.panelConsole.Size = new System.Drawing.Size(437, 361);
             this.panelConsole.TabIndex = 2;
             // 
-            // pictureBox1
+            // timerControl
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(20, 20);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.timerControl.Interval = 20;
+            this.timerControl.Tick += new System.EventHandler(this.timerControl_Tick);
+            // 
+            // imageTankDemo
+            // 
+            this.imageTankDemo.Location = new System.Drawing.Point(20, 20);
+            this.imageTankDemo.Name = "imageTankDemo";
+            this.imageTankDemo.Size = new System.Drawing.Size(40, 40);
+            this.imageTankDemo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imageTankDemo.TabIndex = 0;
+            this.imageTankDemo.TabStop = false;
             // 
             // Form1
             // 
@@ -87,9 +95,10 @@
             this.Controls.Add(this.panelControl);
             this.Name = "Form1";
             this.Text = "Battle Field";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panelControl.ResumeLayout(false);
             this.panelConsole.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageTankDemo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -99,7 +108,8 @@
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Panel panelControl;
         private System.Windows.Forms.Panel panelConsole;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox imageTankDemo;
+        private System.Windows.Forms.Timer timerControl;
     }
 }
 

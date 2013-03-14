@@ -7,3 +7,4 @@ C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\W
 C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.exe
 C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.pdb
 C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.Form1.resources
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.csprojResolveAssemblyReference.cache
