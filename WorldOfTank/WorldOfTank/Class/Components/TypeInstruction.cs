@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WorldOfTank.Class.Components
 {
-    enum Direction
+    enum TypeInstruction
     {
-        North = 0,
-        East = 1,
-        South = 2,
-        West = 3,
+        RotateLeft,
+        RotateRight,
+        MoveForward,
+        MoveBackward,
+        Fire,
     }
 }

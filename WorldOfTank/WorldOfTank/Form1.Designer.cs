@@ -29,87 +29,81 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.panelControl = new System.Windows.Forms.Panel();
-            this.panelConsole = new System.Windows.Forms.Panel();
-            this.timerControl = new System.Windows.Forms.Timer(this.components);
-            this.imageTankDemo = new System.Windows.Forms.PictureBox();
-            this.panelControl.SuspendLayout();
-            this.panelConsole.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageTankDemo)).BeginInit();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonStart
+            // button1
             // 
-            this.buttonStart.Location = new System.Drawing.Point(37, 12);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 0;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.button1.Location = new System.Drawing.Point(28, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // panelControl
+            // panel1
             // 
-            this.panelControl.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelControl.Controls.Add(this.buttonStart);
-            this.panelControl.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl.Location = new System.Drawing.Point(437, 0);
-            this.panelControl.Name = "panelControl";
-            this.panelControl.Size = new System.Drawing.Size(147, 361);
-            this.panelControl.TabIndex = 1;
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(600, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(184, 236);
+            this.panel1.TabIndex = 1;
             // 
-            // panelConsole
+            // button2
             // 
-            this.panelConsole.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelConsole.Controls.Add(this.imageTankDemo);
-            this.panelConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelConsole.Location = new System.Drawing.Point(0, 0);
-            this.panelConsole.Name = "panelConsole";
-            this.panelConsole.Size = new System.Drawing.Size(437, 361);
-            this.panelConsole.TabIndex = 2;
+            this.button2.Location = new System.Drawing.Point(28, 41);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // timerControl
+            // panel2
             // 
-            this.timerControl.Interval = 20;
-            this.timerControl.Tick += new System.EventHandler(this.timerControl_Tick);
+            this.panel2.AutoScroll = true;
+            this.panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(600, 600);
+            this.panel2.TabIndex = 2;
             // 
-            // imageTankDemo
+            // timer1
             // 
-            this.imageTankDemo.Location = new System.Drawing.Point(20, 20);
-            this.imageTankDemo.Name = "imageTankDemo";
-            this.imageTankDemo.Size = new System.Drawing.Size(40, 40);
-            this.imageTankDemo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imageTankDemo.TabIndex = 0;
-            this.imageTankDemo.TabStop = false;
+            this.timer1.Interval = 25;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(584, 361);
-            this.Controls.Add(this.panelConsole);
-            this.Controls.Add(this.panelControl);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(784, 236);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Name = "Form1";
-            this.Text = "Battle Field";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.panelControl.ResumeLayout(false);
-            this.panelConsole.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imageTankDemo)).EndInit();
+            this.Text = "Form1";
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Panel panelControl;
-        private System.Windows.Forms.Panel panelConsole;
-        private System.Windows.Forms.PictureBox imageTankDemo;
-        private System.Windows.Forms.Timer timerControl;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button button2;
     }
 }
-

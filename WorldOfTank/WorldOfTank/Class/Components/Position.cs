@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace WorldOfTank.Class.Components
 {
     class Position
     {
-        public int x { set; get; }
-        public int y { set; get; }
+        public float X;
+        public float Y;
 
-        public Position(int x, int y)
+        public Position(float X, float Y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = X;
+            this.Y = Y;
+        }
+
+        public Point GetPoint()
+        {
+            return new Point((int)X, (int)Y);
         }
     }
 }

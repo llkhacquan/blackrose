@@ -3,58 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
-    class Tank : ObjectGame
+    class Tank : DynamicObject
     {
-        public Direction direction { set; get; }
-        public int speed { set; get; }
-        public int damage { set; get; }
-        public int heal { set; get; }
+        public float Damage;
+        public float Speed;
+        public float Heal;
+        public List<Instruction> Instructions;
 
-        public Tank()
+        public Tank(Image Image)
+            : base(Image, TypeObject.Tank)
         {
+            this.Damage = 1;
+            this.Speed = 1;
+            this.Heal = 1;
+            Instructions = new List<Instruction>();
         }
 
-        public void turnLeft() {
-            if (direction == Direction.North) direction = Direction.West;
-            else if (direction == Direction.West) direction = Direction.South;
-            else if (direction == Direction.South) direction = Direction.East;
-            else direction = Direction.North;
-        }
+        public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionCannotMove = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionDetected = () => new List<Instruction>();
 
-        public void turnRight()
+        public void Update()
         {
-            if (direction == Direction.North) direction = Direction.East;
-            else if (direction == Direction.East) direction = Direction.South;
-            else if (direction == Direction.South) direction = Direction.West;
-            else direction = Direction.North;
-        }
-
-        public void moveUp()
-        {
-            if (direction == Direction.North) position.y -= speed;
-            else if (direction == Direction.South) position.y += speed;
-            else if (direction == Direction.East) position.x += speed;
-            else position.x -= speed;
-        }
-
-        public void moveDown()
-        {
-            if (direction == Direction.North) position.y += speed;
-            else if (direction == Direction.South) position.y -= speed;
-            else if (direction == Direction.East) position.x -= speed;
-            else position.x += speed;
-        }
-
-        public void attack()
-        {
-        }
-
-        public void actionNormal()
-        {
+            if (Instructions.Count == 0) Instructions = ActionNormal();
         }
     }
 }
