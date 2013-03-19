@@ -8,7 +8,7 @@ using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
-    class DynamicObject : ObjectGame
+    abstract class DynamicObject : ObjectGame
     {
         public float Direction;
 

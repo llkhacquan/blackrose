@@ -20,26 +20,55 @@ namespace WorldOfTank.Class.Model
 
         public void SetupGame()
         {
-            Tank tank = new Tank(Resources.tank_up);
+            Tank tank = new Tank(Resources.tank1);
             tank.Speed = 3;
             tank.Size = new Size(60, 60);
-            tank.Position = new Position(100, 200);
+            tank.Position = new Position(150, 100);
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.RotateLeft, 60),
                 new Instruction(TypeInstruction.MoveForward, 100),
-                new Instruction(TypeInstruction.MoveBackward, 150),
+                new Instruction(TypeInstruction.MoveBackward, 100),
             };
             Objects.Add(tank);
 
-            tank = new Tank(Resources.tank_up);
+            tank = new Tank(Resources.tank2);
             tank.Speed = 5;
             tank.Size = new Size(60, 60);
-            tank.Position = new Position(180, 100);
+            tank.Position = new Position(250, 200);
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.RotateRight, 5),
                 new Instruction(TypeInstruction.MoveForward, 5),
+            };
+            Objects.Add(tank);
+
+            tank = new Tank(Resources.tank3);
+            tank.Speed = 3;
+            tank.Size = new Size(60, 60);
+            tank.Position = new Position(300, 300);
+            tank.ActionNormal = () => new List<Instruction>()
+            {
+                new Instruction(TypeInstruction.MoveForward, 100),
+                new Instruction(TypeInstruction.RotateLeft, 90),
+            };
+            Objects.Add(tank);
+
+            tank = new Tank(Resources.tank4);
+            tank.Speed = 4;
+            tank.Size = new Size(60, 60);
+            tank.Position = new Position(100, 400);
+            tank.Direction = 45;
+            tank.ActionNormal = () => new List<Instruction>()
+            {
+                new Instruction(TypeInstruction.MoveForward, 300),
+                new Instruction(TypeInstruction.RotateLeft, 135),
+                new Instruction(TypeInstruction.MoveForward, 210),
+                new Instruction(TypeInstruction.RotateRight, 45),
+                new Instruction(TypeInstruction.MoveBackward, 300),
+                new Instruction(TypeInstruction.RotateLeft, 45),
+                new Instruction(TypeInstruction.MoveForward, 210),
+                new Instruction(TypeInstruction.RotateRight, 135),
             };
             Objects.Add(tank);
         }
@@ -107,7 +136,7 @@ namespace WorldOfTank.Class.Model
                 }
                 else if (tank.Instructions[i].Type == TypeInstruction.Fire)
                 {
-                  
+
                 }
             }
         }
