@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelControl = new System.Windows.Forms.Panel();
+            this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.timerControl = new System.Windows.Forms.Timer(this.components);
-            this.buttonStop = new System.Windows.Forms.Button();
             this.panelControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +47,17 @@
             this.panelControl.Name = "panelControl";
             this.panelControl.Size = new System.Drawing.Size(200, 600);
             this.panelControl.TabIndex = 0;
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Enabled = false;
+            this.buttonStop.Location = new System.Drawing.Point(64, 61);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(75, 23);
+            this.buttonStop.TabIndex = 1;
+            this.buttonStop.Text = "Stop";
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // buttonStart
             // 
@@ -72,17 +83,6 @@
             // 
             this.timerControl.Interval = 25;
             this.timerControl.Tick += new System.EventHandler(this.timerControl_Tick);
-            // 
-            // buttonStop
-            // 
-            this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(64, 61);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(75, 23);
-            this.buttonStop.TabIndex = 1;
-            this.buttonStop.Text = "Stop";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // BattleFieldForm
             // 

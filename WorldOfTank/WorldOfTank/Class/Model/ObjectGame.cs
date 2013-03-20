@@ -31,20 +31,12 @@ namespace WorldOfTank.Class.Model
 
         public bool IsCollided(ObjectGame obj)
         {
-            int this_x1 = (int)this.Position.X;
-            int this_x2 = this_x1 + this.Size.Width;
-            int this_y1 = (int)this.Position.Y;
-            int this_y2 = this_y1 + this.Size.Height;
-
-            int obj_x1 = (int)obj.Position.X;
-            int obj_x2 = obj_x1 + obj.Size.Width;
-            int obj_y1 = (int)obj.Position.Y;
-            int obj_y2 = obj_y1 + obj.Size.Height;
-
-            if (((this_x1 <= obj_x1 && obj_x1 < this_x2) || (obj_x1 <= this_x1 && this_x1 < obj_x2)) &&
-                ((this_y1 <= obj_y1 && obj_y1 < this_y2) || (obj_y1 <= this_y1 && this_y1 < obj_y2)))
-                return true;
-            return false;
+            if ((this.Position.X + this.Size.Width <= obj.Position.X) ||
+                (obj.Position.X + obj.Size.Width <= this.Position.X) ||
+                (this.Position.Y + this.Size.Height <= obj.Position.Y) ||
+                (obj.Position.Y + obj.Size.Height <= this.Position.Y))
+                return false;
+            return true;
         }
     }
 }
