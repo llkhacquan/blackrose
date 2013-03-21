@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace WorldOfTank.GUI
     public partial class BattleFieldForm : Form
     {
         private BattleField battleField;
+        private Bitmap bmpGame = new Bitmap(600, 600);
+        Graphics gfx;
 
         public BattleFieldForm()
         {
@@ -22,6 +25,7 @@ namespace WorldOfTank.GUI
 
         private void Display()
         {
+            /*
             foreach (ObjectGame obj in battleField.Objects)
             {
                 DynamicObject dobj = (DynamicObject)obj;
@@ -31,6 +35,24 @@ namespace WorldOfTank.GUI
                 if (!panelView.Controls.Contains(obj.Picture))
                     panelView.Controls.Add(obj.Picture);
             }
+            */
+
+            gfx.Clear(Color.Gray);
+            foreach (ObjectGame obj in battleField.Objects)
+            {
+                DynamicObject dobj = (DynamicObject)obj;
+                Bitmap bmp = new Bitmap(GraphicsProcessor.RotateImage(dobj.Image, dobj.Direction), dobj.Size);
+                gfx.DrawImage(
+                    bmp,
+                    new Rectangle(new Point((int)dobj.Position.X, (int)dobj.Position.Y), dobj.Size),
+                    0, 0,
+                    dobj.Size.Width, dobj.Size.Height,
+                    GraphicsUnit.Pixel,
+                    GraphicsProcessor.SemiTransparent(0.8f));
+            }
+
+
+            panelView.CreateGraphics().DrawImage(bmpGame, 0, 0);
         }
 
         private void timerControl_Tick(object sender, EventArgs e)
@@ -41,7 +63,8 @@ namespace WorldOfTank.GUI
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            panelView.Controls.Clear();
+            gfx = Graphics.FromImage(bmpGame);
+
             battleField = new BattleField();
             battleField.SetupGame();
             timerControl.Enabled = true;

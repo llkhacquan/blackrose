@@ -11,7 +11,9 @@ namespace WorldOfTank.Class.Model
     class Tank : DynamicObject
     {
         public float Damage;
-        public float Speed;
+        public float SpeedMove;
+        public float SpeedRotate;
+        public float SpeedFire;
         public float Heal;
         public List<Instruction> Instructions;
 
@@ -19,7 +21,9 @@ namespace WorldOfTank.Class.Model
             : base(Image, TypeObject.Tank)
         {
             this.Damage = 1;
-            this.Speed = 1;
+            this.SpeedMove = 1;
+            this.SpeedRotate = 1;
+            this.SpeedFire = 1;
             this.Heal = 1;
             Instructions = new List<Instruction>();
         }

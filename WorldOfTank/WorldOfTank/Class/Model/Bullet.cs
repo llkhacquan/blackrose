@@ -11,13 +11,13 @@ namespace WorldOfTank.Class.Model
     class Bullet : DynamicObject
     {
         public float Damage;
-        public float Speed;
+        public float SpeedMove;
 
         public Bullet(Image Image)
             : base(Image, TypeObject.Bullet)
         {
             this.Damage = 1;
-            this.Speed = 1;
+            this.SpeedMove = 1;
         }
     }
 }

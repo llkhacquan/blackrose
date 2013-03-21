@@ -13,20 +13,17 @@ namespace WorldOfTank.Class.Model
     {
         public Image Image;
         public Size Size;
-        public Position Position;
+        public PointF Position;
+        public float Direction;
         public TypeObject Type;
-        public PictureBox Picture;
 
         public ObjectGame(Image Image, TypeObject Type)
         {
             this.Image = Image;
-            this.Size = new Size(1, 1);
-            this.Position = new Position(0, 0);
+            this.Size = Image.Size;
+            this.Position = new PointF(0, 0);
+            this.Direction = 0;
             this.Type = Type;
-
-            this.Picture = new PictureBox();
-            this.Picture.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Picture.BackColor = Color.Transparent;
         }
 
         public bool IsCollided(ObjectGame obj)

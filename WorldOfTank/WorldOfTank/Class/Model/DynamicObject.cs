@@ -10,22 +10,19 @@ namespace WorldOfTank.Class.Model
 {
     abstract class DynamicObject : ObjectGame
     {
-        public float Direction;
-
         public DynamicObject(Image Image, TypeObject Type)
             : base(Image, Type)
         {
-            this.Direction = 0;
         }
 
         public void RotateLeft(float value)
         {
-            Direction -= value;
+            this.Direction -= value;
         }
 
         public void RotateRight(float value)
         {
-            Direction += value;
+            this.Direction += value;
         }
 
         public void MoveForward(float value)

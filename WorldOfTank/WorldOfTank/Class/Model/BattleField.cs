@@ -21,9 +21,10 @@ namespace WorldOfTank.Class.Model
         public void SetupGame()
         {
             Tank tank = new Tank(Resources.tank1);
-            tank.Speed = 3;
+            tank.SpeedMove = 3;
+            tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
-            tank.Position = new Position(150, 100);
+            tank.Position = new PointF(150, 100);
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.RotateLeft, 60),
@@ -33,20 +34,22 @@ namespace WorldOfTank.Class.Model
             Objects.Add(tank);
 
             tank = new Tank(Resources.tank2);
-            tank.Speed = 5;
+            tank.SpeedMove = 5;
+            tank.SpeedRotate = 2;
             tank.Size = new Size(60, 60);
-            tank.Position = new Position(250, 200);
+            tank.Position = new PointF(250, 200);
             tank.ActionNormal = () => new List<Instruction>()
             {
-                new Instruction(TypeInstruction.RotateRight, 5),
+                new Instruction(TypeInstruction.RotateRight, 2),
                 new Instruction(TypeInstruction.MoveForward, 5),
             };
             Objects.Add(tank);
 
             tank = new Tank(Resources.tank3);
-            tank.Speed = 3;
+            tank.SpeedMove = 3;
+            tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
-            tank.Position = new Position(300, 300);
+            tank.Position = new PointF(300, 300);
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.MoveForward, 100),
@@ -55,9 +58,10 @@ namespace WorldOfTank.Class.Model
             Objects.Add(tank);
 
             tank = new Tank(Resources.tank4);
-            tank.Speed = 4;
+            tank.SpeedMove = 4;
+            tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
-            tank.Position = new Position(100, 400);
+            tank.Position = new PointF(100, 400);
             tank.Direction = 45;
             tank.ActionNormal = () => new List<Instruction>()
             {
@@ -75,7 +79,7 @@ namespace WorldOfTank.Class.Model
 
         private void ProcessBullet(Bullet bullet)
         {
-            bullet.MoveForward(bullet.Speed);
+            bullet.MoveForward(bullet.SpeedMove);
             for (int i = 0; i < Objects.Count; i++)
                 if (bullet.IsCollided(Objects[i]))
                 {
@@ -87,12 +91,12 @@ namespace WorldOfTank.Class.Model
         private void ProcessTank(Tank tank)
         {
             tank.Update();
-            Position p = new Position(tank.Position.X, tank.Position.Y);
+            PointF p = tank.Position;
             for (int i = 0; i < tank.Instructions.Count; i++)
             {
                 if (tank.Instructions[i].Type == TypeInstruction.MoveForward)
                 {
-                    float value = Math.Min(tank.Instructions[i].Parameter, tank.Speed);
+                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedMove);
                     tank.MoveForward(value);
                     tank.Instructions[i].Parameter -= value;
                     for (int j = 0; j < Objects.Count; j++)
@@ -106,7 +110,7 @@ namespace WorldOfTank.Class.Model
                 }
                 else if (tank.Instructions[i].Type == TypeInstruction.MoveBackward)
                 {
-                    float value = Math.Min(tank.Instructions[i].Parameter, tank.Speed);
+                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedMove);
                     tank.MoveBackward(value);
                     tank.Instructions[i].Parameter -= value;
                     for (int j = 0; j < Objects.Count; j++)
@@ -120,7 +124,7 @@ namespace WorldOfTank.Class.Model
                 }
                 else if (tank.Instructions[i].Type == TypeInstruction.RotateLeft)
                 {
-                    float value = Math.Min(tank.Instructions[i].Parameter, 5);
+                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedRotate);
                     tank.RotateLeft(value);
                     tank.Instructions[i].Parameter -= value;
                     if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
@@ -128,7 +132,7 @@ namespace WorldOfTank.Class.Model
                 }
                 else if (tank.Instructions[i].Type == TypeInstruction.RotateRight)
                 {
-                    float value = Math.Min(tank.Instructions[i].Parameter, 5);
+                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedRotate);
                     tank.RotateRight(value);
                     tank.Instructions[i].Parameter -= value;
                     if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
