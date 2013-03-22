@@ -84,14 +84,14 @@
             this.timerControl.Interval = 25;
             this.timerControl.Tick += new System.EventHandler(this.timerControl_Tick);
             // 
-            // BattleFieldForm2
+            // BattleFieldForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.panelView);
             this.Controls.Add(this.panelControl);
-            this.Name = "BattleFieldForm2";
+            this.Name = "BattleFieldForm";
             this.Text = "BattleField";
             this.panelControl.ResumeLayout(false);
             this.ResumeLayout(false);

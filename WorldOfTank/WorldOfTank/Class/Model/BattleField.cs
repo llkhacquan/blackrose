@@ -13,11 +13,13 @@ namespace WorldOfTank.Class.Model
     {
         public List<ObjectGame> Objects;
         public Size Size;
+        public Image Background;
 
         public BattleField()
         {
             Objects = new List<ObjectGame>();
             Size = new Size(600, 600);
+            Background = Resources.Grass_A;
         }
 
         public void SetupGame()
@@ -37,12 +39,12 @@ namespace WorldOfTank.Class.Model
 
             tank = new Tank(Resources.Tank_B);
             tank.SpeedMove = 5;
-            tank.SpeedRotate = 2;
+            tank.SpeedRotate = 3;
             tank.Size = new Size(60, 60);
             tank.Position = new PointF(250, 200);
             tank.ActionNormal = () => new List<Instruction>()
             {
-                new Instruction(TypeInstruction.RotateRight, 2),
+                new Instruction(TypeInstruction.RotateRight, 3),
                 new Instruction(TypeInstruction.MoveForward, 5),
             };
             Objects.Add(tank);
@@ -94,6 +96,7 @@ namespace WorldOfTank.Class.Model
         {
             tank.Update();
             PointF p = tank.Position;
+            float d = tank.Direction;
             for (int i = 0; i < tank.Instructions.Count; i++)
             {
                 if (tank.Instructions[i].Type == TypeInstruction.MoveForward)
@@ -129,6 +132,12 @@ namespace WorldOfTank.Class.Model
                     float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedRotate);
                     tank.RotateLeft(value);
                     tank.Instructions[i].Parameter -= value;
+                    for (int j = 0; j < Objects.Count; j++)
+                        if (Objects[j] != tank && tank.IsCollided(Objects[j]))
+                        {
+                            tank.Direction = d;
+                            break;
+                        }
                     if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
                     else break;
                 }
@@ -137,6 +146,12 @@ namespace WorldOfTank.Class.Model
                     float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedRotate);
                     tank.RotateRight(value);
                     tank.Instructions[i].Parameter -= value;
+                    for (int j = 0; j < Objects.Count; j++)
+                        if (Objects[j] != tank && tank.IsCollided(Objects[j]))
+                        {
+                            tank.Direction = d;
+                            break;
+                        }
                     if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
                     else break;
                 }

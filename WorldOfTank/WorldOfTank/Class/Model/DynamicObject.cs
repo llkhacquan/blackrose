@@ -27,16 +27,16 @@ namespace WorldOfTank.Class.Model
 
         public void MoveForward(float value)
         {
-            double radian = Math.PI * this.Direction / 180;
-            this.Position.X += (float)Math.Sin(radian) * value;
-            this.Position.Y -= (float)Math.Cos(radian) * value;
+            double rad = Math.PI * this.Direction / 180;
+            this.Position.X += (float)Math.Sin(rad) * value;
+            this.Position.Y -= (float)Math.Cos(rad) * value;
         }
 
         public void MoveBackward(float value)
         {
-            double radian = Math.PI * this.Direction / 180;
-            this.Position.X -= (float)Math.Sin(radian) * value;
-            this.Position.Y += (float)Math.Cos(radian) * value;
+            double rad = Math.PI * this.Direction / 180;
+            this.Position.X -= (float)Math.Sin(rad) * value;
+            this.Position.Y += (float)Math.Cos(rad) * value;
         }
     }
 }

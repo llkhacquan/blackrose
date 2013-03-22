@@ -20,6 +20,7 @@ namespace WorldOfTank.Class.Model
         public Tank(Image Image)
             : base(Image, TypeObject.Tank)
         {
+            BorderDegree = new float[] { -30, 30, 150, 210 };
             this.Damage = 1;
             this.SpeedMove = 1;
             this.SpeedRotate = 1;

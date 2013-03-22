@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -25,23 +26,38 @@ namespace WorldOfTank.GUI
 
         private void Display()
         {
-            Image imgBG = WorldOfTank.Properties.Resources.Grass_C;
-            for (int i = 0; i <= battleField.Size.Width / imgBG.Width; i++)
-                for (int j = 0; j <= battleField.Size.Height / imgBG.Height; j++)
+            Image imgBG = battleField.Background;
+            for (int i = 0; i <= (battleField.Size.Width - 1) / imgBG.Width; i++)
+                for (int j = 0; j <= (battleField.Size.Height - 1) / imgBG.Height; j++)
                     gfx.DrawImage(imgBG, imgBG.Width * i, imgBG.Height * j);
 
             foreach (ObjectGame obj in battleField.Objects)
             {
-                DynamicObject dobj = (DynamicObject)obj;
-                Bitmap bmp = new Bitmap(GraphicsProcessor.RotateImage(dobj.Image, dobj.Direction), dobj.Size);
-                gfx.DrawImage(
-                    bmp,
-                    new Rectangle(new Point((int)dobj.Position.X, (int)dobj.Position.Y), dobj.Size),
-                    0, 0,
-                    dobj.Size.Width, dobj.Size.Height,
-                    GraphicsUnit.Pixel,
-                    GraphicsProcessor.SemiTransparent(1.0f));
+                obj.Paint(gfx);
             }
+
+            /*
+            Pen pen = new Pen(new SolidBrush(Color.Green));
+            foreach (ObjectGame obj in battleField.Objects)
+            {
+                PointF[] pf = obj.BorderPoint();
+                for (int i = 0; i < pf.Length - 1; i++)
+                {
+                    gfx.DrawLine(pen, pf[i], pf[i + 1]);
+                }
+            }
+            
+            
+            SolidBrush semiTransBrush = new SolidBrush(Color.FromArgb(32, 255, 255, 0));
+            Tank tank = (Tank)battleField.Objects[1];
+            Rectangle rec = new Rectangle(
+                (int)tank.Position.X - 300,
+                (int)tank.Position.Y - 300,
+                tank.Size.Width + 600,
+                tank.Size.Height + 600);
+
+            gfx.FillPie(semiTransBrush, rec, battleField.Objects[1].Direction - 90 - 10, 20);
+            */
 
             panelView.CreateGraphics().DrawImage(bmpGame, 0, 0);
         }
