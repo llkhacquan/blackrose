@@ -63,9 +63,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bullet1 {
+        internal static System.Drawing.Bitmap Bullet_A {
             get {
-                object obj = ResourceManager.GetObject("bullet1", resourceCulture);
+                object obj = ResourceManager.GetObject("Bullet_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bullet2 {
+        internal static System.Drawing.Bitmap Bullet_B {
             get {
-                object obj = ResourceManager.GetObject("bullet2", resourceCulture);
+                object obj = ResourceManager.GetObject("Bullet_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap butllet3 {
+        internal static System.Drawing.Bitmap Bullet_C {
             get {
-                object obj = ResourceManager.GetObject("butllet3", resourceCulture);
+                object obj = ResourceManager.GetObject("Bullet_C", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tank1 {
+        internal static System.Drawing.Bitmap Grass_A {
             get {
-                object obj = ResourceManager.GetObject("tank1", resourceCulture);
+                object obj = ResourceManager.GetObject("Grass_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tank2 {
+        internal static System.Drawing.Bitmap Grass_B {
             get {
-                object obj = ResourceManager.GetObject("tank2", resourceCulture);
+                object obj = ResourceManager.GetObject("Grass_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tank3 {
+        internal static System.Drawing.Bitmap Grass_C {
             get {
-                object obj = ResourceManager.GetObject("tank3", resourceCulture);
+                object obj = ResourceManager.GetObject("Grass_C", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tank4 {
+        internal static System.Drawing.Bitmap Tank_A {
             get {
-                object obj = ResourceManager.GetObject("tank4", resourceCulture);
+                object obj = ResourceManager.GetObject("Tank_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wall1 {
+        internal static System.Drawing.Bitmap Tank_B {
             get {
-                object obj = ResourceManager.GetObject("wall1", resourceCulture);
+                object obj = ResourceManager.GetObject("Tank_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wall2 {
+        internal static System.Drawing.Bitmap Tank_C {
             get {
-                object obj = ResourceManager.GetObject("wall2", resourceCulture);
+                object obj = ResourceManager.GetObject("Tank_C", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wall3 {
+        internal static System.Drawing.Bitmap Tank_D {
             get {
-                object obj = ResourceManager.GetObject("wall3", resourceCulture);
+                object obj = ResourceManager.GetObject("Tank_D", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +163,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wall4 {
+        internal static System.Drawing.Bitmap Wall_A {
             get {
-                object obj = ResourceManager.GetObject("wall4", resourceCulture);
+                object obj = ResourceManager.GetObject("Wall_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wall5 {
+        internal static System.Drawing.Bitmap Wall_B {
             get {
-                object obj = ResourceManager.GetObject("wall5", resourceCulture);
+                object obj = ResourceManager.GetObject("Wall_B", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

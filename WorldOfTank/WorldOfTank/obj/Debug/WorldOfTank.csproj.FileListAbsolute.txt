@@ -15,6 +15,6 @@ D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.pdb
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.csprojResolveAssemblyReference.cache
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.Properties.Resources.resources
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.csproj.GenerateResource.Cache
-D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.BattleFieldForm.resources
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\bin\Debug\nunit.framework.dll
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\bin\Debug\nunit.framework.xml
+D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.BattleFieldForm.resources

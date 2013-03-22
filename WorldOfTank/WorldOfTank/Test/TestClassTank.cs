@@ -15,7 +15,7 @@ namespace WorldOfTank.Test
         [SetUp]
         public void Setup()
         {
-            tank = new Tank(WorldOfTank.Properties.Resources.tank1);
+            tank = new Tank(WorldOfTank.Properties.Resources.Tank_A);
         }
 
         [Test]

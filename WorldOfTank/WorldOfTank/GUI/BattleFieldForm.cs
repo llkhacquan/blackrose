@@ -15,7 +15,7 @@ namespace WorldOfTank.GUI
     public partial class BattleFieldForm : Form
     {
         private BattleField battleField;
-        private Bitmap bmpGame = new Bitmap(600, 600);
+        private Bitmap bmpGame;
         Graphics gfx;
 
         public BattleFieldForm()
@@ -25,19 +25,11 @@ namespace WorldOfTank.GUI
 
         private void Display()
         {
-            /*
-            foreach (ObjectGame obj in battleField.Objects)
-            {
-                DynamicObject dobj = (DynamicObject)obj;
-                dobj.Picture.Image = GraphicsProcessor.rotateCenter(dobj.Image, dobj.Direction);
-                dobj.Picture.Size = dobj.Size;
-                dobj.Picture.Location = dobj.Position.GetPoint();
-                if (!panelView.Controls.Contains(obj.Picture))
-                    panelView.Controls.Add(obj.Picture);
-            }
-            */
+            Image imgBG = WorldOfTank.Properties.Resources.Grass_C;
+            for (int i = 0; i <= battleField.Size.Width / imgBG.Width; i++)
+                for (int j = 0; j <= battleField.Size.Height / imgBG.Height; j++)
+                    gfx.DrawImage(imgBG, imgBG.Width * i, imgBG.Height * j);
 
-            gfx.Clear(Color.Gray);
             foreach (ObjectGame obj in battleField.Objects)
             {
                 DynamicObject dobj = (DynamicObject)obj;
@@ -48,9 +40,8 @@ namespace WorldOfTank.GUI
                     0, 0,
                     dobj.Size.Width, dobj.Size.Height,
                     GraphicsUnit.Pixel,
-                    GraphicsProcessor.SemiTransparent(0.8f));
+                    GraphicsProcessor.SemiTransparent(1.0f));
             }
-
 
             panelView.CreateGraphics().DrawImage(bmpGame, 0, 0);
         }
@@ -63,10 +54,10 @@ namespace WorldOfTank.GUI
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            gfx = Graphics.FromImage(bmpGame);
-
             battleField = new BattleField();
             battleField.SetupGame();
+            bmpGame = new Bitmap(battleField.Size.Width, battleField.Size.Height);
+            gfx = Graphics.FromImage(bmpGame);
             timerControl.Enabled = true;
             buttonStart.Enabled = false;
             buttonStop.Enabled = true;

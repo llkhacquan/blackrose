@@ -12,15 +12,17 @@ namespace WorldOfTank.Class.Model
     class BattleField
     {
         public List<ObjectGame> Objects;
+        public Size Size;
 
         public BattleField()
         {
             Objects = new List<ObjectGame>();
+            Size = new Size(600, 600);
         }
 
         public void SetupGame()
         {
-            Tank tank = new Tank(Resources.tank1);
+            Tank tank = new Tank(Resources.Tank_A);
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
@@ -33,7 +35,7 @@ namespace WorldOfTank.Class.Model
             };
             Objects.Add(tank);
 
-            tank = new Tank(Resources.tank2);
+            tank = new Tank(Resources.Tank_B);
             tank.SpeedMove = 5;
             tank.SpeedRotate = 2;
             tank.Size = new Size(60, 60);
@@ -45,7 +47,7 @@ namespace WorldOfTank.Class.Model
             };
             Objects.Add(tank);
 
-            tank = new Tank(Resources.tank3);
+            tank = new Tank(Resources.Tank_C);
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
@@ -57,7 +59,7 @@ namespace WorldOfTank.Class.Model
             };
             Objects.Add(tank);
 
-            tank = new Tank(Resources.tank4);
+            tank = new Tank(Resources.Tank_D);
             tank.SpeedMove = 4;
             tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
