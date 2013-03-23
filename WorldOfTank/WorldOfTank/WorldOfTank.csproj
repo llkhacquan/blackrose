@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Class\Components\GraphicsProcessor.cs" />
     <Compile Include="Class\Components\Instruction.cs" />
+    <Compile Include="Class\Components\MathProcessor.cs" />
     <Compile Include="Class\Components\TypeInstruction.cs" />
     <Compile Include="Class\Components\TypeObject.cs" />
     <Compile Include="Class\Model\AnimationObject.cs" />
@@ -94,6 +95,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Test\TestClassTank.cs" />
+    <Compile Include="Test\TestMathProcessor.cs" />
     <EmbeddedResource Include="GUI\BattleFieldForm.resx">
       <DependentUpon>BattleFieldForm.cs</DependentUpon>
     </EmbeddedResource>

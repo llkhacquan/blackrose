@@ -8,7 +8,7 @@ using WorldOfTank.Class.Model;
 namespace WorldOfTank.Test
 {
     [TestFixture]
-    class TestClassTank
+    class TestTank
     {
         private Tank tank;
 
@@ -24,6 +24,8 @@ namespace WorldOfTank.Test
             Assert.AreEqual(tank.Position.X, 0);
             Assert.AreEqual(tank.Position.Y, 0);
             Assert.AreEqual(tank.Direction, 0);
+            Assert.AreEqual(tank.Anchor.X, 0);
+            Assert.AreEqual(tank.Anchor.Y, 0);
         }
 
         [Test]

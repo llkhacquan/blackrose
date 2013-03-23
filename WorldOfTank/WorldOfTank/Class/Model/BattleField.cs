@@ -28,7 +28,7 @@ namespace WorldOfTank.Class.Model
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
-            tank.Position = new PointF(150, 100);
+            tank.Position = new PointF(100, 100);
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.RotateLeft, 60),
@@ -79,6 +79,32 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.RotateRight, 135),
             };
             Objects.Add(tank);
+
+            Wall wall;
+
+            for (int i = 0; i <= (this.Size.Width - 1) / Resources.Wall_A.Width; i++)
+            {
+                wall = new Wall(Resources.Wall_A);
+                wall.Position.X = wall.Size.Width * i;
+                Objects.Add(wall);
+
+                wall = new Wall(Resources.Wall_A);
+                wall.Position.X = wall.Size.Width * i;
+                wall.Position.Y = this.Size.Height - wall.Size.Height;
+                Objects.Add(wall);
+            }
+
+            for (int i = 0; i <= (this.Size.Height - 1) / Resources.Wall_B.Height; i++)
+            {
+                wall = new Wall(Resources.Wall_B);
+                wall.Position.Y = wall.Size.Height * i;
+                Objects.Add(wall);
+
+                wall = new Wall(Resources.Wall_B);
+                wall.Position.X = this.Size.Width - wall.Size.Width;
+                wall.Position.Y = wall.Size.Height * i;
+                Objects.Add(wall);
+            }
         }
 
         private void ProcessBullet(Bullet bullet)

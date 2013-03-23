@@ -14,8 +14,27 @@ namespace WorldOfTank.Class.Model
         public Image Image;
         public Size Size;
         public PointF Position;
+
+        public virtual PointF Anchor
+        {
+            get { return new PointF(0, 0); }
+        }
+
+        public virtual PointF[] Edge
+        {
+            get
+            {
+                PointF[] edge = new PointF[] {
+                    new PointF(0, 0),
+                    new PointF(this.Size.Width, 0),
+                    new PointF(this.Size.Width, this.Size.Height),
+                    new PointF(0, this.Size.Height),
+                };
+                return edge;
+            }
+        }
+
         public float Direction;
-        public float[] BorderDegree;
         public TypeObject Type;
 
         public ObjectGame(Image Image, TypeObject Type)
@@ -24,44 +43,39 @@ namespace WorldOfTank.Class.Model
             this.Size = Image.Size;
             this.Position = new PointF(0, 0);
             this.Direction = 0;
-            BorderDegree = new float[] { -45, 45, 135, 225 };
             this.Type = Type;
         }
 
         public bool IsCollided(ObjectGame obj)
         {
-            PointF[] pthis = this.BorderPoint();
-            PointF[] pobj = obj.BorderPoint();
+            PointF[] pthis = this.RealEdge();
+            PointF[] pobj = obj.RealEdge();
             for (int i = 0; i < pthis.Length - 1; i++)
                 for (int j = 0; j < pobj.Length - 1; j++)
                 {
-                    if (GraphicsProcessor.LineIntersectionCheck(pthis[i], pthis[i + 1], pobj[j], pobj[j + 1]))
+                    if (MathProcessor.LineIntersectionCheck(pthis[i], pthis[i + 1], pobj[j], pobj[j + 1]))
                         return true;
                 }
             return false;
         }
 
-        public PointF[] BorderPoint()
+        public PointF[] RealEdge()
         {
-            PointF[] pf = new PointF[this.BorderDegree.Length + 1];
-            for (int i = 0; i < this.BorderDegree.Length; i++)
+            PointF[] p = new PointF[this.Edge.Length + 1];
+            for (int i = 0; i < this.Edge.Length; i++)
             {
-                double rad = Math.PI * this.BorderDegree[i] / 180;
-                float dis = (float)Math.Abs(this.Size.Height / 2 / Math.Cos(rad));
-
-                rad = Math.PI * (this.BorderDegree[i] - this.Direction) / 180;
-                pf[i] = new PointF(
-                    (float)Math.Sin(rad) * dis + this.Size.Width / 2 + this.Position.X,
-                    (float)Math.Cos(rad) * dis + this.Size.Height / 2 + this.Position.Y);
+                p[i] = MathProcessor.CalPointRotatation(new PointF(0, 0), this.Edge[i], this.Direction);
+                p[i].X += this.Position.X;
+                p[i].Y += this.Position.Y;
             }
-            pf[pf.Length - 1] = pf[0];
-            return pf;
+            p[p.Length - 1] = p[0];
+            return p;
         }
 
-        public virtual void Paint(Graphics gfx)
+        public void Paint(Graphics gfx)
         {
             Bitmap bmp = new Bitmap(GraphicsProcessor.RotateImage(this.Image, this.Direction), this.Size);
-            gfx.DrawImage(bmp, this.Position.X, this.Position.Y);
+            gfx.DrawImage(bmp, this.Position.X - this.Anchor.X, this.Position.Y - this.Anchor.Y);
         }
     }
 }

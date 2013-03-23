@@ -17,11 +17,29 @@ namespace WorldOfTank.Class.Model
         public float Heal;
         public List<Instruction> Instructions;
 
+        public override PointF Anchor
+        {
+            get { return new PointF(this.Size.Width / 2, this.Size.Height / 2); }
+        }
+
+        public override PointF[] Edge
+        {
+            get
+            {
+                PointF[] edge = new PointF[] {
+                    new PointF(-this.Size.Width*30/100, -this.Size.Height*30/100),
+                    new PointF(this.Size.Width*30/100, -this.Size.Height*30/100),
+                    new PointF(this.Size.Width*30/100, this.Size.Height*45/100),
+                    new PointF(-this.Size.Width*30/100, this.Size.Height*45/100),
+                };
+                return edge;
+            }
+        }
+
         public Tank(Image Image)
             : base(Image, TypeObject.Tank)
         {
-            BorderDegree = new float[] { -30, 30, 150, 210 };
-            this.Damage = 1;
+            this.Damage = -1;
             this.SpeedMove = 1;
             this.SpeedRotate = 1;
             this.SpeedFire = 1;
