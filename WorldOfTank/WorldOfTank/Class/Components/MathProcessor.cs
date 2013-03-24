@@ -27,7 +27,7 @@ namespace WorldOfTank.Class.Components
             return true;
         }
 
-        public static float CalPointDegree(PointF anchor, PointF p)
+        public static float CalPointAngle(PointF anchor, PointF p)
         {
             float x = p.X - anchor.X;
             float y = anchor.Y - p.Y;
@@ -39,17 +39,16 @@ namespace WorldOfTank.Class.Components
             return deg;
         }
 
+        public static PointF CalPointPosition(PointF anchor, float distance, float angle)
+        {
+            float rad = (float)Math.PI * angle / 180;
+            return new PointF(anchor.X + (float)Math.Sin(rad) * distance, anchor.Y - (float)Math.Cos(rad) * distance);
+        }
+
         public static PointF CalPointRotatation(PointF anchor, PointF p, float angle)
         {
-            float x = p.X - anchor.X;
-            float y = anchor.Y - p.Y;
-            float d = (float)Math.Sqrt(x * x + y * y);
-            float rad = CalPointDegree(anchor, p);
-            rad += angle;
-            rad = (float)Math.PI * rad / 180;
-            x = anchor.X + (float)Math.Sin(rad) * d;
-            y = anchor.Y - (float)Math.Cos(rad) * d;
-            return new PointF(x, y);
+            float distance = (float)Math.Sqrt((p.X - anchor.X) * (p.X - anchor.X) + (p.Y - anchor.Y) * (p.Y - anchor.Y));
+            return CalPointPosition(anchor, distance, CalPointAngle(anchor, p) + angle);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.RotateLeft, 60),
                 new Instruction(TypeInstruction.MoveForward, 100),
                 new Instruction(TypeInstruction.MoveBackward, 100),
+                new Instruction(TypeInstruction.Fire, 10),
             };
             Objects.Add(tank);
 
@@ -44,8 +45,11 @@ namespace WorldOfTank.Class.Model
             tank.Position = new PointF(250, 200);
             tank.ActionNormal = () => new List<Instruction>()
             {
-                new Instruction(TypeInstruction.RotateRight, 3),
-                new Instruction(TypeInstruction.MoveForward, 5),
+                new Instruction(TypeInstruction.RotateRight, 50),
+                new Instruction(TypeInstruction.MoveForward, 100),
+                new Instruction(TypeInstruction.RotateLeft, 20),
+                new Instruction(TypeInstruction.MoveBackward, 50),
+                new Instruction(TypeInstruction.Fire, 10),
             };
             Objects.Add(tank);
 
@@ -56,8 +60,10 @@ namespace WorldOfTank.Class.Model
             tank.Position = new PointF(300, 300);
             tank.ActionNormal = () => new List<Instruction>()
             {
-                new Instruction(TypeInstruction.MoveForward, 100),
+                new Instruction(TypeInstruction.MoveForward, 200),
                 new Instruction(TypeInstruction.RotateLeft, 90),
+                new Instruction(TypeInstruction.MoveBackward, 100),
+                new Instruction(TypeInstruction.Fire, 10),
             };
             Objects.Add(tank);
 
@@ -75,8 +81,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.RotateRight, 45),
                 new Instruction(TypeInstruction.MoveBackward, 300),
                 new Instruction(TypeInstruction.RotateLeft, 45),
-                new Instruction(TypeInstruction.MoveForward, 210),
-                new Instruction(TypeInstruction.RotateRight, 135),
+                new Instruction(TypeInstruction.Fire, 10),
             };
             Objects.Add(tank);
 
@@ -85,106 +90,27 @@ namespace WorldOfTank.Class.Model
             for (int i = 0; i <= (this.Size.Width - 1) / Resources.Wall_A.Width; i++)
             {
                 wall = new Wall(Resources.Wall_A);
-                wall.Position.X = wall.Size.Width * i;
+                wall.Position.X = wall.Size.Width * i + wall.Anchor.X;
+                wall.Position.Y = wall.Anchor.Y;
                 Objects.Add(wall);
 
                 wall = new Wall(Resources.Wall_A);
-                wall.Position.X = wall.Size.Width * i;
-                wall.Position.Y = this.Size.Height - wall.Size.Height;
+                wall.Position.X = wall.Size.Width * i + wall.Anchor.X;
+                wall.Position.Y = this.Size.Height - wall.Size.Height + wall.Anchor.Y;
                 Objects.Add(wall);
             }
 
-            for (int i = 0; i <= (this.Size.Height - 1) / Resources.Wall_B.Height; i++)
+            for (int i = 0; i <= (this.Size.Height - 1) / (Resources.Wall_B.Height - 1); i++)
             {
                 wall = new Wall(Resources.Wall_B);
-                wall.Position.Y = wall.Size.Height * i;
+                wall.Position.X = wall.Anchor.X;
+                wall.Position.Y = (wall.Size.Height - 1) * i + wall.Anchor.Y;
                 Objects.Add(wall);
 
                 wall = new Wall(Resources.Wall_B);
-                wall.Position.X = this.Size.Width - wall.Size.Width;
-                wall.Position.Y = wall.Size.Height * i;
+                wall.Position.X = this.Size.Width - wall.Size.Width + wall.Anchor.X;
+                wall.Position.Y = (wall.Size.Height - 1) * i + wall.Anchor.Y;
                 Objects.Add(wall);
-            }
-        }
-
-        private void ProcessBullet(Bullet bullet)
-        {
-            bullet.MoveForward(bullet.SpeedMove);
-            for (int i = 0; i < Objects.Count; i++)
-                if (bullet.IsCollided(Objects[i]))
-                {
-                    Objects.Remove(bullet);
-                    break;
-                }
-        }
-
-        private void ProcessTank(Tank tank)
-        {
-            tank.Update();
-            PointF p = tank.Position;
-            float d = tank.Direction;
-            for (int i = 0; i < tank.Instructions.Count; i++)
-            {
-                if (tank.Instructions[i].Type == TypeInstruction.MoveForward)
-                {
-                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedMove);
-                    tank.MoveForward(value);
-                    tank.Instructions[i].Parameter -= value;
-                    for (int j = 0; j < Objects.Count; j++)
-                        if (Objects[j] != tank && tank.IsCollided(Objects[j]))
-                        {
-                            tank.Position = p;
-                            break;
-                        }
-                    if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
-                    else break;
-                }
-                else if (tank.Instructions[i].Type == TypeInstruction.MoveBackward)
-                {
-                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedMove);
-                    tank.MoveBackward(value);
-                    tank.Instructions[i].Parameter -= value;
-                    for (int j = 0; j < Objects.Count; j++)
-                        if (Objects[j] != tank && tank.IsCollided(Objects[j]))
-                        {
-                            tank.Position = p;
-                            break;
-                        }
-                    if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
-                    else break;
-                }
-                else if (tank.Instructions[i].Type == TypeInstruction.RotateLeft)
-                {
-                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedRotate);
-                    tank.RotateLeft(value);
-                    tank.Instructions[i].Parameter -= value;
-                    for (int j = 0; j < Objects.Count; j++)
-                        if (Objects[j] != tank && tank.IsCollided(Objects[j]))
-                        {
-                            tank.Direction = d;
-                            break;
-                        }
-                    if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
-                    else break;
-                }
-                else if (tank.Instructions[i].Type == TypeInstruction.RotateRight)
-                {
-                    float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedRotate);
-                    tank.RotateRight(value);
-                    tank.Instructions[i].Parameter -= value;
-                    for (int j = 0; j < Objects.Count; j++)
-                        if (Objects[j] != tank && tank.IsCollided(Objects[j]))
-                        {
-                            tank.Direction = d;
-                            break;
-                        }
-                    if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
-                    else break;
-                }
-                else if (tank.Instructions[i].Type == TypeInstruction.Fire)
-                {
-
-                }
             }
         }
 
@@ -192,8 +118,7 @@ namespace WorldOfTank.Class.Model
         {
             for (int i = 0; i < Objects.Count; i++)
             {
-                if (Objects[i].Type == TypeObject.Bullet) ProcessBullet((Bullet)Objects[i]);
-                else if (Objects[i].Type == TypeObject.Tank) ProcessTank((Tank)Objects[i]);
+                if (Objects[i].NextFrame(Objects) == TypeResult.BeDestroyed) i--;
             }
         }
     }

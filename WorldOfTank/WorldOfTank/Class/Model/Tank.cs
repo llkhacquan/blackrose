@@ -17,11 +17,6 @@ namespace WorldOfTank.Class.Model
         public float Heal;
         public List<Instruction> Instructions;
 
-        public override PointF Anchor
-        {
-            get { return new PointF(this.Size.Width / 2, this.Size.Height / 2); }
-        }
-
         public override PointF[] Edge
         {
             get
@@ -39,7 +34,7 @@ namespace WorldOfTank.Class.Model
         public Tank(Image Image)
             : base(Image, TypeObject.Tank)
         {
-            this.Damage = -1;
+            this.Damage = 1;
             this.SpeedMove = 1;
             this.SpeedRotate = 1;
             this.SpeedFire = 1;
@@ -48,12 +43,83 @@ namespace WorldOfTank.Class.Model
         }
 
         public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
-        public Func<List<Instruction>> ActionCannotMove = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionCannotMoveForward = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionCannotMoveBackward = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionCannotRotateLeft = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionCannotRotateRight = () => new List<Instruction>();
         public Func<List<Instruction>> ActionDetected = () => new List<Instruction>();
+        public Func<List<Instruction>> ActionBeAttacked = () => new List<Instruction>();
 
-        public void Update()
+        public void SetInstructions()
         {
             if (Instructions.Count == 0) Instructions = ActionNormal();
+        }
+
+        public bool IsValidPosition(List<ObjectGame> Objects)
+        {
+            for (int i = 0; i < Objects.Count; i++)
+                if ((Objects[i] != this) &&
+                    (Objects[i].Type == TypeObject.Tank || Objects[i].Type == TypeObject.Wall) &&
+                    (this.IsCollided(Objects[i])))
+                {
+                    return false;
+                }
+            return true;
+        }
+
+        public override TypeResult NextFrame(List<ObjectGame> Objects)
+        {
+            this.SetInstructions();
+            PointF p = this.Position;
+            float d = this.Direction;
+            if (this.Instructions.Count > 0)
+            {
+                if (this.Instructions[0].Type == TypeInstruction.MoveForward)
+                {
+                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
+                    this.Instructions[0].Parameter -= value;
+                    this.MoveForward(value);
+                    if (!this.IsValidPosition(Objects)) this.Position = p;
+                }
+                else if (this.Instructions[0].Type == TypeInstruction.MoveBackward)
+                {
+                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
+                    this.Instructions[0].Parameter -= value;
+                    this.MoveBackward(value);
+                    if (!this.IsValidPosition(Objects)) this.Position = p;
+                }
+                else if (this.Instructions[0].Type == TypeInstruction.RotateRight)
+                {
+                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedRotate);
+                    this.Instructions[0].Parameter -= value;
+                    this.RotateRight(value);
+                    if (!this.IsValidPosition(Objects)) this.Direction = d;
+                }
+                else if (this.Instructions[0].Type == TypeInstruction.RotateLeft)
+                {
+                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedRotate);
+                    this.Instructions[0].Parameter -= value;
+                    this.RotateLeft(value);
+                    if (!this.IsValidPosition(Objects)) this.Direction = d;
+                }
+                else if (this.Instructions[0].Type == TypeInstruction.Fire)
+                {
+                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedFire);
+                    this.Instructions[0].Parameter -= value;
+                    if (Instructions[0].Parameter == 0)
+                    {
+                        Bullet bullet = new Bullet(WorldOfTank.Properties.Resources.Bullet_D);
+                        bullet.Size = new Size(20, 20);
+                        bullet.Position = MathProcessor.CalPointPosition(this.Position, this.Size.Height / 2, this.Direction);
+                        bullet.Direction = this.Direction;
+                        bullet.SpeedMove = new Random().Next(3) + 8;
+                        Objects.Add(bullet);
+                    }
+                }
+
+                if (Instructions[0].Parameter == 0) this.Instructions.RemoveAt(0);
+            }
+            return TypeResult.Nothing;
         }
     }
 }

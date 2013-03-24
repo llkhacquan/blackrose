@@ -40,15 +40,14 @@ namespace WorldOfTank.GUI
             Pen pen = new Pen(new SolidBrush(Color.Green));
             foreach (ObjectGame obj in battleField.Objects)
             {
-                PointF[] pf = obj.RealEdge();
+                PointF[] pf = obj.RealEdge;
                 for (int i = 0; i < pf.Length - 1; i++)
                 {
                     gfx.DrawLine(pen, pf[i], pf[i + 1]);
                 }
             }         
-            */
-
-            /*
+            
+             
             Tank tank;
             SolidBrush semiTransBrush = new SolidBrush(Color.Transparent);
             Rectangle rec;

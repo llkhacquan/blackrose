@@ -44,13 +44,13 @@ namespace WorldOfTank.Test
         [Test]
         public void TestCalDegreePoint()
         {
-            Assert.AreEqual(MathProcessor.CalPointDegree(p4, p5), 45);
-            Assert.AreEqual(MathProcessor.CalPointDegree(p3, p5), 90);
-            Assert.AreEqual(MathProcessor.CalPointDegree(p5, p3), -90);
-            Assert.AreEqual(MathProcessor.CalPointDegree(p3, p6), 0);
-            Assert.AreEqual(MathProcessor.CalPointDegree(p3, p2), -45);
-            Assert.AreEqual(MathProcessor.CalPointDegree(p2, p3), 135);
-            Assert.AreEqual(MathProcessor.CalPointDegree(p6, p4), 180);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p4, p5), 45);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p3, p5), 90);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p5, p3), -90);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p3, p6), 0);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p3, p2), -45);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p2, p3), 135);
+            Assert.AreEqual(MathProcessor.CalPointAngle(p6, p4), 180);
         }
 
         [Test]

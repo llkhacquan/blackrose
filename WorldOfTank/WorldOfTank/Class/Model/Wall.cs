@@ -14,5 +14,10 @@ namespace WorldOfTank.Class.Model
             : base(Image, TypeObject.Wall)
         {
         }
+
+        public override TypeResult NextFrame(List<ObjectGame> Objects)
+        {
+            return TypeResult.Nothing;
+        }
     }
 }

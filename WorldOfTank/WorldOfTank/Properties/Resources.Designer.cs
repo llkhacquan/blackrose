@@ -93,6 +93,16 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Bullet_D {
+            get {
+                object obj = ResourceManager.GetObject("Bullet_D", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Grass_A {
             get {
                 object obj = ResourceManager.GetObject("Grass_A", resourceCulture);
