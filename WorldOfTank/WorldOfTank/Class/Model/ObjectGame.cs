@@ -22,35 +22,9 @@ namespace WorldOfTank.Class.Model
             get { return new PointF(this.Size.Height / 2, this.Size.Width / 2); }
         }
 
-        public virtual PointF[] Edge
+        public virtual float Radius
         {
-            get
-            {
-                PointF[] edge = new PointF[] {
-                    new PointF(-this.Size.Width/2, -this.Size.Height/2),
-                    new PointF(this.Size.Width/2, -this.Size.Height/2),
-                    new PointF(this.Size.Width/2, this.Size.Height/2),
-                    new PointF(-this.Size.Width/2, this.Size.Height/2),
-                };
-                return edge;
-            }
-        }
-
-        public PointF[] RealEdge
-        {
-            get
-            {
-                PointF[] edge = this.Edge;
-                PointF[] p = new PointF[edge.Length + 1];
-                for (int i = 0; i < edge.Length; i++)
-                {
-                    p[i] = MathProcessor.CalPointRotatation(new PointF(0, 0), edge[i], this.Direction);
-                    p[i].X += this.Position.X;
-                    p[i].Y += this.Position.Y;
-                }
-                p[p.Length - 1] = p[0];
-                return p;
-            }
+            get { return this.Size.Height / 2; }
         }
 
         public ObjectGame(Image Image, TypeObject Type)
@@ -64,14 +38,9 @@ namespace WorldOfTank.Class.Model
 
         public bool IsCollided(ObjectGame obj)
         {
-            PointF[] pthis = this.RealEdge;
-            PointF[] pobj = obj.RealEdge;
-            for (int i = 0; i < pthis.Length - 1; i++)
-                for (int j = 0; j < pobj.Length - 1; j++)
-                {
-                    if (MathProcessor.LineIntersectionCheck(pthis[i], pthis[i + 1], pobj[j], pobj[j + 1]))
-                        return true;
-                }
+            float distance = (this.Position.X - obj.Position.X) * (this.Position.X - obj.Position.X) +
+                             (this.Position.Y - obj.Position.Y) * (this.Position.Y - obj.Position.Y);
+            if (Math.Sqrt(distance) < this.Radius + obj.Radius) return true;
             return false;
         }
 

@@ -44,11 +44,5 @@ namespace WorldOfTank.Class.Components
             float rad = (float)Math.PI * angle / 180;
             return new PointF(anchor.X + (float)Math.Sin(rad) * distance, anchor.Y - (float)Math.Cos(rad) * distance);
         }
-
-        public static PointF CalPointRotatation(PointF anchor, PointF p, float angle)
-        {
-            float distance = (float)Math.Sqrt((p.X - anchor.X) * (p.X - anchor.X) + (p.Y - anchor.Y) * (p.Y - anchor.Y));
-            return CalPointPosition(anchor, distance, CalPointAngle(anchor, p) + angle);
-        }
     }
 }

@@ -27,9 +27,9 @@ namespace WorldOfTank.GUI
         private void Display()
         {
             Image imgBG = battleField.Background;
-            for (int i = 0; i <= (battleField.Size.Width - 1) / imgBG.Width; i++)
-                for (int j = 0; j <= (battleField.Size.Height - 1) / imgBG.Height; j++)
-                    gfx.DrawImage(imgBG, imgBG.Width * i, imgBG.Height * j);
+            for (int i = 0; i <= (battleField.Size.Width - 1) / (imgBG.Width - 1); i++)
+                for (int j = 0; j <= (battleField.Size.Height - 1) / (imgBG.Height - 1); j++)
+                    gfx.DrawImage(imgBG, (imgBG.Width - 1) * i, (imgBG.Height - 1) * j);
 
             foreach (ObjectGame obj in battleField.Objects)
             {
@@ -40,35 +40,26 @@ namespace WorldOfTank.GUI
             Pen pen = new Pen(new SolidBrush(Color.Green));
             foreach (ObjectGame obj in battleField.Objects)
             {
-                PointF[] pf = obj.RealEdge;
-                for (int i = 0; i < pf.Length - 1; i++)
-                {
-                    gfx.DrawLine(pen, pf[i], pf[i + 1]);
-                }
-            }         
-            
-             
+                RectangleF rec = new RectangleF(obj.Position.X - obj.Radius, obj.Position.Y - obj.Radius, obj.Radius * 2, obj.Radius * 2);
+                gfx.DrawArc(pen, rec, 0, 360);
+            }
+            */
+
+
             Tank tank;
             SolidBrush semiTransBrush = new SolidBrush(Color.Transparent);
             Rectangle rec;
-            for (int i = 0; i < 4; i++)
-            {
-                tank = (Tank)battleField.Objects[i];
-                switch (i)
+            for (int i = 0; i < battleField.Objects.Count; i++)
+                if (battleField.Objects[i].Type == TypeObject.Tank)
                 {
-                    case 0: semiTransBrush = new SolidBrush(Color.FromArgb(32, 0, 255, 0)); break;
-                    case 1: semiTransBrush = new SolidBrush(Color.FromArgb(32, 0, 0, 255)); break;
-                    case 2: semiTransBrush = new SolidBrush(Color.FromArgb(32, 255, 255, 0)); break;
-                    case 3: semiTransBrush = new SolidBrush(Color.FromArgb(32, 255, 0, 0)); break;
+                    tank = (Tank)battleField.Objects[i];
+                    semiTransBrush = new SolidBrush(Color.FromArgb(32, 255, 0, 0));
+                    rec = new Rectangle(
+                        (int)tank.Position.X - 300, (int)tank.Position.Y - 300,
+                        600, 600);
+                    gfx.FillPie(semiTransBrush, rec, battleField.Objects[i].Direction - 90 - 10, 20);
                 }
 
-                rec = new Rectangle(
-                    (int)tank.Position.X - 300, (int)tank.Position.Y - 300,
-                    600, 600);
-
-                gfx.FillPie(semiTransBrush, rec, battleField.Objects[i].Direction - 90 - 10, 20);
-            }
-            */
 
             panelView.CreateGraphics().DrawImage(bmpGame, 0, 0);
         }

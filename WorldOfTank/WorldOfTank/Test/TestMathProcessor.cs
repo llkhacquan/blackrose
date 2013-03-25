@@ -52,12 +52,5 @@ namespace WorldOfTank.Test
             Assert.AreEqual(MathProcessor.CalPointAngle(p2, p3), 135);
             Assert.AreEqual(MathProcessor.CalPointAngle(p6, p4), 180);
         }
-
-        [Test]
-        public void TestCalPointRotatation()
-        {
-            Assert.AreEqual(MathProcessor.CalPointRotatation(p3, p6, 90), p5);
-            Assert.AreEqual(MathProcessor.CalPointRotatation(p3, p5, -90), p6);
-        }
     }
 }

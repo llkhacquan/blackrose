@@ -24,6 +24,35 @@ namespace WorldOfTank.Class.Model
 
         public void SetupGame()
         {
+            Wall wall;
+
+            for (int i = 0; i <= (this.Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
+            {
+                wall = new Wall(Resources.Wall_A);
+                wall.Position.X = (wall.Size.Width - 1) * i + wall.Anchor.X;
+                wall.Position.Y = wall.Anchor.Y;
+                Objects.Add(wall);
+
+                wall = new Wall(Resources.Wall_A);
+                wall.Position.X = (wall.Size.Width - 1) * i + wall.Anchor.X;
+                wall.Position.Y = this.Size.Height - wall.Size.Height + wall.Anchor.Y;
+                Objects.Add(wall);
+            }
+
+            for (int i = 0; i <= (this.Size.Height - 1) / (Resources.Wall_B.Height - 1); i++)
+            {
+                wall = new Wall(Resources.Wall_B);
+                wall.Position.X = wall.Anchor.X;
+                wall.Position.Y = (wall.Size.Height - 1) * i + wall.Anchor.Y;
+                Objects.Add(wall);
+
+                wall = new Wall(Resources.Wall_B);
+                wall.Position.X = this.Size.Width - wall.Size.Width + wall.Anchor.X;
+                wall.Position.Y = (wall.Size.Height - 1) * i + wall.Anchor.Y;
+                Objects.Add(wall);
+            }
+
+
             Tank tank = new Tank(Resources.Tank_A);
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
@@ -83,35 +112,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.RotateLeft, 45),
                 new Instruction(TypeInstruction.Fire, 10),
             };
-            Objects.Add(tank);
-
-            Wall wall;
-
-            for (int i = 0; i <= (this.Size.Width - 1) / Resources.Wall_A.Width; i++)
-            {
-                wall = new Wall(Resources.Wall_A);
-                wall.Position.X = wall.Size.Width * i + wall.Anchor.X;
-                wall.Position.Y = wall.Anchor.Y;
-                Objects.Add(wall);
-
-                wall = new Wall(Resources.Wall_A);
-                wall.Position.X = wall.Size.Width * i + wall.Anchor.X;
-                wall.Position.Y = this.Size.Height - wall.Size.Height + wall.Anchor.Y;
-                Objects.Add(wall);
-            }
-
-            for (int i = 0; i <= (this.Size.Height - 1) / (Resources.Wall_B.Height - 1); i++)
-            {
-                wall = new Wall(Resources.Wall_B);
-                wall.Position.X = wall.Anchor.X;
-                wall.Position.Y = (wall.Size.Height - 1) * i + wall.Anchor.Y;
-                Objects.Add(wall);
-
-                wall = new Wall(Resources.Wall_B);
-                wall.Position.X = this.Size.Width - wall.Size.Width + wall.Anchor.X;
-                wall.Position.Y = (wall.Size.Height - 1) * i + wall.Anchor.Y;
-                Objects.Add(wall);
-            }
+            Objects.Add(tank);  
         }
 
         public void NextFrame()

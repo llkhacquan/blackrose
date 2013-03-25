@@ -17,17 +17,11 @@ namespace WorldOfTank.Class.Model
         public float Heal;
         public List<Instruction> Instructions;
 
-        public override PointF[] Edge
+        public override float Radius
         {
             get
             {
-                PointF[] edge = new PointF[] {
-                    new PointF(-this.Size.Width*30/100, -this.Size.Height*30/100),
-                    new PointF(this.Size.Width*30/100, -this.Size.Height*30/100),
-                    new PointF(this.Size.Width*30/100, this.Size.Height*45/100),
-                    new PointF(-this.Size.Width*30/100, this.Size.Height*45/100),
-                };
-                return edge;
+                return this.Size.Height * 35 / 100;
             }
         }
 
@@ -45,8 +39,6 @@ namespace WorldOfTank.Class.Model
         public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
         public Func<List<Instruction>> ActionCannotMoveForward = () => new List<Instruction>();
         public Func<List<Instruction>> ActionCannotMoveBackward = () => new List<Instruction>();
-        public Func<List<Instruction>> ActionCannotRotateLeft = () => new List<Instruction>();
-        public Func<List<Instruction>> ActionCannotRotateRight = () => new List<Instruction>();
         public Func<List<Instruction>> ActionDetected = () => new List<Instruction>();
         public Func<List<Instruction>> ActionBeAttacked = () => new List<Instruction>();
 
@@ -71,7 +63,6 @@ namespace WorldOfTank.Class.Model
         {
             this.SetInstructions();
             PointF p = this.Position;
-            float d = this.Direction;
             if (this.Instructions.Count > 0)
             {
                 if (this.Instructions[0].Type == TypeInstruction.MoveForward)
@@ -93,14 +84,12 @@ namespace WorldOfTank.Class.Model
                     float value = Math.Min(this.Instructions[0].Parameter, this.SpeedRotate);
                     this.Instructions[0].Parameter -= value;
                     this.RotateRight(value);
-                    if (!this.IsValidPosition(Objects)) this.Direction = d;
                 }
                 else if (this.Instructions[0].Type == TypeInstruction.RotateLeft)
                 {
                     float value = Math.Min(this.Instructions[0].Parameter, this.SpeedRotate);
                     this.Instructions[0].Parameter -= value;
                     this.RotateLeft(value);
-                    if (!this.IsValidPosition(Objects)) this.Direction = d;
                 }
                 else if (this.Instructions[0].Type == TypeInstruction.Fire)
                 {
