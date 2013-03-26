@@ -63,7 +63,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.RotateLeft, 60),
                 new Instruction(TypeInstruction.MoveForward, 100),
                 new Instruction(TypeInstruction.MoveBackward, 100),
-                new Instruction(TypeInstruction.Fire, 10),
+                new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
             Objects.Add(tank);
 
@@ -78,7 +78,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.MoveForward, 100),
                 new Instruction(TypeInstruction.RotateLeft, 20),
                 new Instruction(TypeInstruction.MoveBackward, 50),
-                new Instruction(TypeInstruction.Fire, 10),
+                new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
             Objects.Add(tank);
 
@@ -92,7 +92,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.MoveForward, 200),
                 new Instruction(TypeInstruction.RotateLeft, 90),
                 new Instruction(TypeInstruction.MoveBackward, 100),
-                new Instruction(TypeInstruction.Fire, 10),
+                new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
             Objects.Add(tank);
 
@@ -110,17 +110,26 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.RotateRight, 45),
                 new Instruction(TypeInstruction.MoveBackward, 300),
                 new Instruction(TypeInstruction.RotateLeft, 45),
-                new Instruction(TypeInstruction.Fire, 10),
+                new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
-            Objects.Add(tank);  
+            Objects.Add(tank);
         }
 
-        public void NextFrame()
+        public TypeResult NextFrame()
         {
             for (int i = 0; i < Objects.Count; i++)
             {
-                if (Objects[i].NextFrame(Objects) == TypeResult.BeDestroyed) i--;
+                if (Objects[i].NextFrame(Objects) == TypeResult.BeDestroyed)
+                    Objects.RemoveAt(i--);
             }
+
+            int tankCount = 0;
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                if (Objects[i].Type == TypeObject.Tank) tankCount++;
+            }
+            if (tankCount <= 1) return TypeResult.GameOver;
+            return TypeResult.Nothing;
         }
     }
 }

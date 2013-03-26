@@ -28,18 +28,32 @@ namespace WorldOfTank.Class.Model
             this.SpeedMove = 1;
         }
 
+        public Bullet Clone()
+        {
+            Bullet bullet = new Bullet(this.Image);
+            bullet.Size = this.Size;
+            bullet.Damage = this.Damage;
+            bullet.SpeedMove = this.SpeedMove;
+            return bullet;
+        }
+
         public override TypeResult NextFrame(List<ObjectGame> Objects)
         {
             this.MoveForward(this.SpeedMove);
             TypeResult result = TypeResult.Nothing;
             for (int i = 0; i < Objects.Count; i++)
-                if ((Objects[i] != this) &&
-                    (Objects[i].Type == TypeObject.Tank || Objects[i].Type == TypeObject.Wall) &&
-                    (this.IsCollided(Objects[i])))
+                if (Objects[i] != this && this.IsCollided(Objects[i]))
                 {
-                    result = TypeResult.BeDestroyed;
+                    if (Objects[i].Type == TypeObject.Tank)
+                    {
+                        Tank tank = (Tank)Objects[i];
+                        tank.Heal -= this.Damage;
+                        //tank.NewResult = TypeResult.BeAttacked;
+                        if (tank.Heal < 0) tank.NewResult = TypeResult.BeDestroyed;
+                        result = TypeResult.BeDestroyed;
+                    }
+                    else if (Objects[i].Type == TypeObject.Wall) result = TypeResult.BeDestroyed;
                 }
-            if (result == TypeResult.BeDestroyed) Objects.Remove(this);
             return result;
         }
     }

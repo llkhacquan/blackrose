@@ -9,5 +9,11 @@ namespace WorldOfTank.Class.Components
     {
         Nothing,
         BeDestroyed,
+        GameOver,
+        Normal,
+        CannotMoveForward,
+        CannotMoveBackward,
+        Detected,
+        BeAttacked,
     }
 }

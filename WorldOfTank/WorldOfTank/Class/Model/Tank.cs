@@ -10,12 +10,14 @@ namespace WorldOfTank.Class.Model
 {
     class Tank : DynamicObject
     {
-        public float Damage;
+        public Bullet Bullet;
         public float SpeedMove;
         public float SpeedRotate;
         public float SpeedFire;
         public float Heal;
         public List<Instruction> Instructions;
+        public TypeResult LastResult;
+        public TypeResult NewResult;
 
         public override float Radius
         {
@@ -28,12 +30,18 @@ namespace WorldOfTank.Class.Model
         public Tank(Image Image)
             : base(Image, TypeObject.Tank)
         {
-            this.Damage = 1;
+            this.Bullet = new Bullet(WorldOfTank.Properties.Resources.Bullet_D);
+            this.Bullet.Size = new Size(20, 20);
+            this.Bullet.Damage = 10;
+            this.Bullet.SpeedMove = 8;
+
             this.SpeedMove = 1;
             this.SpeedRotate = 1;
             this.SpeedFire = 1;
             this.Heal = 1;
             Instructions = new List<Instruction>();
+            LastResult = TypeResult.Normal;
+            NewResult = TypeResult.Normal;
         }
 
         public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
@@ -44,10 +52,18 @@ namespace WorldOfTank.Class.Model
 
         public void SetInstructions()
         {
-            if (Instructions.Count == 0) Instructions = ActionNormal();
+            if (Instructions.Count == 0 || LastResult != NewResult)
+            {
+                if (NewResult == TypeResult.Normal) Instructions = ActionNormal();
+                else if (NewResult == TypeResult.CannotMoveForward) Instructions = ActionCannotMoveForward();
+                else if (NewResult == TypeResult.CannotMoveBackward) Instructions = ActionCannotMoveBackward();
+                else if (NewResult == TypeResult.Detected) Instructions = ActionDetected();
+                else if (NewResult == TypeResult.BeAttacked) Instructions = ActionBeAttacked();
+                LastResult = NewResult;
+            }
         }
 
-        public bool IsValidPosition(List<ObjectGame> Objects)
+        public bool IsCollidedPosition(List<ObjectGame> Objects)
         {
             for (int i = 0; i < Objects.Count; i++)
                 if ((Objects[i] != this) &&
@@ -61,8 +77,12 @@ namespace WorldOfTank.Class.Model
 
         public override TypeResult NextFrame(List<ObjectGame> Objects)
         {
+            if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
+
             this.SetInstructions();
+            NewResult = TypeResult.Normal;
             PointF p = this.Position;
+
             if (this.Instructions.Count > 0)
             {
                 if (this.Instructions[0].Type == TypeInstruction.MoveForward)
@@ -70,14 +90,22 @@ namespace WorldOfTank.Class.Model
                     float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
                     this.Instructions[0].Parameter -= value;
                     this.MoveForward(value);
-                    if (!this.IsValidPosition(Objects)) this.Position = p;
+                    if (!this.IsCollidedPosition(Objects))
+                    {
+                        this.Position = p;
+                        //NewResult = TypeResult.CannotMoveForward;
+                    }
                 }
                 else if (this.Instructions[0].Type == TypeInstruction.MoveBackward)
                 {
                     float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
                     this.Instructions[0].Parameter -= value;
                     this.MoveBackward(value);
-                    if (!this.IsValidPosition(Objects)) this.Position = p;
+                    if (!this.IsCollidedPosition(Objects))
+                    {
+                        this.Position = p;
+                        //NewResult = TypeResult.CannotMoveBackward;
+                    }
                 }
                 else if (this.Instructions[0].Type == TypeInstruction.RotateRight)
                 {
@@ -97,11 +125,9 @@ namespace WorldOfTank.Class.Model
                     this.Instructions[0].Parameter -= value;
                     if (Instructions[0].Parameter == 0)
                     {
-                        Bullet bullet = new Bullet(WorldOfTank.Properties.Resources.Bullet_D);
-                        bullet.Size = new Size(20, 20);
+                        Bullet bullet = this.Bullet.Clone();
                         bullet.Position = MathProcessor.CalPointPosition(this.Position, this.Size.Height / 2, this.Direction);
                         bullet.Direction = this.Direction;
-                        bullet.SpeedMove = new Random().Next(3) + 8;
                         Objects.Add(bullet);
                     }
                 }

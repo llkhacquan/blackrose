@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelControl = new System.Windows.Forms.Panel();
-            this.buttonStop = new System.Windows.Forms.Button();
+            this.buttonPause = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.timerControl = new System.Windows.Forms.Timer(this.components);
@@ -40,7 +40,7 @@
             // panelControl
             // 
             this.panelControl.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelControl.Controls.Add(this.buttonStop);
+            this.panelControl.Controls.Add(this.buttonPause);
             this.panelControl.Controls.Add(this.buttonStart);
             this.panelControl.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl.Location = new System.Drawing.Point(600, 0);
@@ -48,20 +48,20 @@
             this.panelControl.Size = new System.Drawing.Size(200, 600);
             this.panelControl.TabIndex = 0;
             // 
-            // buttonStop
+            // buttonPause
             // 
-            this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(64, 61);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(75, 23);
-            this.buttonStop.TabIndex = 1;
-            this.buttonStop.Text = "Stop";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.buttonPause.Enabled = false;
+            this.buttonPause.Location = new System.Drawing.Point(64, 54);
+            this.buttonPause.Name = "buttonPause";
+            this.buttonPause.Size = new System.Drawing.Size(75, 23);
+            this.buttonPause.TabIndex = 1;
+            this.buttonPause.Text = "Pause";
+            this.buttonPause.UseVisualStyleBackColor = true;
+            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(64, 32);
+            this.buttonStart.Location = new System.Drawing.Point(64, 25);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 23);
             this.buttonStart.TabIndex = 0;
@@ -93,6 +93,7 @@
             this.Controls.Add(this.panelControl);
             this.Name = "BattleFieldForm";
             this.Text = "BattleField";
+            this.Load += new System.EventHandler(this.BattleFieldForm_Load);
             this.panelControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -104,6 +105,6 @@
         private System.Windows.Forms.Panel panelView;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Timer timerControl;
-        private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.Button buttonPause;
     }
 }
