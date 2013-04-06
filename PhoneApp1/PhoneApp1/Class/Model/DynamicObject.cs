@@ -32,15 +32,15 @@ namespace PhoneApp1.Class.Model {
             this.Direction = 0;
         }
 
-        public void RotateLeft(float value) {
+        public virtual void RotateLeft(float value) {
             Direction -= value;
         }
 
-        public void RotateRight(float value) {
+        public virtual void RotateRight(float value) {
             Direction += value;
         }
 
-        public void MoveForward(float value) {
+        public virtual void MoveForward(float value) {
             double angle = Math.PI * this.Direction / 180;
             float x = this.getPosition().X;
             float y = this.getPosition().Y;
@@ -50,7 +50,7 @@ namespace PhoneApp1.Class.Model {
 
         }
 
-        public void MoveBackward(float value) {
+        public virtual void MoveBackward(float value) {
             double angle = Math.PI * this.Direction / 180;
             float x = this.getPosition().X;
             float y = this.getPosition().Y;
