@@ -18,3 +18,5 @@ D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.cspro
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\bin\Debug\nunit.framework.dll
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\bin\Debug\nunit.framework.xml
 D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.BattleFieldForm.resources
+D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.WorldOfTank.resources
+D:\Workspace\Other\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.TankCreator.resources

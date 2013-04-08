@@ -16,7 +16,7 @@ namespace WorldOfTank
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WorldOfTank.GUI.BattleFieldForm());
+            Application.Run(new WorldOfTank.GUI.WorldOfTank());
         }
     }
 }

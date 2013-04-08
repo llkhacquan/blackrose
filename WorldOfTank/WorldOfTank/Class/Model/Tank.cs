@@ -78,11 +78,8 @@ namespace WorldOfTank.Class.Model
         public override TypeResult NextFrame(List<ObjectGame> Objects)
         {
             if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
-
             this.SetInstructions();
-            NewResult = TypeResult.Normal;
             PointF p = this.Position;
-
             if (this.Instructions.Count > 0)
             {
                 if (this.Instructions[0].Type == TypeInstruction.MoveForward)
@@ -93,7 +90,7 @@ namespace WorldOfTank.Class.Model
                     if (!this.IsCollidedPosition(Objects))
                     {
                         this.Position = p;
-                        //NewResult = TypeResult.CannotMoveForward;
+                        NewResult = TypeResult.CannotMoveForward;
                     }
                 }
                 else if (this.Instructions[0].Type == TypeInstruction.MoveBackward)
@@ -104,7 +101,7 @@ namespace WorldOfTank.Class.Model
                     if (!this.IsCollidedPosition(Objects))
                     {
                         this.Position = p;
-                        //NewResult = TypeResult.CannotMoveBackward;
+                        NewResult = TypeResult.CannotMoveBackward;
                     }
                 }
                 else if (this.Instructions[0].Type == TypeInstruction.RotateRight)
@@ -134,6 +131,7 @@ namespace WorldOfTank.Class.Model
 
                 if (Instructions[0].Parameter == 0) this.Instructions.RemoveAt(0);
             }
+            if (Instructions.Count == 0) NewResult = TypeResult.Normal;
             return TypeResult.Nothing;
         }
     }

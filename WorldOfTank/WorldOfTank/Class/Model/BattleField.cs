@@ -54,6 +54,7 @@ namespace WorldOfTank.Class.Model
 
 
             Tank tank = new Tank(Resources.Tank_A);
+            tank.Heal = 50;
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
             tank.Size = new Size(60, 60);
@@ -62,12 +63,21 @@ namespace WorldOfTank.Class.Model
             {
                 new Instruction(TypeInstruction.RotateLeft, 60),
                 new Instruction(TypeInstruction.MoveForward, 100),
-                new Instruction(TypeInstruction.MoveBackward, 100),
+                new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
+            };
+            tank.ActionCannotMoveForward = () => new List<Instruction>()
+            {
+                new Instruction(TypeInstruction.RotateRight, 135),
+                new Instruction(TypeInstruction.MoveForward, 200),
+            };
+            tank.ActionBeAttacked = () => new List<Instruction>()
+            {
                 new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
             Objects.Add(tank);
 
             tank = new Tank(Resources.Tank_B);
+            tank.Heal = 50;
             tank.SpeedMove = 5;
             tank.SpeedRotate = 3;
             tank.Size = new Size(60, 60);
@@ -75,13 +85,20 @@ namespace WorldOfTank.Class.Model
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.RotateRight, 50),
-                new Instruction(TypeInstruction.MoveForward, 100),
+                new Instruction(TypeInstruction.MoveForward, 200),
                 new Instruction(TypeInstruction.RotateLeft, 20),
                 new Instruction(TypeInstruction.MoveBackward, 50),
                 new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
+            tank.ActionCannotMoveForward = () => new List<Instruction>();
+            tank.ActionCannotMoveBackward = () => new List<Instruction>();
+            tank.ActionBeAttacked = () => new List<Instruction>()
+            {
+                new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
+            };
             Objects.Add(tank);
 
+            /*
             tank = new Tank(Resources.Tank_C);
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
@@ -113,6 +130,7 @@ namespace WorldOfTank.Class.Model
                 new Instruction(TypeInstruction.Fire, tank.Bullet.Damage),
             };
             Objects.Add(tank);
+            */
         }
 
         public TypeResult NextFrame()

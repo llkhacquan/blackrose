@@ -17,7 +17,6 @@ namespace WorldOfTank.Class.Components
             g.RotateTransform(angle);
             g.TranslateTransform(-(float)img.Width / 2, -(float)img.Height / 2);
             g.DrawImage(img, img.Width / 2 - img.Height / 2, img.Height / 2 - img.Width / 2, img.Height, img.Width);
-
             return returnBitmap;
         }
 

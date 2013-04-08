@@ -48,7 +48,7 @@ namespace WorldOfTank.Class.Model
                     {
                         Tank tank = (Tank)Objects[i];
                         tank.Heal -= this.Damage;
-                        //tank.NewResult = TypeResult.BeAttacked;
+                        tank.NewResult = TypeResult.BeAttacked;
                         if (tank.Heal < 0) tank.NewResult = TypeResult.BeDestroyed;
                         result = TypeResult.BeDestroyed;
                     }

@@ -1,6 +1,6 @@
 ﻿namespace WorldOfTank.GUI
 {
-    partial class BattleFieldForm
+    partial class TankCreator
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panelControl = new System.Windows.Forms.Panel();
-            this.buttonPause = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonOpen = new System.Windows.Forms.Button();
+            this.buttonNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
-            this.timerControl = new System.Windows.Forms.Timer(this.components);
             this.buttonExit = new System.Windows.Forms.Button();
             this.groupBoxControl = new System.Windows.Forms.GroupBox();
             this.groupBoxInformation = new System.Windows.Forms.GroupBox();
@@ -52,26 +51,32 @@
             this.panelControl.Size = new System.Drawing.Size(200, 600);
             this.panelControl.TabIndex = 0;
             // 
-            // buttonPause
+            // buttonSave
             // 
-            this.buttonPause.Enabled = false;
-            this.buttonPause.Location = new System.Drawing.Point(62, 51);
-            this.buttonPause.Name = "buttonPause";
-            this.buttonPause.Size = new System.Drawing.Size(75, 23);
-            this.buttonPause.TabIndex = 1;
-            this.buttonPause.Text = "Pause";
-            this.buttonPause.UseVisualStyleBackColor = true;
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
+            this.buttonSave.Location = new System.Drawing.Point(64, 80);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 2;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
             // 
-            // buttonStart
+            // buttonOpen
             // 
-            this.buttonStart.Location = new System.Drawing.Point(62, 22);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 0;
-            this.buttonStart.Text = "Start";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.buttonOpen.Location = new System.Drawing.Point(64, 51);
+            this.buttonOpen.Name = "buttonOpen";
+            this.buttonOpen.Size = new System.Drawing.Size(75, 23);
+            this.buttonOpen.TabIndex = 1;
+            this.buttonOpen.Text = "Open";
+            this.buttonOpen.UseVisualStyleBackColor = true;
+            // 
+            // buttonNew
+            // 
+            this.buttonNew.Location = new System.Drawing.Point(64, 22);
+            this.buttonNew.Name = "buttonNew";
+            this.buttonNew.Size = new System.Drawing.Size(75, 23);
+            this.buttonNew.TabIndex = 0;
+            this.buttonNew.Text = "New";
+            this.buttonNew.UseVisualStyleBackColor = true;
             // 
             // panelView
             // 
@@ -83,32 +88,27 @@
             this.panelView.Size = new System.Drawing.Size(600, 600);
             this.panelView.TabIndex = 1;
             // 
-            // timerControl
-            // 
-            this.timerControl.Interval = 25;
-            this.timerControl.Tick += new System.EventHandler(this.timerControl_Tick);
-            // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(62, 80);
+            this.buttonExit.Location = new System.Drawing.Point(64, 109);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(75, 23);
-            this.buttonExit.TabIndex = 2;
+            this.buttonExit.TabIndex = 3;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // groupBoxControl
             // 
-            this.groupBoxControl.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBoxControl.Controls.Add(this.buttonPause);
+            this.groupBoxControl.Controls.Add(this.buttonSave);
             this.groupBoxControl.Controls.Add(this.buttonExit);
-            this.groupBoxControl.Controls.Add(this.buttonStart);
+            this.groupBoxControl.Controls.Add(this.buttonNew);
+            this.groupBoxControl.Controls.Add(this.buttonOpen);
             this.groupBoxControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBoxControl.Location = new System.Drawing.Point(0, 0);
             this.groupBoxControl.Name = "groupBoxControl";
             this.groupBoxControl.Size = new System.Drawing.Size(200, 150);
-            this.groupBoxControl.TabIndex = 3;
+            this.groupBoxControl.TabIndex = 4;
             this.groupBoxControl.TabStop = false;
             this.groupBoxControl.Text = "Control";
             // 
@@ -118,11 +118,11 @@
             this.groupBoxInformation.Location = new System.Drawing.Point(0, 150);
             this.groupBoxInformation.Name = "groupBoxInformation";
             this.groupBoxInformation.Size = new System.Drawing.Size(200, 450);
-            this.groupBoxInformation.TabIndex = 4;
+            this.groupBoxInformation.TabIndex = 5;
             this.groupBoxInformation.TabStop = false;
             this.groupBoxInformation.Text = "Information";
             // 
-            // BattleFieldForm
+            // TankCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -132,10 +132,9 @@
             this.Controls.Add(this.panelControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "BattleFieldForm";
+            this.Name = "TankCreator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Battlefield";
-            this.Load += new System.EventHandler(this.BattleFieldForm_Load);
+            this.Text = "TankCreator";
             this.panelControl.ResumeLayout(false);
             this.groupBoxControl.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -146,11 +145,11 @@
 
         private System.Windows.Forms.Panel panelControl;
         private System.Windows.Forms.Panel panelView;
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Timer timerControl;
-        private System.Windows.Forms.Button buttonPause;
+        private System.Windows.Forms.Button buttonNew;
+        private System.Windows.Forms.Button buttonOpen;
+        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonExit;
-        private System.Windows.Forms.GroupBox groupBoxControl;
         private System.Windows.Forms.GroupBox groupBoxInformation;
+        private System.Windows.Forms.GroupBox groupBoxControl;
     }
 }

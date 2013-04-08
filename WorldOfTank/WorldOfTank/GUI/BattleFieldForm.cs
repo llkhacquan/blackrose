@@ -55,9 +55,9 @@ namespace WorldOfTank.GUI
         private new void Paint()
         {
             Image imgBG = battleField.Background;
-            for (int i = 0; i <= (battleField.Size.Width - 1) / (imgBG.Width - 1); i++)
-                for (int j = 0; j <= (battleField.Size.Height - 1) / (imgBG.Height - 1); j++)
-                    gfx.DrawImage(imgBG, (imgBG.Width - 1) * i, (imgBG.Height - 1) * j);
+            for (int i = 0; i <= (battleField.Size.Width - 1) / imgBG.Width; i++)
+                for (int j = 0; j <= (battleField.Size.Height - 1) / imgBG.Height; j++)
+                    gfx.DrawImage(imgBG, imgBG.Width * i, imgBG.Height * j);
 
             foreach (ObjectGame obj in battleField.Objects)
             {
@@ -135,6 +135,11 @@ namespace WorldOfTank.GUI
                 IsPaused = false;
             }
             ViewControl();
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
