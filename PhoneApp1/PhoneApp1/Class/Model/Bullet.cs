@@ -14,9 +14,9 @@ using System.Windows.Automation;
 
 namespace PhoneApp1.Class.Model {
     class Bullet: DynamicObject {
-        public float Damage;
+        public int Damage;
         public float Speed;
-        public int TankIndex;
+        public int TankIndex; // the tank to which this bullet belongs;
         public int index;
 
         public Bullet(string url, int TankIndex, int index)

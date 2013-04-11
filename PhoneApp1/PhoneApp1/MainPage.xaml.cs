@@ -21,9 +21,7 @@ namespace PhoneApp1 {
         public static DispatcherTimer timerControl;
         public static Grid BattleField;
         public static TextBlock text;
-        //int countAngle = 0;
-        //int angle;
-        //Image Tank1, Tank2, Tank3, Tank4;
+        static Player player;
 
         int tick;
         // Constructor
@@ -32,48 +30,24 @@ namespace PhoneApp1 {
             timer_Initiate();
             text = test;
             text.Text = "";
-            //InitiateTank();
-            //BattleField.
             BattleField = PlayingArea;
-            //rotateTimer_Initiate();
-
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
 
-        /*void InitiateTank() {
-            //im
-            Uri url = new Uri("/Resource/Tank1.png", UriKind.Relative);
-            
-            Tank1 = new Image();
-            BitmapImage bmp = new BitmapImage(url);
-            Tank1.Source = bmp;
-            Tank1.Height = 60;
-            Tank1.Width = 60;
-            Tank1.Visibility = System.Windows.Visibility.Visible;
-            Tank1.Margin = new Thickness(20 , 20, 0, 0);
-            Tank1.VerticalAlignment = System.Windows.VerticalAlignment.Top;
-            Tank1.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            
-            Board.Children.Add(Tank1);
-
-        }*/
-        private static void Display() {
+        
+        private static void Display() { //Dislay objects
             foreach (ObjectGame obj in PhoneApp1.Class.Model.BattleField.Objects)
             {
                 DynamicObject dobj = (DynamicObject)obj;
                 dobj.Image = GraphicsProcessor.rotateCenter(dobj.Image, dobj.Direction);
             }
         }
+
         private void ButtonStart_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
-            //panelView.Controls.Clear();
             if (!timerControl.IsEnabled) {
                 battleField = new BattleField();
                 battleField.SetupGame();
                 timerControl.Start();
                 BattleField.Visibility = System.Windows.Visibility.Visible;
-                //InitiateTank();
-                //Rotate(tank1, 90);
                 ButtonStart.Content = "Stop";
             } else {
                 timerControl.Stop();
@@ -81,76 +55,35 @@ namespace PhoneApp1 {
                 ButtonStart.Content = "Start";
             }
         }
+
         void timer_Initiate() {
             timerControl = new DispatcherTimer();
             tick = 20;
             timerControl.Interval = new TimeSpan(0, 0, 0, 0, tick);
             timerControl.Tick += timerControl_Tick;
         }
-        /*void rotateTimer_Initiate() {
-            rotateTimer = new DispatcherTimer();
-            //tick = 200;
-            rotateTimer.Interval = new TimeSpan(0, 0, 0, 0, 20);
-            rotateTimer.Tick += rotateTimer_Tick;
-        }
-        private void rotateTimer_Tick(object sender, EventArgs e) {
-            if(countAngle==angle){
-                rotateTimer.Stop();
-                return;
-            }
-            ButtonStart.Content = countAngle.ToString();
-            subRotate(tank1, countAngle);
-            countAngle += 2;
-            
-            //Display();
-            //tank1.RenderTransform = RotateTransform.AngleProperty = 
-
-        }*/
+        
         private void timerControl_Tick(object sender, EventArgs e) {
             battleField.NextFrame();
-            //Rotate(tank1,90 );
             Display();
-            //tank1.RenderTransform = RotateTransform.AngleProperty = 
 
         }
-        /*void Rotate( Image img, int angle) {
-            countAngle = 0;
-            this.angle = angle;
-                rotateTimer.Start();
-            
-        }
-        void subRotate( Image img, int angle) {
-            
-            
-                RotateTransform rotate = new RotateTransform();
-                
-                rotate.Angle = countAngle;
-                //rotate.CenterX = img.ActualWidth / 2;
-                //rotate.CenterY = img.ActualHeight / 2;
-                img.RenderTransform = rotate;
-                //count++;
-                
+
+        private void Tank1_Select_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
+            if (PlayerName_TextBox.Text == "") {
+                Error_TextBlock.Visibility = System.Windows.Visibility.Visible;
+            } else {
+                player = new Player(PlayerName_TextBox.Text, TankResources.FirstTank, TankResources.Bullet1);
+                CreatePlayer.Visibility = System.Windows.Visibility.Collapsed;
+                ButtonStart.Visibility = System.Windows.Visibility.Visible;
             }
-            
-        }*/
-        /*
-        void timer_Initiate() {
-            timer = new DispatcherTimer();
-            tick = 300;
-            timer.Interval = new TimeSpan(0, 0, 0, 0, tick);
-            timer.Tick += timer_Tick;
         }
-        void timer_Tick(object sender, EventArgs e) {
-            moveLeft(tank2);
-            moveRight(tank1);
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e) {
 
         }
-        public void moveLeft(Image tank) {
-            tank.Margin = new Thickness(tank.Margin.Left - 4, tank.Margin.Top, tank.Margin.Right, tank.Margin.Bottom);
-        }
-        public void moveRight(Image tank) {
-            tank.Margin = new Thickness(tank.Margin.Left + 4, tank.Margin.Top, tank.Margin.Right, tank.Margin.Bottom);
-        }
+        
+        
 
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
@@ -166,7 +99,7 @@ namespace PhoneApp1 {
         //    // Create a new menu item with the localized string from AppResources.
         //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
         //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}*/
+        //}
 
     }
 }

@@ -13,7 +13,7 @@ using PhoneApp1.Class.Components;
 namespace PhoneApp1.Class.Model {
     abstract class DynamicObject : ObjectGame {
         public float Direction;
-        public bool outOfRange() {
+        public bool outOfRange() { // check if the object is out of playing area
             if ( this.getPosition().X < 0) return true;
             else if ( (this.getPosition().X + this.getSize().Width) > MainPage.BattleField.ActualWidth) return true;
             else if (this.getPosition().Y < 0) return true;
@@ -58,10 +58,5 @@ namespace PhoneApp1.Class.Model {
             y += (float)Math.Cos(angle) * value;
             this.setPosition(new Position(x, y));
         }
-       /*public bool IsCollided(ObjectGame obj) {
-            //if (base.IsCollided(obj)) return true;
-            if (outOfRange((this)) return true;
-            else return false;
-        }*/
     }
 }

@@ -22,17 +22,17 @@ namespace PhoneApp1.Class.Model {
         public void SetupGame() {
             Tank tank = new Tank(TankResources.FirstTank);
             tank.SpeedMove = 3;
-            tank.setSize( new Size(20, 20));
+            tank.setSize( new Size(40, 40));
             tank.setPosition(new Position(100, 200));
             //tank.setDirection(30);
 
+            //Add Instructions
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.MoveBackward,100),
                 new Instruction(TypeInstruction.RotateLeft, 45),
                 new Instruction(TypeInstruction.MoveForward, 50),
                 new Instruction(TypeInstruction.RotateRight, 37),
-                
                 new Instruction(TypeInstruction.Fire,0),
             };
             Objects.Add(tank);
@@ -41,7 +41,7 @@ namespace PhoneApp1.Class.Model {
             //bullet.setPosition(new Position(20, 20));
             tank = new Tank(TankResources.SecondTank);
             tank.SpeedMove = 3;
-            tank.setSize (new Size(20, 20));
+            tank.setSize (new Size(40, 40));
             tank.setPosition (new Position(100, 100));
             tank.ActionNormal = () => new List<Instruction>()
             {
@@ -53,7 +53,7 @@ namespace PhoneApp1.Class.Model {
 
             tank = new Tank(TankResources.ThirdTank);
             tank.SpeedMove = 3;
-            tank.setSize (new Size(20, 20));
+            tank.setSize (new Size(40, 40));
             tank.setPosition (new Position(300, 300));
             tank.ActionNormal = () => new List<Instruction>()
             {
@@ -66,7 +66,7 @@ namespace PhoneApp1.Class.Model {
             
             tank = new Tank(TankResources.FourthTank);
             tank.SpeedMove = 4;
-            tank.setSize (new Size(20, 20));
+            tank.setSize (new Size(40, 40));
             tank.setPosition (new Position(100, 400));
             tank.Direction = 45;
             tank.ActionNormal = () => new List<Instruction>()
@@ -103,8 +103,9 @@ namespace PhoneApp1.Class.Model {
                 if (Objects[i].Type != TypeObject.Bullet) {
                     if (bullet.IsCollided(Objects[i])) {
                         if (Objects[i].Type == TypeObject.Tank) {
-                            ((Tank)Objects[i]).Die();
-                            Objects.RemoveAt(i);
+                            //((Tank)Objects[i]).Die();
+                            ((Tank)Objects[i]).beAttacked(bullet);
+                            if(!((Tank)Objects[i]).Alive) Objects.RemoveAt(i);
                         }
                     }
                 }
@@ -168,13 +169,7 @@ namespace PhoneApp1.Class.Model {
                     if (tank.FireDelay > 1000) {
                         tank.Fire();
                         Objects.Add(tank.bullet[tank.bullet.Count - 1]);
-
-                        //Objects.Add(tank.Bu
                         tank.Instructions.RemoveAt(i);
-                        //updateBattlefield();
-                        //tank.Instructions[i].
-                        //if(tank.timePlayed == 10) tank.Fire();
-                        //tank.MoveForward(20);
                     }
                 }
             }
@@ -189,12 +184,9 @@ namespace PhoneApp1.Class.Model {
                 } else if (Objects[i].Type == TypeObject.Tank) {
                     ProcessTank((Tank)Objects[i]);
                     ((Tank)Objects[i]).FireDelay += MainPage.timerControl.Interval.Milliseconds;
-                    //MainPage.text.Text = ((Tank)Objects[i]).getPosition().X + " " + ((Tank)Objects[i]).getPosition().Y + " ";
-                    //MainPage.text.Text += MainPage.BattleField.ActualHeight;
                 }
             }
             updateBattlefield();
-            //MainPage.text.Text = tank1
         }
     }
 }

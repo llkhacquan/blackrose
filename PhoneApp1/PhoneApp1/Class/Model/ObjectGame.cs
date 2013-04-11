@@ -15,19 +15,15 @@ using PhoneApp1;
 
 
 namespace PhoneApp1.Class.Model {
-    abstract class ObjectGame : PhoneApplicationPage {
+     abstract class ObjectGame : PhoneApplicationPage {
         public Image Image;
-        //private Size Size;
-        //private Position Position;
         public TypeObject Type;
-        //public Grid Picture;
 
         public ObjectGame( string source, TypeObject Type) {
             this.Image = new Image();
             Uri url = new Uri(source,UriKind.Relative);
             BitmapImage bmp = new BitmapImage(url);
             this.Image.Source = bmp;
-            //MainPage.BattleField.Children.Add(this.Image);
             Image.Width = 0;
             Image.Height = 0;
             Image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
@@ -35,17 +31,9 @@ namespace PhoneApp1.Class.Model {
             Image.Visibility = System.Windows.Visibility.Visible;
             
             this.Image.Margin = new Thickness(-10, -10, -10, -10);
-            //this.Size = new Size(0, 0);
-            
             this.Type = Type;
-             
-            
-            //this.Picture = new Grid();
-            //this.Picture.SizeMode = PictureBoxSizeMode.StretchImage;
-            //this.Picture. = Color.Transparent;*/
         }
         public void setSize(Size size) {
-            //this.Size = size;
             Image.Height = size.Height;
             Image.Width = size.Width;
         }
@@ -54,7 +42,6 @@ namespace PhoneApp1.Class.Model {
         }
 
         public void setPosition(Position position) {
-            //this.Position = position;
             Image.Margin = new Thickness(position.X, position.Y, 0, 0);
         }
         public Position getPosition() {

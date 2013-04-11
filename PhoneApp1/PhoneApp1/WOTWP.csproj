@@ -106,6 +106,7 @@
     <Compile Include="Class\Model\StaticObject.cs" />
     <Compile Include="Class\Model\Tank.cs" />
     <Compile Include="Class\Model\Wall.cs" />
+    <Compile Include="Class\Model\Player.cs" />
     <Compile Include="GUI\Battlefield.xaml.cs">
       <DependentUpon>Battlefield.xaml</DependentUpon>
     </Compile>

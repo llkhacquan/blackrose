@@ -14,11 +14,14 @@ namespace PhoneApp1.Class.Model {
     class Tank : DynamicObject {
         public List<Bullet> bullet;
         //public float Damage;
+        public int HP;
+        public int Defense;
         public float SpeedMove;
-        public int Index;
+        public int Index; //In order to know what tank is
         public int Amo;
         public int NumberOfBulltets;
         public int FireDelay;
+        public bool Alive;
         //public float SpeedRotation;
         //public float SpeedFire;
         public float Heal;
@@ -32,24 +35,31 @@ namespace PhoneApp1.Class.Model {
             this.FireDelay = 1000;
             this.Index = BattleField.NumberOfTanks;
             this.bullet = new List<Bullet>(Amo);
-            //this.bullet.setSize(new Size(20, 20));
-            //this.bullet.Direction = this.Direction;
-            //this.bullet.Damage = 10;
-            //this.bullet.Speed = 10;
             this.SpeedMove = 1;
             this.Heal = 1;
             this.timePlayed = 0;
             //this.Direction = 90;
             Instructions = new List<Instruction>();
+            Alive = true;
         }
-
+        public void beAttacked(Bullet bullet) {
+            //int tempHP = HP;
+            //int tempDefense = Defense;
+            Defense -= bullet.Damage;
+            if (Defense < 0) {
+                HP -= Math.Abs(Defense);
+                Defense = 0;
+            }
+            if (HP < 0) {
+                Alive = false;
+            }
+        }
         public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
         public Func<List<Instruction>> ActionCannotMove = () => new List<Instruction>();
         public Func<List<Instruction>> ActionDetected = () => new List<Instruction>();
 
         public void Update() {
             if (Instructions.Count == 0) Instructions = ActionNormal();
-            //this.timePlayed++;
             for (int i = 0; i < bullet.Count; i++) {
                 bullet[i].index = i;
             }
@@ -82,10 +92,6 @@ namespace PhoneApp1.Class.Model {
 
         }
 
-        public void Die() {
-
-        }
-
         public void Fire() {
             
             Bullet b = new Bullet(TankResources.Bullet1,this.Index,NumberOfBulltets);
@@ -114,15 +120,6 @@ namespace PhoneApp1.Class.Model {
             bullet.Add(b);
             //Amo--;
             this.FireDelay = 0;
-            //if (outOfRange(this)) this.bullet.setPosition(new Position(tempx, tempy));
-            //this.setPosition(new Position(x, y));
-            
-            //this.bullet.Direction = this.Direction;
-            //this.setSize(new Size(20, 20));
-            //BattleField.Objects.Add(b);
-            
-            //MainPage.BattleField.Children.Add(b);
-            //BattleField.Objects.Add(b);
             return;
         }
     }
