@@ -130,6 +130,30 @@
   <data name="Bullet_D" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Bullet\Bullet_D.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Font_Battlefield" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_Battlefield.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_Battlefield_Glow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_Battlefield_Glow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_Exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_Exit_Glow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_Exit_Glow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_Introduction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_Introduction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_Introduction_Glow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_Introduction_Glow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_TankCreator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_TankCreator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Font_TankCreator_Glow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Font\Font_TankCreator_Glow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Grass_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Background\Grass_A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,6 +162,9 @@
   </data>
   <data name="Grass_C" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Background\Grass_C.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics\Background\MainBackground.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tank_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Tank\Tank_A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

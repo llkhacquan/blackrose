@@ -11,10 +11,24 @@ namespace WorldOfTank.Class.Model
 {
     class BattleField
     {
+        /// <summary>
+        ///     Objects are this battlefield
+        /// </summary>
         public List<ObjectGame> Objects;
+
+        /// <summary>
+        ///     Gets or sets size of this battlefield
+        /// </summary>
         public Size Size;
+
+        /// <summary>
+        ///     Gets or sets background of this battlefield
+        /// </summary>
         public Image Background;
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
         public BattleField()
         {
             Objects = new List<ObjectGame>();
@@ -22,10 +36,12 @@ namespace WorldOfTank.Class.Model
             Background = Resources.Grass_A;
         }
 
+        /// <summary>
+        ///     Setup game
+        /// </summary>
         public void SetupGame()
         {
             Wall wall;
-
             for (int i = 0; i <= (this.Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
             {
                 wall = new Wall(Resources.Wall_A);
@@ -52,8 +68,10 @@ namespace WorldOfTank.Class.Model
                 Objects.Add(wall);
             }
 
-
             Tank tank = new Tank(Resources.Tank_A);
+
+
+
             tank.Heal = 50;
             tank.SpeedMove = 3;
             tank.SpeedRotate = 5;
@@ -133,6 +151,10 @@ namespace WorldOfTank.Class.Model
             */
         }
 
+        /// <summary>
+        ///     Execute some change in a frame in battefield
+        /// </summary>
+        /// <returns>Result of that frame</returns>
         public TypeResult NextFrame()
         {
             for (int i = 0; i < Objects.Count; i++)

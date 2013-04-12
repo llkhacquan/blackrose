@@ -118,6 +118,7 @@ namespace WorldOfTank.GUI
             {
                 timerControl.Enabled = false;
                 IsStarted = false;
+                panelView.Invalidate();
             }
             ViewControl();
         }

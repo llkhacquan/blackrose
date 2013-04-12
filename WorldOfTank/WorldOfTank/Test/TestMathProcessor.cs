@@ -27,10 +27,10 @@ namespace WorldOfTank.Test
         [Test]
         public void TestCCWCheck()
         {
-            Assert.AreEqual(MathProcessor.CheckCCW(p1, p2, p3), 0);
-            Assert.AreEqual(MathProcessor.CheckCCW(p1, p2, p4), 1);
-            Assert.AreEqual(MathProcessor.CheckCCW(p1, p2, p5), -1);
-            Assert.AreEqual(MathProcessor.CheckCCW(p4, p5, p3), -1);
+            Assert.AreEqual(MathProcessor.CounterClockWise(p1, p2, p3), 0);
+            Assert.AreEqual(MathProcessor.CounterClockWise(p1, p2, p4), 1);
+            Assert.AreEqual(MathProcessor.CounterClockWise(p1, p2, p5), -1);
+            Assert.AreEqual(MathProcessor.CounterClockWise(p4, p5, p3), -1);
         }
 
         [Test]

@@ -198,6 +198,33 @@
   <ItemGroup>
     <None Include="Resources\Graphics\Bullet\Bullet_D.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Background\MainBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Battlefield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Battlefield_Glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Exit_Glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Introduction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Introduction_Glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_TankCreator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_TankCreator_Glow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

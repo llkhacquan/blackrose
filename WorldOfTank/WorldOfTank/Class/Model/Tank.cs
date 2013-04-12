@@ -10,15 +10,49 @@ namespace WorldOfTank.Class.Model
 {
     class Tank : DynamicObject
     {
+        /// <summary>
+        ///     Gets or sets bullet of this tank
+        /// </summary>
         public Bullet Bullet;
+
+        /// <summary>
+        ///     Gets or sets move speed of this tank
+        /// </summary>
         public float SpeedMove;
+
+        /// <summary>
+        ///     Gets or sets rotate speed of this tank
+        /// </summary>
         public float SpeedRotate;
+
+        /// <summary>
+        ///     Gets or sets fire speed of this tank
+        /// </summary>
         public float SpeedFire;
+
+        /// <summary>
+        ///     Gets or sets heal of this tank
+        /// </summary>
         public float Heal;
+
+        /// <summary>
+        ///     Gets or sets instructions of this tank
+        /// </summary>
         public List<Instruction> Instructions;
+
+        /// <summary>
+        ///     Gets result of last frame
+        /// </summary>
         public TypeResult LastResult;
+
+        /// <summary>
+        ///     Gets result of new frame
+        /// </summary>
         public TypeResult NewResult;
 
+        /// <summary>
+        ///     Gets Radius (la do. lon' cua object tinh' tu diem anchor)
+        /// </summary>
         public override float Radius
         {
             get
@@ -27,6 +61,10 @@ namespace WorldOfTank.Class.Model
             }
         }
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="Image">Image tank</param>
         public Tank(Image Image)
             : base(Image, TypeObject.Tank)
         {
@@ -44,12 +82,34 @@ namespace WorldOfTank.Class.Model
             NewResult = TypeResult.Normal;
         }
 
+        /// <summary>
+        ///     List instructions of normal action
+        /// </summary>
         public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
+
+        /// <summary>
+        ///     List instructions of "cannot move forward" action
+        /// </summary>
         public Func<List<Instruction>> ActionCannotMoveForward = () => new List<Instruction>();
+
+        /// <summary>
+        ///     List instructions of "cannot move backward" action
+        /// </summary>
         public Func<List<Instruction>> ActionCannotMoveBackward = () => new List<Instruction>();
+
+        /// <summary>
+        ///     List instructions of "detected enemy" action
+        /// </summary>
         public Func<List<Instruction>> ActionDetected = () => new List<Instruction>();
+
+        /// <summary>
+        ///     List instructions of "be attacked" action
+        /// </summary>
         public Func<List<Instruction>> ActionBeAttacked = () => new List<Instruction>();
 
+        /// <summary>
+        ///     Set instructions in each frame (according to LastResult and NewResult)
+        /// </summary>
         public void SetInstructions()
         {
             if (Instructions.Count == 0 || LastResult != NewResult)
@@ -63,7 +123,12 @@ namespace WorldOfTank.Class.Model
             }
         }
 
-        public bool IsCollidedPosition(List<ObjectGame> Objects)
+        /// <summary>
+        ///     Check if this tank is invalid position
+        /// </summary>
+        /// <param name="Objects">Objects are battlefield</param>
+        /// <returns>True if this tank is invalid position</returns>
+        public bool IsInvalidPosition(List<ObjectGame> Objects)
         {
             for (int i = 0; i < Objects.Count; i++)
                 if ((Objects[i] != this) &&
@@ -75,6 +140,27 @@ namespace WorldOfTank.Class.Model
             return true;
         }
 
+        /// <summary>
+        ///     Create a copy of this tank
+        /// </summary>
+        /// <returns>A copy of this tank</returns>
+        public override ObjectGame Clone()
+        {
+            Tank tank = new Tank(this.Image);
+            tank.Size = this.Size;
+            tank.Bullet = (Bullet)this.Bullet.Clone();
+            tank.SpeedMove = this.SpeedMove;
+            tank.SpeedRotate = this.SpeedRotate;
+            tank.SpeedFire = this.SpeedFire;
+            tank.Heal = this.Heal;
+            return tank;
+        }
+
+        /// <summary>
+        ///     Execute some change of object in a frame in battefield
+        /// </summary>
+        /// <param name="Objects">Objects are battlefield</param>
+        /// <returns>Result of that frame</returns>
         public override TypeResult NextFrame(List<ObjectGame> Objects)
         {
             if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
@@ -87,7 +173,7 @@ namespace WorldOfTank.Class.Model
                     float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
                     this.Instructions[0].Parameter -= value;
                     this.MoveForward(value);
-                    if (!this.IsCollidedPosition(Objects))
+                    if (!this.IsInvalidPosition(Objects))
                     {
                         this.Position = p;
                         NewResult = TypeResult.CannotMoveForward;
@@ -98,7 +184,7 @@ namespace WorldOfTank.Class.Model
                     float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
                     this.Instructions[0].Parameter -= value;
                     this.MoveBackward(value);
-                    if (!this.IsCollidedPosition(Objects))
+                    if (!this.IsInvalidPosition(Objects))
                     {
                         this.Position = p;
                         NewResult = TypeResult.CannotMoveBackward;
@@ -122,7 +208,7 @@ namespace WorldOfTank.Class.Model
                     this.Instructions[0].Parameter -= value;
                     if (Instructions[0].Parameter == 0)
                     {
-                        Bullet bullet = this.Bullet.Clone();
+                        Bullet bullet = (Bullet)this.Bullet.Clone();
                         bullet.Position = MathProcessor.CalPointPosition(this.Position, this.Size.Height / 2, this.Direction);
                         bullet.Direction = this.Direction;
                         Objects.Add(bullet);

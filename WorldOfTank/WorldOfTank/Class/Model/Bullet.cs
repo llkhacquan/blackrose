@@ -10,9 +10,19 @@ namespace WorldOfTank.Class.Model
 {
     class Bullet : DynamicObject
     {
+        /// <summary>
+        ///     Damage of this bullet
+        /// </summary>
         public float Damage;
+
+        /// <summary>
+        ///     Move speed of this bullet
+        /// </summary>
         public float SpeedMove;
 
+        /// <summary>
+        ///     Gets Radius (la do. lon' cua object tinh' tu diem anchor)
+        /// </summary>
         public override float Radius
         {
             get
@@ -21,6 +31,10 @@ namespace WorldOfTank.Class.Model
             }
         }
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="Image">Image bullet</param>
         public Bullet(Image Image)
             : base(Image, TypeObject.Bullet)
         {
@@ -28,7 +42,11 @@ namespace WorldOfTank.Class.Model
             this.SpeedMove = 1;
         }
 
-        public Bullet Clone()
+        /// <summary>
+        ///     Create a copy of this bullet
+        /// </summary>
+        /// <returns>A copy of this bullet</returns>
+        public override ObjectGame Clone()
         {
             Bullet bullet = new Bullet(this.Image);
             bullet.Size = this.Size;
@@ -37,6 +55,11 @@ namespace WorldOfTank.Class.Model
             return bullet;
         }
 
+        /// <summary>
+        ///     Execute some change of this bullet in a frame in battefield
+        /// </summary>
+        /// <param name="Objects">Objects are battlefield</param>
+        /// <returns>Result of that frame</returns>
         public override TypeResult NextFrame(List<ObjectGame> Objects)
         {
             this.MoveForward(this.SpeedMove);

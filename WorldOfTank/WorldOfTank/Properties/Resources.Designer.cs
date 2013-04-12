@@ -103,6 +103,86 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Font_Battlefield {
+            get {
+                object obj = ResourceManager.GetObject("Font_Battlefield", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_Battlefield_Glow {
+            get {
+                object obj = ResourceManager.GetObject("Font_Battlefield_Glow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_Exit {
+            get {
+                object obj = ResourceManager.GetObject("Font_Exit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_Exit_Glow {
+            get {
+                object obj = ResourceManager.GetObject("Font_Exit_Glow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_Introduction {
+            get {
+                object obj = ResourceManager.GetObject("Font_Introduction", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_Introduction_Glow {
+            get {
+                object obj = ResourceManager.GetObject("Font_Introduction_Glow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_TankCreator {
+            get {
+                object obj = ResourceManager.GetObject("Font_TankCreator", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Font_TankCreator_Glow {
+            get {
+                object obj = ResourceManager.GetObject("Font_TankCreator_Glow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Grass_A {
             get {
                 object obj = ResourceManager.GetObject("Grass_A", resourceCulture);
@@ -126,6 +206,16 @@ namespace WorldOfTank.Properties {
         internal static System.Drawing.Bitmap Grass_C {
             get {
                 object obj = ResourceManager.GetObject("Grass_C", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MainBackground {
+            get {
+                object obj = ResourceManager.GetObject("MainBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -9,6 +9,12 @@ namespace WorldOfTank.Class.Components
 {
     static class GraphicsProcessor
     {
+        /// <summary>
+        ///     Quay anh (tam o vi tri chinh giua anh) (0 degree is North, clockwise is positive)
+        /// </summary>
+        /// <param name="img">anh can` quay</param>
+        /// <param name="angle">so goc quay</param>
+        /// <returns>anh sau khi quay</returns>
         public static Bitmap RotateImage(Image img, float angle)
         {
             Bitmap returnBitmap = new Bitmap(img.Width, img.Height + 1);
@@ -20,6 +26,11 @@ namespace WorldOfTank.Class.Components
             return returnBitmap;
         }
 
+        /// <summary>
+        ///     Tao. do. mo` cho anh? khi ve~
+        /// </summary>
+        /// <param name="value">gia tri do. mo` (0.0 -> 1.0)</param>
+        /// <returns>thuoc tinh' mo` cua anh?</returns>
         public static ImageAttributes SemiTransparent(float value)
         {
             ImageAttributes img = new ImageAttributes();
