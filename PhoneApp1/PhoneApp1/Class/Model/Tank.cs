@@ -9,50 +9,75 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneApp1.Resources;
 using PhoneApp1.Class.Components;
+using System.Windows.Media;
 
 namespace PhoneApp1.Class.Model {
     class Tank : DynamicObject {
-        public List<Bullet> bullet;
+        public Bullet bullet;
+        public bool AllowToFire;
         //public float Damage;
         public int HP;
+        public TextBlock StatsText;
+        public ProgressBar Stats;
         public int Defense;
         public float SpeedMove;
         public int Index; //In order to know what tank is
-        public int Amo;
-        public int NumberOfBulltets;
-        public int FireDelay;
         public bool Alive;
-        //public float SpeedRotation;
-        //public float SpeedFire;
-        public float Heal;
-        public int timePlayed;
         public List<Instruction> Instructions;
-
+        
         public Tank(string url) :base(url, TypeObject.Tank) {
-            Amo = 10;
-            NumberOfBulltets = 0;
+            Defense = 40;
+            HP = 100;
             BattleField.NumberOfTanks++;
-            this.FireDelay = 1000;
             this.Index = BattleField.NumberOfTanks;
-            this.bullet = new List<Bullet>(Amo);
+            
             this.SpeedMove = 1;
-            this.Heal = 1;
-            this.timePlayed = 0;
-            //this.Direction = 90;
+            
+            AllowToFire = true;
             Instructions = new List<Instruction>();
             Alive = true;
+            bullet = new Bullet(TankResources.Bullet1, this.Index);
+            //StatsText default
+            StatsText = new TextBlock();
+            StatsText.FontSize = 12;
+            StatsText.Foreground = new SolidColorBrush(Colors.Black);
+            StatsText.Text = HP.ToString();
+            StatsText.FontWeight = FontWeights.Bold;
+            StatsText.Visibility = System.Windows.Visibility.Visible;
+            StatsText.Text = HP.ToString() + "/" + Defense.ToString();
+            //Stats default
+            Stats = new ProgressBar();
+            Stats.Background = new SolidColorBrush(Colors.Transparent);
+            //Stats.Width = this.getSize().Width;
+            //Stats.Height = this.getSize().Height;
+            //Stats.MaxHeight = this.getSize().Height;
+            //Stats.MaxWidth = this.getSize().Width;
+            //Stats.
+            Stats.Padding = new Thickness(0, 0, 0, 0);
+            Stats.Visibility = System.Windows.Visibility.Visible;
+            Stats.Minimum = 0;
+            Stats.Maximum = 100;
+            Stats.Value = HP;
+            //Stats.
+            Stats.Foreground = new SolidColorBrush(Colors.Cyan);
+            Stats.Margin = new Thickness(this.getPosition().X, this.getPosition().Y + this.getSize().Height, 0, 0);
+            //Stat
+
         }
+        public void FireDone() {
+            AllowToFire = true;
+        }
+
         public void beAttacked(Bullet bullet) {
-            //int tempHP = HP;
-            //int tempDefense = Defense;
             Defense -= bullet.Damage;
             if (Defense < 0) {
                 HP -= Math.Abs(Defense);
                 Defense = 0;
             }
-            if (HP < 0) {
+            if (HP <= 0) {
                 Alive = false;
             }
+            StatsText.Text = HP.ToString() + "/" + Defense.ToString();
         }
         public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
         public Func<List<Instruction>> ActionCannotMove = () => new List<Instruction>();
@@ -60,10 +85,10 @@ namespace PhoneApp1.Class.Model {
 
         public void Update() {
             if (Instructions.Count == 0) Instructions = ActionNormal();
-            for (int i = 0; i < bullet.Count; i++) {
-                bullet[i].index = i;
-            }
+            StatsText.Margin = new Thickness(this.getPosition().X, this.getPosition().Y + this.getSize().Height, 0, 0);
+            //Stats.Margin = new Thickness(this.getPosition().X, this.getPosition().Y + this.getSize().Height, 0, 0);
         }
+
 
         public override void MoveBackward(float value) {
             float tempx = this.getPosition().X;
@@ -76,6 +101,7 @@ namespace PhoneApp1.Class.Model {
             float tempDir = Direction;
             base.RotateLeft(value);
             if (this.outOfRange()) Direction = tempDir;
+
         }
 
         public override void RotateRight(float value) {
@@ -89,17 +115,17 @@ namespace PhoneApp1.Class.Model {
             float tempy = this.getPosition().Y;
             base.MoveForward(value);
             if (this.outOfRange()) this.setPosition(new Position(tempx, tempy));
+            
 
         }
 
         public void Fire() {
             
-            Bullet b = new Bullet(TankResources.Bullet1,this.Index,NumberOfBulltets);
-            this.NumberOfBulltets++;
-            b.setSize(new Size(5, 5));
-            b.Direction = this.Direction;
-            b.Damage = 10;
-            b.Speed = 10;
+            bullet = new Bullet(TankResources.Bullet1,this.Index);
+            bullet.setSize(new Size(5, 5));
+            bullet.Direction = this.Direction;
+            bullet.Damage = 20;
+            bullet.Speed = 10;
             //calculate the position of bullet
             double angle = Math.PI * this.Direction / 180;
                 
@@ -109,17 +135,15 @@ namespace PhoneApp1.Class.Model {
             x+=(float)this.getSize().Width/2;
             y+=(float)this.getSize().Height/2;
 
-            x += (float)Math.Sin(angle) * (((float)this.getSize().Width+(float)b.getSize().Width)/2);
-            y -= (float)Math.Cos(angle) * (((float)this.getSize().Height+(float)b.getSize().Height)/2);
+            x += (float)Math.Sin(angle) * (((float)this.getSize().Width+(float)bullet.getSize().Width)/2);
+            y -= (float)Math.Cos(angle) * (((float)this.getSize().Height+(float)bullet.getSize().Height)/2);
 
-            x-= ((float)b.getSize().Width)/2;
-            y-= ((float)b.getSize().Width)/2;
+            x-= ((float)bullet.getSize().Width)/2;
+            y-= ((float)bullet.getSize().Width)/2;
 
             //end bullet-position calculation
-            b.setPosition(new Position(x, y));
-            bullet.Add(b);
-            //Amo--;
-            this.FireDelay = 0;
+            bullet.setPosition(new Position(x, y));
+            AllowToFire = false;
             return;
         }
     }

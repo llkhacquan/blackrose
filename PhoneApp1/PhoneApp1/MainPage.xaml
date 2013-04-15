@@ -42,7 +42,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <Grid x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,647" Grid.RowSpan="2">
             <TextBlock x:Name="test" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0,10,0"/>
-            <TextBlock Text="World of Tank" Margin="12,46,234,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="36"/>
+            <TextBlock x:Name="GameTitle" Text="World of Tank" Margin="12,46,234,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="36" Foreground="#FF68FF00" FontWeight="Bold"/>
 
 
         </Grid>
@@ -59,7 +59,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="PlayingArea"  Margin="10,200,0,0" HorizontalAlignment="Left" Width="460" VerticalAlignment="Top" Height="460" MaxHeight="460" MaxWidth="460" Background="#FF028102" >
             <Image HorizontalAlignment="Left" Height="31" Margin="162,171,0,0" VerticalAlignment="Top" Width="31"/>
-            <ProgressBar HorizontalAlignment="Left" Height="14" Margin="31,14,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+            
         </Grid>
         <Grid x:Name="ButtonPanel"  Margin="-10,121,0,573">
             <Button x:Name="ButtonStart" Content="Start" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" Tap="ButtonStart_Tap" Visibility="Collapsed"/>
@@ -75,14 +75,7 @@
             <TextBlock x:Name="Error_TextBlock" HorizontalAlignment="Left" Margin="194,19,0,0" TextWrapping="Wrap" Text="Choose Your Name" VerticalAlignment="Top" Visibility="Collapsed"/>
 
         </Grid>
-        <ProgressBar x:Name="Tank1_HP" HorizontalAlignment="Left" Height="50" Margin="72,684,0,0" VerticalAlignment="Top" Width="100" Grid.RowSpan="2" FontSize="48" Value="1000" Maximum="1000">
-            <ProgressBar.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0.004"/>
-                    <GradientStop Color="Red" Offset="1"/>
-                </LinearGradientBrush>
-            </ProgressBar.Background>
-        </ProgressBar>
+        <ProgressBar x:Name="ProgressBar1" HorizontalAlignment="Left" Height="10" Margin="94,143,0,0" VerticalAlignment="Top" Width="144" IsEnabled="False" IsHitTestVisible="True" Value="50" SmallChange="1" Padding="0"/>
 
 
 

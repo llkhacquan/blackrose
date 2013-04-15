@@ -22,21 +22,31 @@ namespace PhoneApp1 {
         public static Grid BattleField;
         public static TextBlock text;
         static Player player;
-
+        public TextBlock HP;
         int tick;
         // Constructor
         public MainPage() {
             InitializeComponent();
             timer_Initiate();
-            text = test;
-            text.Text = "";
+            //text = test;
+            //text.Text = "";
             BattleField = PlayingArea;
+            //BattleField.Background = new SolidColorBrush(Colors.Black);
+            HP = new TextBlock();
+            HP.Foreground = new SolidColorBrush(Colors.Cyan);
+            //HP.Text = "TEST";
+            BattleField.Children.Add(HP);
+            GameTitle.Foreground = new SolidColorBrush(Colors.Cyan);
         }
 
         
         private static void Display() { //Dislay objects
-            foreach (ObjectGame obj in PhoneApp1.Class.Model.BattleField.Objects)
+            foreach (ObjectGame obj in PhoneApp1.Class.Model.BattleField.Tanks)
             {
+                DynamicObject dobj = (DynamicObject)obj;
+                dobj.Image = GraphicsProcessor.rotateCenter(dobj.Image, dobj.Direction);
+            }
+            foreach (ObjectGame obj in PhoneApp1.Class.Model.BattleField.Bullets) {
                 DynamicObject dobj = (DynamicObject)obj;
                 dobj.Image = GraphicsProcessor.rotateCenter(dobj.Image, dobj.Direction);
             }
@@ -80,6 +90,10 @@ namespace PhoneApp1 {
         }
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e) {
+
+        }
+
+        private void ProgressBar_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e) {
 
         }
         

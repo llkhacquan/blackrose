@@ -9,24 +9,33 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneApp1.Resources;
 using PhoneApp1.Class.Components;
+using System.Windows.Media;
 
 namespace PhoneApp1.Class.Model {
     class BattleField : PhoneApplicationPage  {
-        public static List<ObjectGame> Objects;
+        //public static List<ObjectGame> Objects;
+        public static List<Tank> Tanks;
+        public static List<Bullet> Bullets;
+        public static List<Wall> Walls;
         public static int NumberOfTanks;
+        public bool NeedToUpdate;
+        public ProgressBar test;
         public BattleField() {
-            Objects = new List<ObjectGame>(1000);
+            //Objects = new List<ObjectGame>(100);
+            Tanks = new List<Tank>(10);
+            Bullets = new List<Bullet>(10);
+            Walls = new List<Wall>(1000);
             NumberOfTanks = 0;
+            NeedToUpdate = true;
+            
         }
 
         public void SetupGame() {
             Tank tank = new Tank(TankResources.FirstTank);
+            //tank.Index = NumberOfTanks;
             tank.SpeedMove = 3;
             tank.setSize( new Size(40, 40));
             tank.setPosition(new Position(100, 200));
-            //tank.setDirection(30);
-
-            //Add Instructions
             tank.ActionNormal = () => new List<Instruction>()
             {
                 new Instruction(TypeInstruction.MoveBackward,100),
@@ -35,11 +44,11 @@ namespace PhoneApp1.Class.Model {
                 new Instruction(TypeInstruction.RotateRight, 37),
                 new Instruction(TypeInstruction.Fire,0),
             };
-            Objects.Add(tank);
+            Tanks.Add(tank);
+            //NumberOfTanks++;
 
-            //Bullet bullet = new Bullet(TankResources.Bullet1);
-            //bullet.setPosition(new Position(20, 20));
             tank = new Tank(TankResources.SecondTank);
+            //tank.Index = NumberOfTanks;
             tank.SpeedMove = 3;
             tank.setSize (new Size(40, 40));
             tank.setPosition (new Position(100, 100));
@@ -49,10 +58,12 @@ namespace PhoneApp1.Class.Model {
                 new Instruction(TypeInstruction.MoveForward, 100),
                 new Instruction(TypeInstruction.Fire,0),
             };
-            Objects.Add(tank);
+            Tanks.Add(tank);
+            //NumberOfTanks++;
 
             tank = new Tank(TankResources.ThirdTank);
             tank.SpeedMove = 3;
+            tank.Index = NumberOfTanks;
             tank.setSize (new Size(40, 40));
             tank.setPosition (new Position(300, 300));
             tank.ActionNormal = () => new List<Instruction>()
@@ -62,9 +73,11 @@ namespace PhoneApp1.Class.Model {
                 new Instruction(TypeInstruction.RotateRight,180),
                 new Instruction(TypeInstruction.Fire,0),
             };
-            Objects.Add(tank);
-            
+            Tanks.Add(tank);
+            //NumberOfTanks++;
+
             tank = new Tank(TankResources.FourthTank);
+            //tank.Index = NumberOfTanks;
             tank.SpeedMove = 4;
             tank.setSize (new Size(40, 40));
             tank.setPosition (new Position(100, 400));
@@ -81,50 +94,56 @@ namespace PhoneApp1.Class.Model {
                 new Instruction(TypeInstruction.RotateRight, 135),
                 new Instruction(TypeInstruction.Fire,0),
             };
-            Objects.Add(tank);
-             
+            Tanks.Add(tank);
+            //NumberOfTanks++;
+            updateObjects();
             //updateBattlefield();
              
       
         }
 
         public void updateBattlefield() {
+            
             MainPage.BattleField.Children.Clear();
-            for (int i = 0; i < Objects.Count; i++) {
-                MainPage.BattleField.Children.Add(Objects[i].Image);
+            for (int i = 0; i < Tanks.Count; i++) {
+                MainPage.BattleField.Children.Add(Tanks[i].Image);
+                MainPage.BattleField.Children.Add(Tanks[i].StatsText);
+                //MainPage.BattleField.Children.Add(Tanks[i].Stats);
+            }
+            for (int i = 0; i < Bullets.Count; i++) {
+                MainPage.BattleField.Children.Add(Bullets[i].Image);
+            }
+        }
+        public void updateObjects() {
+            for (int i = 0; i < Tanks.Count; i++) {
+                Tanks[i].Index = i;
+                Tanks[i].bullet.TankIndex = i;
             }
         }
 
         private void ProcessBullet(Bullet bullet) {
             bullet.MoveForward(bullet.Speed);
-            //float value = Math.Min(bullet.Instructions.Parameter, bullet.Speed);
             
-            for (int i = 0; i < Objects.Count; i++){
-                if (Objects[i].Type != TypeObject.Bullet) {
-                    if (bullet.IsCollided(Objects[i])) {
-                        if (Objects[i].Type == TypeObject.Tank) {
-                            //((Tank)Objects[i]).Die();
-                            ((Tank)Objects[i]).beAttacked(bullet);
-                            if(!((Tank)Objects[i]).Alive) Objects.RemoveAt(i);
-                        }
+            for (int i = 0; i < Tanks.Count; i++){
+                    if (bullet.IsCollided(Tanks[i])) {
+                            (Tanks[i]).beAttacked(bullet);
+                            Tanks[bullet.TankIndex].FireDone();
+                            if (!Tanks[i].Alive) {
+                                Bullets.Remove(Tanks[i].bullet);
+                                Tanks.RemoveAt(i);
+                                updateObjects();
+                            }
+                        Bullets.Remove(bullet);
+                        NeedToUpdate = true;
                     }
-                }
+                    
+                //}
                 
             }
-                if(bullet.outOfRange()){
-                    
-                    for(int j=0;j<Objects.Count;j++){
-                        if(Objects[j].Type == TypeObject.Tank){
-                            if(((Tank)Objects[j]).Index == bullet.TankIndex){
-                                ((Tank)Objects[j]).bullet.RemoveAt((bullet.index));
-                                Objects.Remove(bullet);
-                                ((Tank)Objects[j]).NumberOfBulltets--;
-                            }
-                        }
-                    }
-                    
-                    //break;
-                }
+            if(bullet.outOfRange()){
+                Tanks[bullet.TankIndex].AllowToFire = true;
+                Bullets.Remove(bullet);
+            }
         }
 
         private void ProcessTank(Tank tank) {
@@ -135,8 +154,8 @@ namespace PhoneApp1.Class.Model {
                     float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedMove);
                     tank.MoveForward(value);
                     tank.Instructions[i].Parameter -= value;
-                    for (int j = 0; j < Objects.Count; j++)
-                        if (Objects[j] != tank && tank.IsCollided(Objects[j])) {
+                    for (int j = 0; j < Tanks.Count; j++)
+                        if (Tanks[j] != tank && tank.IsCollided(Tanks[j])) {
                             tank.setPosition(p);
                             break;
                         }
@@ -146,8 +165,8 @@ namespace PhoneApp1.Class.Model {
                     float value = Math.Min(tank.Instructions[i].Parameter, tank.SpeedMove);
                     tank.MoveBackward(value);
                     tank.Instructions[i].Parameter -= value;
-                    for (int j = 0; j < Objects.Count; j++)
-                        if (Objects[j] != tank && tank.IsCollided(Objects[j])) {
+                    for (int j = 0; j < Tanks.Count; j++)
+                        if (Tanks[j] != tank && tank.IsCollided(Tanks[j])) {
                             tank.setPosition(p);
                             break;
                         }
@@ -166,10 +185,12 @@ namespace PhoneApp1.Class.Model {
                     if (tank.Instructions[i].Parameter == 0) tank.Instructions.RemoveAt(i--);
                     else break;
                 } else if (tank.Instructions[i].Type == TypeInstruction.Fire) {
-                    if (tank.FireDelay > 1000) {
+                    if (tank.AllowToFire) {
                         tank.Fire();
-                        Objects.Add(tank.bullet[tank.bullet.Count - 1]);
+                        Bullets.Add(tank.bullet);
                         tank.Instructions.RemoveAt(i);
+                        NeedToUpdate = true;
+                        //tank.UpdateStats();
                     }
                 }
             }
@@ -177,16 +198,19 @@ namespace PhoneApp1.Class.Model {
 
         public void NextFrame() {
             
-            for (int i = 0; i < Objects.Count; i++) {
-                if (Objects[i].Type == TypeObject.Bullet) {
-                    ProcessBullet((Bullet)Objects[i]);
-                    
-                } else if (Objects[i].Type == TypeObject.Tank) {
-                    ProcessTank((Tank)Objects[i]);
-                    ((Tank)Objects[i]).FireDelay += MainPage.timerControl.Interval.Milliseconds;
-                }
+            for (int i = 0; i < Bullets.Count; i++) {
+                //if (Objects[i].Type == TypeObject.Bullet) {
+                    ProcessBullet(Bullets[i]);
             }
-            updateBattlefield();
+
+            for (int i = 0; i < Tanks.Count; i++) {
+                //if (Objects[i].Type == TypeObject.Bullet) {
+                ProcessTank(Tanks[i]);
+            }
+            if (NeedToUpdate == true) {
+                updateBattlefield();
+                //needUpdate = false;
+            }
         }
     }
 }
