@@ -9,7 +9,9 @@ namespace WorldOfTank.Class.Components
     static class MathProcessor
     {
         /// <summary>
-        ///     Kiem tra vector p2->p3 nam ben trai hay phai so voi vector p1->p2
+        ///     Determine the relative direction of vector II to vector I
+        ///         vector i: p1-->p2
+        ///         vector ii: p2-->p3
         /// </summary>
         /// <param name="p1">First point</param>
         /// <param name="p2">Second point</param>
@@ -28,31 +30,32 @@ namespace WorldOfTank.Class.Components
         }
 
         /// <summary>
-        ///     Kiem tra xem 2 doan. thang co cat nhau hay khong
+        ///     Check if 2 segments AB and CD intersect
         /// </summary>
-        /// <param name="a1">First point of first line</param>
-        /// <param name="a2">Second point of first line</param>
-        /// <param name="b1">First point of second line</param>
-        /// <param name="b2">Second point of second line</param>
+        /// <param name="pA">Point A</param>
+        /// <param name="pB">Point B</param>
+        /// <param name="pC">Point C</param>
+        /// <param name="pD">Point D</param>
         /// <returns></returns>
-        public static bool LineIntersectionCheck(PointF a1, PointF a2, PointF b1, PointF b2)
+        public static bool LineIntersectionCheck(PointF pA, PointF pB, PointF pC, PointF pD)
         {
-            if (CounterClockWise(a1, a2, b1) * CounterClockWise(a1, a2, b2) != -1) return false;
-            if (CounterClockWise(b1, b2, a1) * CounterClockWise(b1, b2, a2) != -1) return false;
+            if (CounterClockWise(pA, pB, pC) * CounterClockWise(pA, pB, pD) != -1) return false;
+            if (CounterClockWise(pC, pD, pA) * CounterClockWise(pC, pD, pB) != -1) return false;
             return true;
         }
 
 
         /// <summary>
-        ///     Tinh huong' vector anchor->p (0 degree is North, clockwise is positive)
+        ///     Calculate the angle between input vector (determined by 2 points) and the j (0,1) vector unit
+        ///     Clockwise is positive
         /// </summary>
-        /// <param name="anchor">goc' vector</param>
-        /// <param name="p">ngon. vector</param>
-        /// <returns>so' goc'</returns>
-        public static float CalPointAngle(PointF anchor, PointF p)
+        /// <param name="root">root of the vector</param>
+        /// <param name="head">head of the vector</param>
+        /// <returns>angle in degre</returns>
+        public static float CalPointAngle(PointF root, PointF head)
         {
-            float x = p.X - anchor.X;
-            float y = anchor.Y - p.Y;
+            float x = head.X - root.X;
+            float y = root.Y - head.Y;
             if (y == 0)
                 if (x > 0) return 90;
                 else return -90;
@@ -63,16 +66,17 @@ namespace WorldOfTank.Class.Components
 
 
         /// <summary>
-        ///     Tinh diem ngon. vector biet goc' vector, do dai vector va huong vector (0 degree is North, clockwise is positive) 
+        ///     Given vector's root, magnitude, directions (relative to North (0 degre))
+        ///     calculate the head's coordinates of the vector
         /// </summary>
-        /// <param name="anchor">goc' vector</param>
-        /// <param name="distance">do dai vector</param>
+        /// <param name="root">goc' vector</param>
+        /// <param name="magnitude">do dai vector</param>
         /// <param name="angle">huong' vector</param>
-        /// <returns>diem ngon. vector</returns>
-        public static PointF CalPointPosition(PointF anchor, float distance, float angle)
+        /// <returns>head of the vector</returns>
+        public static PointF CalPointPosition(PointF root, float magnitude, float angle)
         {
             float rad = (float)Math.PI * angle / 180;
-            return new PointF(anchor.X + (float)Math.Sin(rad) * distance, anchor.Y - (float)Math.Cos(rad) * distance);
+            return new PointF(root.X + (float)Math.Sin(rad) * magnitude, root.Y - (float)Math.Cos(rad) * magnitude);
         }
     }
 }

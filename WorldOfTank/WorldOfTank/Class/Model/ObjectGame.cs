@@ -37,7 +37,9 @@ namespace WorldOfTank.Class.Model
         public TypeObject Type;
 
         /// <summary>
-        ///     Gets Anchor (Anchor la 1 vi tri tren anh? object, diem Anchor tren anh se trung` vs position cua object tren battlefield)
+        ///     Gets Anchor
+        ///     Anchor is a point in object's image, associate to object's position in the battlefield
+        ///     Anchor point here is the center point of the image
         /// </summary>
         public PointF Anchor
         {
@@ -45,7 +47,7 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        ///     Gets Radius (la do. lon' cua object tinh' tu diem anchor)
+        ///     Gets Radius. Here we consider an object as a circle with center is the Anchor point
         /// </summary>
         public virtual float Radius
         {
@@ -67,10 +69,10 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        ///     Check if this is collided with other object    
+        ///     Check if the object is collided with another object    
         /// </summary>
-        /// <param name="obj">Other object</param>
-        /// <returns>True if collided</returns>
+        /// <param name="obj">another object need to check collision</param>
+        /// <returns>True if collided, else False</returns>
         public bool IsCollided(ObjectGame obj)
         {
             float distance = (this.Position.X - obj.Position.X) * (this.Position.X - obj.Position.X) +
