@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
@@ -25,8 +23,7 @@ namespace WorldOfTank.Class.Model
         /// <returns>A copy of this wall</returns>
         public override ObjectGame Clone()
         {
-            Wall wall = new Wall(this.Image);
-            wall.Size = this.Size;
+            Wall wall = new Wall(this.Image) { Size = this.Size };
             return wall;
         }
 

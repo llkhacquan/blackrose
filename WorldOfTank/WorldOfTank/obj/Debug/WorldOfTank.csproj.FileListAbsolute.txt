@@ -24,3 +24,5 @@ C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\bin\Debug\n
 C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.BattleFieldForm.resources
 C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.TankCreator.resources
 C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.WorldOfTank.resources
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.exe.CodeAnalysisLog.xml
+C:\Users\windlord\Documents\GitHub\blackrose\WorldOfTank\WorldOfTank\bin\Debug\WorldOfTank.exe.lastcodeanalysissucceeded
