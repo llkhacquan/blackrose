@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
@@ -144,7 +146,13 @@ namespace WorldOfTank.Class.Model
         /// <returns>A copy of this tank</returns>
         public override ObjectGame Clone()
         {
-            Tank tank = new Tank(this.Image) { Size = this.Size, Bullet = (Bullet)this.Bullet.Clone(), SpeedMove = this.SpeedMove, SpeedRotate = this.SpeedRotate, SpeedFire = this.SpeedFire, Heal = this.Heal };
+            Tank tank = new Tank(this.Image);
+            tank.Size = this.Size;
+            tank.Bullet = (Bullet)this.Bullet.Clone();
+            tank.SpeedMove = this.SpeedMove;
+            tank.SpeedRotate = this.SpeedRotate;
+            tank.SpeedFire = this.SpeedFire;
+            tank.Heal = this.Heal;
             return tank;
         }
 

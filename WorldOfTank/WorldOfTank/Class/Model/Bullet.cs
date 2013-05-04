@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
@@ -46,7 +48,10 @@ namespace WorldOfTank.Class.Model
         /// <returns>A copy of this bullet</returns>
         public override ObjectGame Clone()
         {
-            Bullet bullet = new Bullet(this.Image) { Size = this.Size, Damage = this.Damage, SpeedMove = this.SpeedMove };
+            Bullet bullet = new Bullet(this.Image);
+            bullet.Size = this.Size;
+            bullet.Damage = this.Damage;
+            bullet.SpeedMove = this.SpeedMove;
             return bullet;
         }
 
