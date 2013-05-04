@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace WorldOfTank.Class.Components
 {
-    class Instruction
+    [Serializable]
+    public class Instruction
     {
         public TypeInstruction Type;
-        public float Parameter;
+        public float Value;
+        public Condition Condition;
 
-        public Instruction(TypeInstruction Type, float Parameter)
+        public Instruction()
         {
-            this.Type = Type;
-            this.Parameter = Parameter;
+            Type = TypeInstruction.MoveForward;
+            Value = 100;
+            Condition = null;
         }
     }
 }

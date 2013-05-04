@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
-    class Bullet : DynamicObject
+    public class Bullet : DynamicObject
     {
         /// <summary>
         ///     Damage of this bullet
@@ -21,61 +17,36 @@ namespace WorldOfTank.Class.Model
         public float SpeedMove;
 
         /// <summary>
-        ///     Gets Radius (la do. lon' cua object tinh' tu diem anchor)
-        /// </summary>
-        public override float Radius
-        {
-            get
-            {
-                return this.Size.Height * 30 / 100;
-            }
-        }
-
-        /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="Image">Image bullet</param>
-        public Bullet(Image Image)
-            : base(Image, TypeObject.Bullet)
+        /// <param name="image">Image bullet</param>
+        public Bullet(Image image)
+            : base(image, TypeObject.Bullet)
         {
-            this.Damage = 1;
-            this.SpeedMove = 1;
-        }
-
-        /// <summary>
-        ///     Create a copy of this bullet
-        /// </summary>
-        /// <returns>A copy of this bullet</returns>
-        public override ObjectGame Clone()
-        {
-            Bullet bullet = new Bullet(this.Image);
-            bullet.Size = this.Size;
-            bullet.Damage = this.Damage;
-            bullet.SpeedMove = this.SpeedMove;
-            return bullet;
+            Radius = Image.Width * 30 / 100;
         }
 
         /// <summary>
         ///     Execute some change of this bullet in a frame in battefield
         /// </summary>
-        /// <param name="Objects">Objects are battlefield</param>
+        /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>
-        public override TypeResult NextFrame(List<ObjectGame> Objects)
+        public override TypeResult NextFrame(List<ObjectGame> objects)
         {
-            this.MoveForward(this.SpeedMove);
+            MoveForward(SpeedMove);
             TypeResult result = TypeResult.Nothing;
-            for (int i = 0; i < Objects.Count; i++)
-                if (Objects[i] != this && this.IsCollided(Objects[i]))
+            foreach (ObjectGame obj in objects)
+                if (obj != this && IsCollided(obj))
                 {
-                    if (Objects[i].Type == TypeObject.Tank)
+                    if (obj.Type == TypeObject.Tank)
                     {
-                        Tank tank = (Tank)Objects[i];
-                        tank.Heal -= this.Damage;
+                        Tank tank = (Tank)obj;
+                        tank.HealCur -= Damage;
                         tank.NewResult = TypeResult.BeAttacked;
-                        if (tank.Heal < 0) tank.NewResult = TypeResult.BeDestroyed;
+                        if (tank.HealCur < 0) tank.NewResult = TypeResult.BeDestroyed;
                         result = TypeResult.BeDestroyed;
                     }
-                    else if (Objects[i].Type == TypeObject.Wall) result = TypeResult.BeDestroyed;
+                    else if (obj.Type == TypeObject.Wall) result = TypeResult.BeDestroyed;
                 }
             return result;
         }

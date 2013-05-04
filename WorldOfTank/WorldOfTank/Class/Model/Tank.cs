@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
-    class Tank : DynamicObject
+    [Serializable]
+    public class Tank : DynamicObject
     {
-        /// <summary>
-        ///     Gets or sets bullet of this tank
-        /// </summary>
-        public Bullet Bullet;
+
+        public float RadaRange;
+
+        public float RadaAngle;
+
+        public float DamageMin;
+
+        public float DamageMax;
+
+        private float _damageCur;
 
         /// <summary>
         ///     Gets or sets move speed of this tank
@@ -31,9 +35,16 @@ namespace WorldOfTank.Class.Model
         public float SpeedFire;
 
         /// <summary>
-        ///     Gets or sets heal of this tank
+        ///     Gets or sets maximum heal of this tank
         /// </summary>
-        public float Heal;
+        public float HealMax;
+
+        /// <summary>
+        ///     Gets or sets current heal of this tank
+        /// </summary>
+        public float HealCur;
+
+        public string Name;
 
         /// <summary>
         ///     Gets or sets instructions of this tank
@@ -51,61 +62,64 @@ namespace WorldOfTank.Class.Model
         public TypeResult NewResult;
 
         /// <summary>
-        ///     Gets Radius (la do. lon' cua object tinh' tu diem anchor)
-        /// </summary>
-        public override float Radius
-        {
-            get
-            {
-                return this.Size.Height * 35 / 100;
-            }
-        }
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        /// <param name="Image">Image tank</param>
-        public Tank(Image Image)
-            : base(Image, TypeObject.Tank)
-        {
-            this.Bullet = new Bullet(WorldOfTank.Properties.Resources.Bullet_D);
-            this.Bullet.Size = new Size(20, 20);
-            this.Bullet.Damage = 10;
-            this.Bullet.SpeedMove = 8;
-
-            this.SpeedMove = 1;
-            this.SpeedRotate = 1;
-            this.SpeedFire = 1;
-            this.Heal = 1;
-            Instructions = new List<Instruction>();
-            LastResult = TypeResult.Normal;
-            NewResult = TypeResult.Normal;
-        }
-
-        /// <summary>
         ///     List instructions of normal action
         /// </summary>
-        public Func<List<Instruction>> ActionNormal = () => new List<Instruction>();
+        public List<Instruction> ActionNormal;
 
         /// <summary>
         ///     List instructions of "cannot move forward" action
         /// </summary>
-        public Func<List<Instruction>> ActionCannotMoveForward = () => new List<Instruction>();
+        public List<Instruction> ActionCannotMoveForward;
 
         /// <summary>
         ///     List instructions of "cannot move backward" action
         /// </summary>
-        public Func<List<Instruction>> ActionCannotMoveBackward = () => new List<Instruction>();
+        public List<Instruction> ActionCannotMoveBackward;
 
         /// <summary>
         ///     List instructions of "detected enemy" action
         /// </summary>
-        public Func<List<Instruction>> ActionDetected = () => new List<Instruction>();
+        public List<Instruction> ActionDetected;
 
         /// <summary>
         ///     List instructions of "be attacked" action
         /// </summary>
-        public Func<List<Instruction>> ActionBeAttacked = () => new List<Instruction>();
+        public List<Instruction> ActionBeAttacked;
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="image">Image tank</param>
+        public Tank(Image image)
+            : base(image, TypeObject.Tank)
+        {
+            Radius = Image.Width * 40 / 100;
+
+            RadaRange = 300;
+            RadaAngle = 20;
+
+            DamageMin = 10;
+            DamageMax = 20;
+            _damageCur = 0;
+
+            SpeedMove = 3;
+            SpeedRotate = 5;
+            SpeedFire = 1;
+            HealMax = 100;
+            HealCur = 100;
+
+            Name = "NewTank";
+
+            Instructions = new List<Instruction>();
+            LastResult = TypeResult.Normal;
+            NewResult = TypeResult.Normal;
+
+            ActionNormal = new List<Instruction>();
+            ActionCannotMoveForward = new List<Instruction>();
+            ActionCannotMoveBackward = new List<Instruction>();
+            ActionDetected = new List<Instruction>();
+            ActionBeAttacked = new List<Instruction>();
+        }
 
         /// <summary>
         ///     Set instructions in each frame (according to LastResult and NewResult)
@@ -114,11 +128,11 @@ namespace WorldOfTank.Class.Model
         {
             if (Instructions.Count == 0 || LastResult != NewResult)
             {
-                if (NewResult == TypeResult.Normal) Instructions = ActionNormal();
-                else if (NewResult == TypeResult.CannotMoveForward) Instructions = ActionCannotMoveForward();
-                else if (NewResult == TypeResult.CannotMoveBackward) Instructions = ActionCannotMoveBackward();
-                else if (NewResult == TypeResult.Detected) Instructions = ActionDetected();
-                else if (NewResult == TypeResult.BeAttacked) Instructions = ActionBeAttacked();
+                if (NewResult == TypeResult.Normal) Instructions = new List<Instruction>(ActionNormal);
+                else if (NewResult == TypeResult.CannotMoveForward) Instructions = new List<Instruction>(ActionCannotMoveForward);
+                else if (NewResult == TypeResult.CannotMoveBackward) Instructions = new List<Instruction>(ActionCannotMoveBackward);
+                else if (NewResult == TypeResult.Detected) Instructions = new List<Instruction>(ActionDetected);
+                else if (NewResult == TypeResult.BeAttacked) Instructions = new List<Instruction>(ActionBeAttacked);
                 LastResult = NewResult;
             }
         }
@@ -126,99 +140,111 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Check if this tank is invalid position
         /// </summary>
-        /// <param name="Objects">Objects are battlefield</param>
+        /// <param name="objects">Objects are battlefield</param>
         /// <returns>True if this tank is invalid position</returns>
-        public bool IsInvalidPosition(List<ObjectGame> Objects)
+        public bool IsInvalidPosition(List<ObjectGame> objects)
         {
-            for (int i = 0; i < Objects.Count; i++)
-                if ((Objects[i] != this) &&
-                    (Objects[i].Type == TypeObject.Tank || Objects[i].Type == TypeObject.Wall) &&
-                    (this.IsCollided(Objects[i])))
-                {
+            foreach (ObjectGame obj in objects)
+            {
+                if (obj != this && (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Wall) && IsCollided(obj))
                     return false;
-                }
+            }
             return true;
         }
 
-        /// <summary>
-        ///     Create a copy of this tank
-        /// </summary>
-        /// <returns>A copy of this tank</returns>
-        public override ObjectGame Clone()
+        public Tank DetectedEnemy(List<ObjectGame> objects)
         {
-            Tank tank = new Tank(this.Image);
-            tank.Size = this.Size;
-            tank.Bullet = (Bullet)this.Bullet.Clone();
-            tank.SpeedMove = this.SpeedMove;
-            tank.SpeedRotate = this.SpeedRotate;
-            tank.SpeedFire = this.SpeedFire;
-            tank.Heal = this.Heal;
-            return tank;
+            foreach (ObjectGame obj in objects)
+                if (obj != this && obj.Type == TypeObject.Tank)
+                {
+                    float distance = MathProcessor.CalDistance(Position, obj.Position);
+                    float direction = MathProcessor.CalPointAngle(Position, obj.Position);
+                    float differentAngle = MathProcessor.CalDifferentAngle(Direction, direction);
+                    if (distance < RadaRange && Math.Abs(differentAngle) < RadaAngle / 2) return (Tank)obj;
+                }
+            return null;
         }
 
         /// <summary>
         ///     Execute some change of object in a frame in battefield
         /// </summary>
-        /// <param name="Objects">Objects are battlefield</param>
+        /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>
-        public override TypeResult NextFrame(List<ObjectGame> Objects)
+        public override TypeResult NextFrame(List<ObjectGame> objects)
         {
+            const float epsilon = 1e-6f;
             if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
-            this.SetInstructions();
-            PointF p = this.Position;
-            if (this.Instructions.Count > 0)
+            if (DetectedEnemy(objects) != null) NewResult = TypeResult.Detected;
+            SetInstructions();
+            PointF p = Position;
+            if (Instructions.Count > 0)
             {
-                if (this.Instructions[0].Type == TypeInstruction.MoveForward)
+                if (Instructions[0].Type == TypeInstruction.MoveForward)
                 {
-                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
-                    this.Instructions[0].Parameter -= value;
-                    this.MoveForward(value);
-                    if (!this.IsInvalidPosition(Objects))
+                    float value = Math.Min(Instructions[0].Value, SpeedMove);
+                    Instructions[0].Value -= value;
+                    MoveForward(value);
+                    if (!IsInvalidPosition(objects))
                     {
-                        this.Position = p;
+                        Position = p;
                         NewResult = TypeResult.CannotMoveForward;
                     }
                 }
-                else if (this.Instructions[0].Type == TypeInstruction.MoveBackward)
+                else if (Instructions[0].Type == TypeInstruction.MoveBackward)
                 {
-                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedMove);
-                    this.Instructions[0].Parameter -= value;
-                    this.MoveBackward(value);
-                    if (!this.IsInvalidPosition(Objects))
+                    float value = Math.Min(Instructions[0].Value, SpeedMove);
+                    Instructions[0].Value -= value;
+                    MoveBackward(value);
+                    if (!IsInvalidPosition(objects))
                     {
-                        this.Position = p;
+                        Position = p;
                         NewResult = TypeResult.CannotMoveBackward;
                     }
                 }
-                else if (this.Instructions[0].Type == TypeInstruction.RotateRight)
+                else if (Instructions[0].Type == TypeInstruction.RotateRight)
                 {
-                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedRotate);
-                    this.Instructions[0].Parameter -= value;
-                    this.RotateRight(value);
+                    float value = Math.Min(Instructions[0].Value, SpeedRotate);
+                    Instructions[0].Value -= value;
+                    RotateRight(value);
                 }
-                else if (this.Instructions[0].Type == TypeInstruction.RotateLeft)
+                else if (Instructions[0].Type == TypeInstruction.RotateLeft)
                 {
-                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedRotate);
-                    this.Instructions[0].Parameter -= value;
-                    this.RotateLeft(value);
+                    float value = Math.Min(Instructions[0].Value, SpeedRotate);
+                    Instructions[0].Value -= value;
+                    RotateLeft(value);
                 }
-                else if (this.Instructions[0].Type == TypeInstruction.Fire)
+                else if (Instructions[0].Type == TypeInstruction.Fire)
                 {
-                    float value = Math.Min(this.Instructions[0].Parameter, this.SpeedFire);
-                    this.Instructions[0].Parameter -= value;
-                    if (Instructions[0].Parameter == 0)
+                    float value = Math.Min(Instructions[0].Value, SpeedFire);
+                    Instructions[0].Value -= value;
+                    _damageCur += value;
+                    if (Math.Abs(Instructions[0].Value) < epsilon)
                     {
-                        Bullet bullet = (Bullet)this.Bullet.Clone();
-                        bullet.Position = MathProcessor.CalPointPosition(this.Position, this.Size.Height / 2, this.Direction);
-                        bullet.Direction = this.Direction;
-                        Objects.Add(bullet);
+                        Bullet bullet = new Bullet(Properties.Resources.Bullet_A)
+                                            {
+                                                Position = MathProcessor.CalPointPosition(Position, Image.Width / 2, Direction),
+                                                Direction = Direction,
+                                                Damage = _damageCur
+                                            };
+                        _damageCur = 0;
+                        objects.Add(bullet);
                     }
                 }
 
-                if (Instructions[0].Parameter == 0) this.Instructions.RemoveAt(0);
+                if (Math.Abs(Instructions[0].Value) < epsilon) Instructions.RemoveAt(0);
             }
             if (Instructions.Count == 0) NewResult = TypeResult.Normal;
             return TypeResult.Nothing;
+        }
+
+        public override void Paint(Graphics gfx)
+        {
+            base.Paint(gfx);
+            gfx.FillPie(
+                new SolidBrush(Color.FromArgb(32, 255, 255, 0)),
+                Position.X - RadaRange, Position.Y - RadaRange,
+                RadaRange * 2, RadaRange * 2,
+                Direction - 90 - RadaAngle / 2, RadaAngle);
         }
     }
 }

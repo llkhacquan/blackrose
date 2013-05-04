@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using WorldOfTank.Properties;
 
@@ -19,21 +13,21 @@ namespace WorldOfTank.GUI
 
         private void pictureBoxExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void pictureBoxBattlefield_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
+            Visible = false;
             new BattleFieldForm().ShowDialog();
-            this.Visible = true;
+            Visible = true;
         }
 
         private void pictureBoxTankCreator_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
-            new TankCreator().ShowDialog();
-            this.Visible = true;
+            Visible = false;
+            new TankCreatorForm().ShowDialog();
+            Visible = true;
         }
 
         private void pictureBoxBattlefield_MouseEnter(object sender, EventArgs e)
@@ -54,16 +48,6 @@ namespace WorldOfTank.GUI
         private void pictureBoxTankCreator_MouseLeave(object sender, EventArgs e)
         {
             pictureBoxTankCreator.Image = Resources.Font_TankCreator;
-        }
-
-        private void pictureBoxIntroduction_MouseEnter(object sender, EventArgs e)
-        {
-            pictureBoxIntroduction.Image = Resources.Font_Introduction_Glow;
-        }
-
-        private void pictureBoxIntroduction_MouseLeave(object sender, EventArgs e)
-        {
-            pictureBoxIntroduction.Image = Resources.Font_Introduction;
         }
 
         private void pictureBoxExit_MouseEnter(object sender, EventArgs e)

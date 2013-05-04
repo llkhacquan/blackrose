@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using WorldOfTank.Class.Model;
 using WorldOfTank.Class.Components;
@@ -15,11 +8,12 @@ namespace WorldOfTank.GUI
 {
     public partial class BattleFieldForm : Form
     {
-        private BattleField battleField;
-        private Bitmap bmpGame;
-        private Graphics gfx;
-        private bool IsStarted;
-        private bool IsPaused;
+        private BattleField _battleField;
+        private Bitmap _bufferBmpGame;
+        private Bitmap _bmpGame;
+        private Graphics _gfx;
+        private bool _isStarted;
+        private bool _isPaused;
 
         public BattleFieldForm()
         {
@@ -28,14 +22,14 @@ namespace WorldOfTank.GUI
 
         private void BattleFieldForm_Load(object sender, EventArgs e)
         {
-            IsStarted = false;
-            IsPaused = false;
+            _isStarted = false;
+            _isPaused = false;
             ViewControl();
         }
 
         private void ViewControl()
         {
-            if (!IsStarted)
+            if (!_isStarted)
             {
                 buttonStart.Text = "Start";
 
@@ -47,21 +41,19 @@ namespace WorldOfTank.GUI
                 buttonStart.Text = "Stop";
 
                 buttonPause.Enabled = true;
-                if (!IsPaused) buttonPause.Text = "Pause";
-                else buttonPause.Text = "Continue";
+                buttonPause.Text = !_isPaused ? "Pause" : "Continue";
             }
         }
 
         private new void Paint()
         {
-            Image imgBG = battleField.Background;
-            for (int i = 0; i <= (battleField.Size.Width - 1) / imgBG.Width; i++)
-                for (int j = 0; j <= (battleField.Size.Height - 1) / imgBG.Height; j++)
-                    gfx.DrawImage(imgBG, imgBG.Width * i, imgBG.Height * j);
+            _bmpGame.Dispose();
+            _bmpGame = new Bitmap(_bufferBmpGame);
+            _gfx = Graphics.FromImage(_bmpGame);
 
-            foreach (ObjectGame obj in battleField.Objects)
+            foreach (ObjectGame obj in _battleField.Objects)
             {
-                obj.Paint(gfx);
+                if (obj.Type != TypeObject.Wall) obj.Paint(_gfx);
             }
 
             /*
@@ -88,36 +80,32 @@ namespace WorldOfTank.GUI
                     gfx.FillPie(semiTransBrush, rec, battleField.Objects[i].Direction - 90 - 10, 20);
                 }
             */
-
-            panelView.CreateGraphics().DrawImage(bmpGame, 0, 0);
+            panelView.CreateGraphics().DrawImage(_bmpGame, 0, 0);
         }
 
         private void timerControl_Tick(object sender, EventArgs e)
         {
-            TypeResult result = battleField.NextFrame();
+            TypeResult result = _battleField.NextFrame();
             Paint();
             if (result == TypeResult.GameOver)
             {
-                buttonStart_Click(null, null);
+                buttonPause_Click(null, null);
                 MessageBox.Show("Game Over");
+                buttonStart_Click(null, null);
             }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            if (!IsStarted)
+            if (!_isStarted)
             {
-                battleField = new BattleField();
-                battleField.SetupGame();
-                bmpGame = new Bitmap(battleField.Size.Width, battleField.Size.Height);
-                gfx = Graphics.FromImage(bmpGame);
                 timerControl.Enabled = true;
-                IsStarted = true;
+                _isStarted = true;
             }
             else
             {
                 timerControl.Enabled = false;
-                IsStarted = false;
+                _isStarted = false;
                 panelView.Invalidate();
             }
             ViewControl();
@@ -125,22 +113,38 @@ namespace WorldOfTank.GUI
 
         private void buttonPause_Click(object sender, EventArgs e)
         {
-            if (!IsPaused)
+            if (!_isPaused)
             {
                 timerControl.Enabled = false;
-                IsPaused = true;
+                _isPaused = true;
             }
             else
             {
                 timerControl.Enabled = true;
-                IsPaused = false;
+                _isPaused = false;
             }
             ViewControl();
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void buttonSetup_Click(object sender, EventArgs e)
+        {
+            _battleField = new BattleField();
+            _battleField.SetupGame();
+            _bufferBmpGame = new Bitmap(_battleField.Size.Width, _battleField.Size.Height);
+            _gfx = Graphics.FromImage(_bufferBmpGame);
+
+            Image imgBG = _battleField.Background;
+            for (int i = 0; i <= (_battleField.Size.Width - 1) / imgBG.Width; i++)
+                for (int j = 0; j <= (_battleField.Size.Height - 1) / imgBG.Height; j++)
+                    _gfx.DrawImage(imgBG, imgBG.Width * i, imgBG.Height * j);
+
+            foreach (ObjectGame obj in _battleField.Objects)
+                if (obj.Type == TypeObject.Wall) obj.Paint(_gfx);
         }
     }
 }

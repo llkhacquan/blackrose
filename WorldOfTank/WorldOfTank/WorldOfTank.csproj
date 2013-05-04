@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7D2E2862-C803-4555-BF95-AA9354CE1740}</ProjectGuid>
+    <ProjectGuid>{BDF3B3EE-1A45-453E-829A-9EE99DF3B20D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WorldOfTank</RootNamespace>
@@ -12,21 +12,6 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,17 +31,16 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,15 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\Components\GraphicsProcessor.cs" />
-    <Compile Include="Class\Components\Instruction.cs" />
-    <Compile Include="Class\Components\MathProcessor.cs" />
-    <Compile Include="Class\Components\TypeInstruction.cs" />
-    <Compile Include="Class\Components\TypeObject.cs" />
-    <Compile Include="Class\Components\TypeResult.cs" />
     <Compile Include="Class\Model\AnimationObject.cs" />
     <Compile Include="Class\Model\BattleField.cs" />
     <Compile Include="Class\Model\Bullet.cs" />
+    <Compile Include="Class\Components\Comparision.cs" />
+    <Compile Include="Class\Components\Condition.cs" />
+    <Compile Include="Class\Components\GraphicsProcessor.cs" />
+    <Compile Include="Class\Components\Instruction.cs" />
+    <Compile Include="Class\Components\MathProcessor.cs" />
+    <Compile Include="Class\Components\TreeNodePlus.cs" />
+    <Compile Include="Class\Components\TypeInstruction.cs" />
+    <Compile Include="Class\Components\TypeObject.cs" />
+    <Compile Include="Class\Components\TypeResult.cs" />
     <Compile Include="Class\Model\DynamicObject.cs" />
     <Compile Include="Class\Model\ObjectGame.cs" />
     <Compile Include="Class\Model\StaticObject.cs" />
@@ -88,11 +74,23 @@
     <Compile Include="GUI\BattleFieldForm.Designer.cs">
       <DependentUpon>BattleFieldForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\TankCreator.cs">
+    <Compile Include="GUI\ChooseTank.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\TankCreator.Designer.cs">
-      <DependentUpon>TankCreator.cs</DependentUpon>
+    <Compile Include="GUI\ChooseTank.Designer.cs">
+      <DependentUpon>ChooseTank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\EditInstruction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\EditInstruction.Designer.cs">
+      <DependentUpon>EditInstruction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\TankCreatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\TankCreatorForm.Designer.cs">
+      <DependentUpon>TankCreatorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\WorldOfTank.cs">
       <SubType>Form</SubType>
@@ -102,27 +100,33 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Test\TestClassTank.cs" />
     <Compile Include="Test\TestMathProcessor.cs" />
     <EmbeddedResource Include="GUI\BattleFieldForm.resx">
       <DependentUpon>BattleFieldForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\TankCreator.resx">
-      <DependentUpon>TankCreator.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\ChooseTank.resx">
+      <DependentUpon>ChooseTank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\EditInstruction.resx">
+      <DependentUpon>EditInstruction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\TankCreatorForm.resx">
+      <DependentUpon>TankCreatorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\WorldOfTank.resx">
       <DependentUpon>WorldOfTank.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -138,35 +142,49 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 4.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <None Include="Resources\Graphics\Background\Grass_A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Background\MainBackground.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Graphics\Bullet\Bullet_A.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Graphics\Bullet\Bullet_B.png" />
+    <None Include="Resources\Graphics\Font\Font_Battlefield.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Graphics\Bullet\Bullet_C.png" />
+    <None Include="Resources\Graphics\Font\Font_Battlefield_Glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_Exit_Glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_TankCreator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Font\Font_TankCreator_Glow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Icon\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Icon\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Icon\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Icon\MainIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Icon\MoveDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphics\Icon\MoveUp.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Graphics\Tank\Tank_A.png" />
@@ -187,43 +205,7 @@
     <None Include="Resources\Graphics\Wall\Wall_B.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Graphics\Background\Grass_A.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Background\Grass_B.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Background\Grass_C.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Bullet\Bullet_D.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Background\MainBackground.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_Battlefield.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_Battlefield_Glow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_Exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_Exit_Glow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_Introduction.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_Introduction_Glow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_TankCreator.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Graphics\Font\Font_TankCreator_Glow.png" />
+    <Content Include="MainIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

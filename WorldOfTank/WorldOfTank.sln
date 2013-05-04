@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfTank", "WorldOfTank\WorldOfTank.csproj", "{7D2E2862-C803-4555-BF95-AA9354CE1740}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfTank", "WorldOfTank\WorldOfTank.csproj", "{BDF3B3EE-1A45-453E-829A-9EE99DF3B20D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7D2E2862-C803-4555-BF95-AA9354CE1740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D2E2862-C803-4555-BF95-AA9354CE1740}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D2E2862-C803-4555-BF95-AA9354CE1740}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D2E2862-C803-4555-BF95-AA9354CE1740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDF3B3EE-1A45-453E-829A-9EE99DF3B20D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDF3B3EE-1A45-453E-829A-9EE99DF3B20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDF3B3EE-1A45-453E-829A-9EE99DF3B20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDF3B3EE-1A45-453E-829A-9EE99DF3B20D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

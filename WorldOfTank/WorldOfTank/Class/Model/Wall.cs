@@ -1,41 +1,26 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
-    class Wall : StaticObject
+    public class Wall : StaticObject
     {
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="Image">Image wall</param>
-        public Wall(Image Image)
-            : base(Image, TypeObject.Wall)
+        /// <param name="image">Image wall</param>
+        public Wall(Image image)
+            : base(image, TypeObject.Wall)
         {
-        }
-
-        /// <summary>
-        ///     Create a copy of this wall
-        /// </summary>
-        /// <returns>A copy of this wall</returns>
-        public override ObjectGame Clone()
-        {
-            Wall wall = new Wall(this.Image);
-            wall.Size = this.Size;
-            return wall;
         }
 
         /// <summary>
         ///     Execute some change of this wall in a frame in battefield
         /// </summary>
-        /// <param name="Objects">>Objects are battlefield</param>
+        /// <param name="objects">>Objects are battlefield</param>
         /// <returns>Result of that frame</returns>
-        public override TypeResult NextFrame(List<ObjectGame> Objects)
+        public override TypeResult NextFrame(List<ObjectGame> objects)
         {
             return TypeResult.Nothing;
         }

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 
 namespace WorldOfTank.Class.Components
 {
-    static class MathProcessor
+    public static class MathProcessor
     {
         /// <summary>
         ///     Determine the relative direction of vector II to vector I
@@ -25,7 +22,7 @@ namespace WorldOfTank.Class.Components
             float b2 = p3.Y - p2.Y;
             float t = a1 * b2 - a2 * b1;
             if (t > 0) return 1;            // Turn right
-            else if (t < 0) return -1;      // Turn left
+            if (t < 0) return -1;           // Turn left
             return 0;                       // Straight
         }
 
@@ -54,9 +51,10 @@ namespace WorldOfTank.Class.Components
         /// <returns>angle in degre</returns>
         public static float CalPointAngle(PointF root, PointF head)
         {
+            const float epsilon = 1e-6f;
             float x = head.X - root.X;
             float y = root.Y - head.Y;
-            if (y == 0)
+            if (Math.Abs(y) < epsilon)
                 if (x > 0) return 90;
                 else return -90;
             float deg = (float)(Math.Atan(x / y) * 180 / Math.PI);
@@ -77,6 +75,24 @@ namespace WorldOfTank.Class.Components
         {
             float rad = (float)Math.PI * angle / 180;
             return new PointF(root.X + (float)Math.Sin(rad) * magnitude, root.Y - (float)Math.Cos(rad) * magnitude);
+        }
+
+        // Calculate distance between p1 and p2
+        public static float CalDistance(PointF p1, PointF p2)
+        {
+            float d = (p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y);
+            return (float)Math.Sqrt(d);
+        }
+
+        // Calculate different angle of anotherAngle with rootAngle
+        public static float CalDifferentAngle(float rootAngle, float anotherAngle)
+        {
+            float dif = anotherAngle - rootAngle;
+            dif -= 360 * (int)(dif / 360);
+            // -180 < dif < 180
+            if (dif > 180) dif -= 360;
+            else if (dif < -180) dif += 360;
+            return dif;
         }
     }
 }

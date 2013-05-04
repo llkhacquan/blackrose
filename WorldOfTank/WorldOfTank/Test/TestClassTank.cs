@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using WorldOfTank.Class.Model;
 
 namespace WorldOfTank.Test
@@ -10,28 +6,28 @@ namespace WorldOfTank.Test
     [TestFixture]
     class TestTank
     {
-        private Tank tank;
+        private Tank _tank;
 
         [SetUp]
         public void Setup()
         {
-            tank = new Tank(WorldOfTank.Properties.Resources.Tank_A);
+            _tank = new Tank(Properties.Resources.Tank_A);
         }
 
         [Test]
         public void TestContructor()
         {
-            Assert.AreEqual(tank.Position.X, 0);
-            Assert.AreEqual(tank.Position.Y, 0);
-            Assert.AreEqual(tank.Direction, 0);
+            Assert.AreEqual(_tank.Position.X, 0);
+            Assert.AreEqual(_tank.Position.Y, 0);
+            Assert.AreEqual(_tank.Direction, 0);
         }
 
         [Test]
         public void TestRotation()
         {
-            float dir = tank.Direction;
-            tank.RotateRight(80);
-            Assert.AreEqual(tank.Direction, dir + 80);
+            float dir = _tank.Direction;
+            _tank.RotateRight(80);
+            Assert.AreEqual(_tank.Direction, dir + 80);
         }
     }
 }

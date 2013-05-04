@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace WorldOfTank.Class.Components
+﻿namespace WorldOfTank.Class.Components
 {
-    enum TypeResult
+    public enum TypeResult
     {
         Nothing,
         BeDestroyed,

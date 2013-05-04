@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.Windows.Forms;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
-    abstract class DynamicObject : ObjectGame
+    [Serializable]
+    public abstract class DynamicObject : ObjectGame
     {
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="Image">Image object</param>
-        /// <param name="Type">Type object</param>
-        public DynamicObject(Image Image, TypeObject Type)
-            : base(Image, Type)
+        /// <param name="image">Image object</param>
+        /// <param name="type">Type object</param>
+        protected DynamicObject(Image image, TypeObject type)
+            : base(image, type)
         {
         }
 
@@ -26,7 +23,7 @@ namespace WorldOfTank.Class.Model
         /// <param name="value">So goc' se quay</param>
         public void RotateLeft(float value)
         {
-            this.Direction -= value;
+            Direction -= value;
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace WorldOfTank.Class.Model
         /// <param name="value">So goc' se quay</param>
         public void RotateRight(float value)
         {
-            this.Direction += value;
+            Direction += value;
         }
 
         /// <summary>
@@ -44,9 +41,9 @@ namespace WorldOfTank.Class.Model
         /// <param name="value">so khoang cach di chuyen</param>
         public void MoveForward(float value)
         {
-            double rad = Math.PI * this.Direction / 180;
-            this.Position.X += (float)Math.Sin(rad) * value;
-            this.Position.Y -= (float)Math.Cos(rad) * value;
+            double rad = Math.PI * Direction / 180;
+            Position.X += (float)Math.Sin(rad) * value;
+            Position.Y -= (float)Math.Cos(rad) * value;
         }
 
         /// <summary>
@@ -55,9 +52,9 @@ namespace WorldOfTank.Class.Model
         /// <param name="value">so khoang cach di chuyen</param>
         public void MoveBackward(float value)
         {
-            double rad = Math.PI * this.Direction / 180;
-            this.Position.X -= (float)Math.Sin(rad) * value;
-            this.Position.Y += (float)Math.Cos(rad) * value;
+            double rad = Math.PI * Direction / 180;
+            Position.X -= (float)Math.Sin(rad) * value;
+            Position.Y += (float)Math.Cos(rad) * value;
         }
     }
 }

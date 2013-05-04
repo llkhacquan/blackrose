@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BattleFieldForm));
             this.panelControl = new System.Windows.Forms.Panel();
             this.groupBoxInformation = new System.Windows.Forms.GroupBox();
             this.groupBoxControl = new System.Windows.Forms.GroupBox();
+            this.buttonSetup = new System.Windows.Forms.Button();
             this.buttonPause = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -58,13 +60,14 @@
             this.groupBoxInformation.Location = new System.Drawing.Point(0, 150);
             this.groupBoxInformation.Name = "groupBoxInformation";
             this.groupBoxInformation.Size = new System.Drawing.Size(200, 450);
-            this.groupBoxInformation.TabIndex = 4;
+            this.groupBoxInformation.TabIndex = 5;
             this.groupBoxInformation.TabStop = false;
             this.groupBoxInformation.Text = "Information";
             // 
             // groupBoxControl
             // 
             this.groupBoxControl.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBoxControl.Controls.Add(this.buttonSetup);
             this.groupBoxControl.Controls.Add(this.buttonPause);
             this.groupBoxControl.Controls.Add(this.buttonExit);
             this.groupBoxControl.Controls.Add(this.buttonStart);
@@ -72,37 +75,47 @@
             this.groupBoxControl.Location = new System.Drawing.Point(0, 0);
             this.groupBoxControl.Name = "groupBoxControl";
             this.groupBoxControl.Size = new System.Drawing.Size(200, 150);
-            this.groupBoxControl.TabIndex = 3;
+            this.groupBoxControl.TabIndex = 4;
             this.groupBoxControl.TabStop = false;
             this.groupBoxControl.Text = "Control";
+            // 
+            // buttonSetup
+            // 
+            this.buttonSetup.Location = new System.Drawing.Point(65, 22);
+            this.buttonSetup.Name = "buttonSetup";
+            this.buttonSetup.Size = new System.Drawing.Size(75, 23);
+            this.buttonSetup.TabIndex = 0;
+            this.buttonSetup.Text = "Setup";
+            this.buttonSetup.UseVisualStyleBackColor = true;
+            this.buttonSetup.Click += new System.EventHandler(this.buttonSetup_Click);
             // 
             // buttonPause
             // 
             this.buttonPause.Enabled = false;
-            this.buttonPause.Location = new System.Drawing.Point(62, 51);
+            this.buttonPause.Location = new System.Drawing.Point(65, 81);
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(75, 23);
-            this.buttonPause.TabIndex = 1;
+            this.buttonPause.TabIndex = 2;
             this.buttonPause.Text = "Pause";
             this.buttonPause.UseVisualStyleBackColor = true;
             this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(62, 80);
+            this.buttonExit.Location = new System.Drawing.Point(65, 110);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(75, 23);
-            this.buttonExit.TabIndex = 2;
+            this.buttonExit.TabIndex = 3;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(62, 22);
+            this.buttonStart.Location = new System.Drawing.Point(65, 52);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 0;
+            this.buttonStart.TabIndex = 1;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
@@ -133,6 +146,7 @@
             this.Controls.Add(this.panelView);
             this.Controls.Add(this.panelControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "BattleFieldForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -154,5 +168,6 @@
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.GroupBox groupBoxControl;
         private System.Windows.Forms.GroupBox groupBoxInformation;
+        private System.Windows.Forms.Button buttonSetup;
     }
 }

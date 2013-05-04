@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace WorldOfTank.Class.Components
 {
-    static class GraphicsProcessor
+    public static class GraphicsProcessor
     {
         /// <summary>
         ///     Rotate image (rotative center is the center of the image) (0 degree is North, clockwise is positive)
@@ -36,11 +32,11 @@ namespace WorldOfTank.Class.Components
         {
             ImageAttributes img = new ImageAttributes();
             float[][] matrixItems = { 
-                new float[] {1, 0, 0, 0, 0},
-                new float[] {0, 1, 0, 0, 0},
-                new float[] {0, 0, 1, 0, 0},
-                new float[] {0, 0, 0, value, 0}, 
-                new float[] {0, 0, 0, 0, 1}};
+                new[] {1f, 0, 0, 0, 0},
+                new[] {0, 1f, 0, 0, 0},
+                new[] {0, 0, 1f, 0, 0},
+                new[] {0, 0, 0, value, 0}, 
+                new[] {0, 0, 0, 0, 1f}};
             ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
             img.SetColorMatrix(
                 colorMatrix,

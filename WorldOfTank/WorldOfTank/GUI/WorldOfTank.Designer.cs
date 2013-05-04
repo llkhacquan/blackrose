@@ -31,11 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorldOfTank));
             this.pictureBoxBattlefield = new System.Windows.Forms.PictureBox();
             this.pictureBoxTankCreator = new System.Windows.Forms.PictureBox();
-            this.pictureBoxIntroduction = new System.Windows.Forms.PictureBox();
             this.pictureBoxExit = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBattlefield)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTankCreator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIntroduction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExit)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +41,7 @@
             // 
             this.pictureBoxBattlefield.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxBattlefield.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxBattlefield.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxBattlefield.Image")));
+            this.pictureBoxBattlefield.Image = global::WorldOfTank.Properties.Resources.Font_Battlefield;
             this.pictureBoxBattlefield.Location = new System.Drawing.Point(210, 350);
             this.pictureBoxBattlefield.Name = "pictureBoxBattlefield";
             this.pictureBoxBattlefield.Size = new System.Drawing.Size(200, 40);
@@ -69,26 +67,12 @@
             this.pictureBoxTankCreator.MouseEnter += new System.EventHandler(this.pictureBoxTankCreator_MouseEnter);
             this.pictureBoxTankCreator.MouseLeave += new System.EventHandler(this.pictureBoxTankCreator_MouseLeave);
             // 
-            // pictureBoxIntroduction
-            // 
-            this.pictureBoxIntroduction.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxIntroduction.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxIntroduction.Image = global::WorldOfTank.Properties.Resources.Font_Introduction;
-            this.pictureBoxIntroduction.Location = new System.Drawing.Point(200, 450);
-            this.pictureBoxIntroduction.Name = "pictureBoxIntroduction";
-            this.pictureBoxIntroduction.Size = new System.Drawing.Size(220, 40);
-            this.pictureBoxIntroduction.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxIntroduction.TabIndex = 1;
-            this.pictureBoxIntroduction.TabStop = false;
-            this.pictureBoxIntroduction.MouseEnter += new System.EventHandler(this.pictureBoxIntroduction_MouseEnter);
-            this.pictureBoxIntroduction.MouseLeave += new System.EventHandler(this.pictureBoxIntroduction_MouseLeave);
-            // 
             // pictureBoxExit
             // 
             this.pictureBoxExit.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxExit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxExit.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxExit.Image")));
-            this.pictureBoxExit.Location = new System.Drawing.Point(270, 500);
+            this.pictureBoxExit.Image = global::WorldOfTank.Properties.Resources.Font_Exit;
+            this.pictureBoxExit.Location = new System.Drawing.Point(270, 450);
             this.pictureBoxExit.Name = "pictureBoxExit";
             this.pictureBoxExit.Size = new System.Drawing.Size(80, 40);
             this.pictureBoxExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -108,16 +92,15 @@
             this.ControlBox = false;
             this.Controls.Add(this.pictureBoxBattlefield);
             this.Controls.Add(this.pictureBoxTankCreator);
-            this.Controls.Add(this.pictureBoxIntroduction);
             this.Controls.Add(this.pictureBoxExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "WorldOfTank";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WorldOfTank";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBattlefield)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTankCreator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIntroduction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExit)).EndInit();
             this.ResumeLayout(false);
 
@@ -126,7 +109,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxExit;
-        private System.Windows.Forms.PictureBox pictureBoxIntroduction;
         private System.Windows.Forms.PictureBox pictureBoxTankCreator;
         private System.Windows.Forms.PictureBox pictureBoxBattlefield;
     }
