@@ -91,14 +91,12 @@
             // 
             // buttonPause
             // 
-            this.buttonPause.Enabled = false;
             this.buttonPause.Location = new System.Drawing.Point(65, 81);
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(75, 23);
             this.buttonPause.TabIndex = 2;
             this.buttonPause.Text = "Pause";
             this.buttonPause.UseVisualStyleBackColor = true;
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // buttonExit
             // 
@@ -151,7 +149,6 @@
             this.Name = "BattleFieldForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Battlefield";
-            this.Load += new System.EventHandler(this.BattleFieldForm_Load);
             this.panelControl.ResumeLayout(false);
             this.groupBoxControl.ResumeLayout(false);
             this.ResumeLayout(false);

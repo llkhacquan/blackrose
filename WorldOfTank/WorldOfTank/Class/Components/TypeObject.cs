@@ -5,5 +5,6 @@
         Bullet,
         Wall,
         Tank,
+        Background,
     }
 }

@@ -78,21 +78,23 @@ namespace WorldOfTank.GUI
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
-            ChooseTank newTank = new ChooseTank();
-            newTank.ShowDialog();
-            Tank = newTank.Tank;
-            panelTank.Visible = true;
-            panelAction.Visible = true;
-            buttonSave.Enabled = true;
-            ShowTankInformation();
-            buttonActionNormal_Click(null, null);
-            ShowInstructionInformationList();
-            ShowInstructionInformationButton();
+            var newTank = new ChooseTank();
+            if (newTank.ShowDialog() == DialogResult.OK)
+            {
+                Tank = newTank.Tank;
+                panelTank.Visible = true;
+                panelAction.Visible = true;
+                buttonSave.Enabled = true;
+                ShowTankInformation();
+                buttonActionNormal_Click(null, null);
+                ShowInstructionInformationList();
+                ShowInstructionInformationButton();
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saver = new SaveFileDialog
+            var saver = new SaveFileDialog
             {
                 Title = "Save Tank",
                 Filter = "Tank File (*.tank)|*.tank",
@@ -112,7 +114,7 @@ namespace WorldOfTank.GUI
 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog opener = new OpenFileDialog
+            var opener = new OpenFileDialog
             {
                 Title = "Open Tank",
                 Filter = "Tank File (*.tank)|*.tank",
@@ -143,17 +145,19 @@ namespace WorldOfTank.GUI
 
         private void pictureBoxTank_Click(object sender, EventArgs e)
         {
-            ChooseTank newTank = new ChooseTank();
-            newTank.ShowDialog();
-            Tank temp = Tank;
-            Tank = newTank.Tank;
-            Tank.Name = temp.Name;
-            Tank.ActionBeAttacked = temp.ActionBeAttacked;
-            Tank.ActionCannotMoveBackward = temp.ActionCannotMoveBackward;
-            Tank.ActionCannotMoveForward = temp.ActionCannotMoveForward;
-            Tank.ActionDetected = temp.ActionDetected;
-            Tank.ActionNormal = temp.ActionNormal;
-            ShowTankInformation();
+            var newTank = new ChooseTank();
+            if (newTank.ShowDialog() == DialogResult.OK)
+            {
+                Tank temp = Tank;
+                Tank = newTank.Tank;
+                Tank.Name = temp.Name;
+                Tank.ActionBeAttacked = temp.ActionBeAttacked;
+                Tank.ActionCannotMoveBackward = temp.ActionCannotMoveBackward;
+                Tank.ActionCannotMoveForward = temp.ActionCannotMoveForward;
+                Tank.ActionDetected = temp.ActionDetected;
+                Tank.ActionNormal = temp.ActionNormal;
+                ShowTankInformation();
+            }
         }
 
         private void buttonActionNormal_Click(object sender, EventArgs e)
@@ -270,7 +274,7 @@ namespace WorldOfTank.GUI
         private void toolStripButtonEdit_Click(object sender, EventArgs e)
         {
             int index = FindIndexInstruction();
-            EditInstruction editInstruction = new EditInstruction
+            var editInstruction = new EditInstruction
             {
                 Tank = Tank,
                 ActionName = ActionName,

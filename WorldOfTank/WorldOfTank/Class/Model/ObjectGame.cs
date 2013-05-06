@@ -44,7 +44,7 @@ namespace WorldOfTank.Class.Model
             Position = new PointF(0, 0);
             Direction = 0;
             Type = type;
-            Radius = Image.Width / 2;
+            Radius = 0.5f * Image.Width;
         }
 
         /// <summary>
@@ -67,7 +67,9 @@ namespace WorldOfTank.Class.Model
         public virtual void Paint(Graphics gfx)
         {
             Bitmap bmp = GraphicsProcessor.RotateImage(Image, Direction);
-            gfx.DrawImage(bmp, Position.X - Image.Width / 2, Position.Y - Image.Height / 2);
+            gfx.DrawImage(bmp, Position.X - 0.5f * Image.Width, Position.Y - 0.5f * Image.Height);
+            bmp.Dispose();
+
         }
 
         /// <summary>

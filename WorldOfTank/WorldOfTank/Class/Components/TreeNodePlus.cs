@@ -12,7 +12,7 @@ namespace WorldOfTank.Class.Components
             Condition = condition;
         }
 
-        public TreeNodePlus(string text, TreeNodePlus[] children, Condition condition)
+        public TreeNodePlus(string text, TreeNode[] children, Condition condition)
             : base(text, children)
         {
             Condition = condition;

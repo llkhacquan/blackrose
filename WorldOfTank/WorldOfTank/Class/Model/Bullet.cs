@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
+    [Serializable]
     public class Bullet : DynamicObject
     {
         /// <summary>
@@ -23,7 +25,8 @@ namespace WorldOfTank.Class.Model
         public Bullet(Image image)
             : base(image, TypeObject.Bullet)
         {
-            Radius = Image.Width * 30 / 100;
+            Radius = 0.3f * Image.Width;
+            SpeedMove = 8;
         }
 
         /// <summary>
@@ -34,15 +37,16 @@ namespace WorldOfTank.Class.Model
         public override TypeResult NextFrame(List<ObjectGame> objects)
         {
             MoveForward(SpeedMove);
-            TypeResult result = TypeResult.Nothing;
+            var result = TypeResult.Nothing;
             foreach (ObjectGame obj in objects)
                 if (obj != this && IsCollided(obj))
                 {
                     if (obj.Type == TypeObject.Tank)
                     {
-                        Tank tank = (Tank)obj;
+                        var tank = (Tank)obj;
                         tank.HealCur -= Damage;
                         tank.NewResult = TypeResult.BeAttacked;
+                        tank.EnemyBullet = this;
                         if (tank.HealCur < 0) tank.NewResult = TypeResult.BeDestroyed;
                         result = TypeResult.BeDestroyed;
                     }

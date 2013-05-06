@@ -13,3 +13,4 @@ D:\Workspace\Other\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.exe
 D:\Workspace\Other\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.pdb
 D:\Workspace\Other\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.BattleFieldForm.resources
 D:\Workspace\Other\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.TankCreatorForm.resources
+D:\Workspace\Other\WorldOfTank\WorldOfTank\obj\Debug\WorldOfTank.GUI.SetupGame.resources

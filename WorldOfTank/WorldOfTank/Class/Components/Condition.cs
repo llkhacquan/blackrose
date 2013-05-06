@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Forms;
 using WorldOfTank.Class.Model;
 
 namespace WorldOfTank.Class.Components
@@ -59,7 +61,7 @@ namespace WorldOfTank.Class.Components
                         break;
                 }
 
-                s += Comparision.Value.ToString();
+                s += Comparision.Value.ToString(CultureInfo.InvariantCulture);
             }
             else
             {
@@ -77,7 +79,7 @@ namespace WorldOfTank.Class.Components
         {
             if (Type != TypeCondition.Unique)
             {
-                TreeNodePlus[] childrenNodes = new TreeNodePlus[Children.Count];
+                var childrenNodes = new TreeNode[Children.Count];
                 for (int i = 0; i < Children.Count; i++)
                     childrenNodes[i] = Children[i].GetTreeNode();
                 if (Type == TypeCondition.And) return new TreeNodePlus("AND", childrenNodes, this);

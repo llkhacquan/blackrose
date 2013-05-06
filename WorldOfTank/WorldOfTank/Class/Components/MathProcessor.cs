@@ -57,7 +57,7 @@ namespace WorldOfTank.Class.Components
             if (Math.Abs(y) < epsilon)
                 if (x > 0) return 90;
                 else return -90;
-            float deg = (float)(Math.Atan(x / y) * 180 / Math.PI);
+            var deg = (float)(Math.Atan(x / y) * 180 / Math.PI);
             if (y < 0) deg += 180;
             return deg;
         }

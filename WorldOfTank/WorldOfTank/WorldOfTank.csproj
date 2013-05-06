@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Model\AnimationObject.cs" />
+    <Compile Include="Class\Model\Background.cs" />
     <Compile Include="Class\Model\BattleField.cs" />
     <Compile Include="Class\Model\Bullet.cs" />
     <Compile Include="Class\Components\Comparision.cs" />
@@ -80,6 +81,12 @@
     <Compile Include="GUI\ChooseTank.Designer.cs">
       <DependentUpon>ChooseTank.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SetupGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SetupGame.Designer.cs">
+      <DependentUpon>SetupGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\EditInstruction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ChooseTank.resx">
       <DependentUpon>ChooseTank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SetupGame.resx">
+      <DependentUpon>SetupGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\EditInstruction.resx">
       <DependentUpon>EditInstruction.cs</DependentUpon>

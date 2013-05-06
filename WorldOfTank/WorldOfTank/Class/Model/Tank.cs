@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
@@ -8,15 +9,12 @@ namespace WorldOfTank.Class.Model
     [Serializable]
     public class Tank : DynamicObject
     {
-
         public float RadaRange;
-
         public float RadaAngle;
+        public Color RadaColor;
 
         public float DamageMin;
-
         public float DamageMax;
-
         private float _damageCur;
 
         /// <summary>
@@ -45,11 +43,15 @@ namespace WorldOfTank.Class.Model
         public float HealCur;
 
         public string Name;
+        public Tank EnemyTank;
+        public Bullet EnemyBullet;
+
+        public Instruction Instruction;
 
         /// <summary>
         ///     Gets or sets instructions of this tank
         /// </summary>
-        public List<Instruction> Instructions;
+        public List<Instruction> ListInstructions;
 
         /// <summary>
         ///     Gets result of last frame
@@ -93,10 +95,11 @@ namespace WorldOfTank.Class.Model
         public Tank(Image image)
             : base(image, TypeObject.Tank)
         {
-            Radius = Image.Width * 40 / 100;
+            Radius = 0.4f * Image.Width;
 
             RadaRange = 300;
             RadaAngle = 20;
+            RadaColor = Color.FromArgb(31, 255, 255, 255);
 
             DamageMin = 10;
             DamageMax = 20;
@@ -110,7 +113,7 @@ namespace WorldOfTank.Class.Model
 
             Name = "NewTank";
 
-            Instructions = new List<Instruction>();
+            ListInstructions = new List<Instruction>();
             LastResult = TypeResult.Normal;
             NewResult = TypeResult.Normal;
 
@@ -124,15 +127,35 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Set instructions in each frame (according to LastResult and NewResult)
         /// </summary>
-        public void SetInstructions()
+        public void SetListInstructions()
         {
-            if (Instructions.Count == 0 || LastResult != NewResult)
+            if (ActionCannotMoveForward.Count == 0) ActionCannotMoveForward = ActionNormal;
+            if (ActionCannotMoveBackward.Count == 0) ActionCannotMoveBackward = ActionNormal;
+            if (ActionDetected.Count == 0) ActionDetected = ActionNormal;
+            if (ActionBeAttacked.Count == 0) ActionBeAttacked = ActionNormal;
+
+            if (ListInstructions.Count == 0 || LastResult != NewResult)
             {
-                if (NewResult == TypeResult.Normal) Instructions = new List<Instruction>(ActionNormal);
-                else if (NewResult == TypeResult.CannotMoveForward) Instructions = new List<Instruction>(ActionCannotMoveForward);
-                else if (NewResult == TypeResult.CannotMoveBackward) Instructions = new List<Instruction>(ActionCannotMoveBackward);
-                else if (NewResult == TypeResult.Detected) Instructions = new List<Instruction>(ActionDetected);
-                else if (NewResult == TypeResult.BeAttacked) Instructions = new List<Instruction>(ActionBeAttacked);
+                Instruction = null;
+                _damageCur = 0;
+                switch (NewResult)
+                {
+                    case TypeResult.Normal:
+                        ListInstructions = new List<Instruction>(ActionNormal);
+                        break;
+                    case TypeResult.CannotMoveForward:
+                        ListInstructions = new List<Instruction>(ActionCannotMoveForward);
+                        break;
+                    case TypeResult.CannotMoveBackward:
+                        ListInstructions = new List<Instruction>(ActionCannotMoveBackward);
+                        break;
+                    case TypeResult.Detected:
+                        ListInstructions = new List<Instruction>(ActionDetected);
+                        break;
+                    case TypeResult.BeAttacked:
+                        ListInstructions = new List<Instruction>(ActionBeAttacked);
+                        break;
+                }
                 LastResult = NewResult;
             }
         }
@@ -144,15 +167,10 @@ namespace WorldOfTank.Class.Model
         /// <returns>True if this tank is invalid position</returns>
         public bool IsInvalidPosition(List<ObjectGame> objects)
         {
-            foreach (ObjectGame obj in objects)
-            {
-                if (obj != this && (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Wall) && IsCollided(obj))
-                    return false;
-            }
-            return true;
+            return objects.Any(obj => obj != this && (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Wall) && IsCollided(obj));
         }
 
-        public Tank DetectedEnemy(List<ObjectGame> objects)
+        public void DetectedEnemy(List<ObjectGame> objects)
         {
             foreach (ObjectGame obj in objects)
                 if (obj != this && obj.Type == TypeObject.Tank)
@@ -160,9 +178,75 @@ namespace WorldOfTank.Class.Model
                     float distance = MathProcessor.CalDistance(Position, obj.Position);
                     float direction = MathProcessor.CalPointAngle(Position, obj.Position);
                     float differentAngle = MathProcessor.CalDifferentAngle(Direction, direction);
-                    if (distance < RadaRange && Math.Abs(differentAngle) < RadaAngle / 2) return (Tank)obj;
+                    if (distance < RadaRange && Math.Abs(differentAngle) < RadaAngle / 2)
+                    {
+                        EnemyTank = (Tank)obj;
+                        break;
+                    }
                 }
-            return null;
+        }
+
+        public void ExecuteInstruction(List<ObjectGame> objects)
+        {
+            if (Instruction == null) return;
+            const float epsilon = 1e-6f;
+            float value;
+            PointF oldPosition = Position;
+
+            switch (Instruction.Type)
+            {
+                case TypeInstruction.MoveForward:
+                    value = Math.Min(Instruction.Value, SpeedMove);
+                    Instruction.Value -= value;
+                    MoveForward(value);
+                    if (IsInvalidPosition(objects))
+                    {
+                        Position = oldPosition;
+                        NewResult = TypeResult.CannotMoveForward;
+                    }
+                    break;
+                case TypeInstruction.MoveBackward:
+                    value = Math.Min(Instruction.Value, SpeedMove);
+                    Instruction.Value -= value;
+                    MoveBackward(value);
+                    if (IsInvalidPosition(objects))
+                    {
+                        Position = oldPosition;
+                        NewResult = TypeResult.CannotMoveBackward;
+                    }
+                    break;
+                case TypeInstruction.RotateRight:
+                    value = Math.Min(Instruction.Value, SpeedRotate);
+                    Instruction.Value -= value;
+                    RotateRight(value);
+                    break;
+                case TypeInstruction.RotateLeft:
+                    value = Math.Min(Instruction.Value, SpeedRotate);
+                    Instruction.Value -= value;
+                    RotateLeft(value);
+                    break;
+                case TypeInstruction.Fire:
+                    value = Math.Min(Instruction.Value, SpeedFire);
+                    Instruction.Value -= value;
+                    _damageCur += value;
+                    if (Math.Abs(Instruction.Value) < epsilon)
+                    {
+                        var bullet = new Bullet(Properties.Resources.Bullet_A)
+                            {
+                                Position = MathProcessor.CalPointPosition(Position, 0.5f * Image.Width, Direction),
+                                Direction = Direction,
+                                Damage = _damageCur
+                            };
+                        _damageCur = 0;
+                        objects.Add(bullet);
+                    }
+                    break;
+            }
+            if (Math.Abs(Instruction.Value) < epsilon)
+            {
+                Instruction = null;
+                ListInstructions.RemoveAt(0);
+            }
         }
 
         /// <summary>
@@ -172,68 +256,23 @@ namespace WorldOfTank.Class.Model
         /// <returns>Result of that frame</returns>
         public override TypeResult NextFrame(List<ObjectGame> objects)
         {
-            const float epsilon = 1e-6f;
             if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
-            if (DetectedEnemy(objects) != null) NewResult = TypeResult.Detected;
-            SetInstructions();
-            PointF p = Position;
-            if (Instructions.Count > 0)
-            {
-                if (Instructions[0].Type == TypeInstruction.MoveForward)
+            DetectedEnemy(objects);
+            if (EnemyTank != null) NewResult = TypeResult.Detected;
+            SetListInstructions();
+            while (Instruction == null)
+                if (ListInstructions.Count == 0) break;
+                else
                 {
-                    float value = Math.Min(Instructions[0].Value, SpeedMove);
-                    Instructions[0].Value -= value;
-                    MoveForward(value);
-                    if (!IsInvalidPosition(objects))
-                    {
-                        Position = p;
-                        NewResult = TypeResult.CannotMoveForward;
-                    }
+                    if (ListInstructions[0].Condition == null || ListInstructions[0].Condition.GetResult(this, EnemyTank, EnemyBullet))
+                        Instruction = ListInstructions[0].Clone();
+                    else
+                        ListInstructions.RemoveAt(0);
                 }
-                else if (Instructions[0].Type == TypeInstruction.MoveBackward)
-                {
-                    float value = Math.Min(Instructions[0].Value, SpeedMove);
-                    Instructions[0].Value -= value;
-                    MoveBackward(value);
-                    if (!IsInvalidPosition(objects))
-                    {
-                        Position = p;
-                        NewResult = TypeResult.CannotMoveBackward;
-                    }
-                }
-                else if (Instructions[0].Type == TypeInstruction.RotateRight)
-                {
-                    float value = Math.Min(Instructions[0].Value, SpeedRotate);
-                    Instructions[0].Value -= value;
-                    RotateRight(value);
-                }
-                else if (Instructions[0].Type == TypeInstruction.RotateLeft)
-                {
-                    float value = Math.Min(Instructions[0].Value, SpeedRotate);
-                    Instructions[0].Value -= value;
-                    RotateLeft(value);
-                }
-                else if (Instructions[0].Type == TypeInstruction.Fire)
-                {
-                    float value = Math.Min(Instructions[0].Value, SpeedFire);
-                    Instructions[0].Value -= value;
-                    _damageCur += value;
-                    if (Math.Abs(Instructions[0].Value) < epsilon)
-                    {
-                        Bullet bullet = new Bullet(Properties.Resources.Bullet_A)
-                                            {
-                                                Position = MathProcessor.CalPointPosition(Position, Image.Width / 2, Direction),
-                                                Direction = Direction,
-                                                Damage = _damageCur
-                                            };
-                        _damageCur = 0;
-                        objects.Add(bullet);
-                    }
-                }
-
-                if (Math.Abs(Instructions[0].Value) < epsilon) Instructions.RemoveAt(0);
-            }
-            if (Instructions.Count == 0) NewResult = TypeResult.Normal;
+            NewResult = TypeResult.Normal;
+            ExecuteInstruction(objects);
+            EnemyTank = null;
+            EnemyBullet = null;
             return TypeResult.Nothing;
         }
 
@@ -241,7 +280,7 @@ namespace WorldOfTank.Class.Model
         {
             base.Paint(gfx);
             gfx.FillPie(
-                new SolidBrush(Color.FromArgb(32, 255, 255, 0)),
+                new SolidBrush(RadaColor),
                 Position.X - RadaRange, Position.Y - RadaRange,
                 RadaRange * 2, RadaRange * 2,
                 Direction - 90 - RadaAngle / 2, RadaAngle);

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using WorldOfTank.Class.Components;
 using WorldOfTank.Properties;
 
@@ -18,31 +20,34 @@ namespace WorldOfTank.Class.Model
         public Size Size;
 
         /// <summary>
-        ///     Gets or sets background of this battlefield
-        /// </summary>
-        public Image Background;
-
-        /// <summary>
         ///     Constructor
         /// </summary>
         public BattleField()
         {
             Objects = new List<ObjectGame>();
             Size = new Size(600, 600);
-            Background = Resources.Grass_A;
         }
 
         /// <summary>
         ///     Setup game
         /// </summary>
-        public void SetupGame()
+        public void SetupGame(List<Tank> listTanks)
         {
+            for (int i = 0; i <= (Size.Width - 1) / Resources.Grass_A.Width; i++)
+                for (int j = 0; j <= (Size.Height - 1) / Resources.Grass_A.Height; j++)
+                {
+                    var background = new Background(Resources.Grass_A);
+                    background.Position.X = background.Image.Width * i + background.Image.Width / 2;
+                    background.Position.Y = background.Image.Height * j + background.Image.Height / 2;
+                    Objects.Add(background);
+                }
+
             Wall wall;
             for (int i = 0; i <= (Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
             {
                 wall = new Wall(Resources.Wall_A);
                 wall.Position.X = (wall.Image.Width - 1) * i + wall.Image.Width / 2;
-                wall.Position.Y = wall.Image.Height / 2;
+                wall.Position.Y = 0.5f * wall.Image.Height;
                 Objects.Add(wall);
 
                 wall = new Wall(Resources.Wall_A);
@@ -54,7 +59,7 @@ namespace WorldOfTank.Class.Model
             for (int i = 0; i <= (Size.Height - 1) / (Resources.Wall_B.Height - 1); i++)
             {
                 wall = new Wall(Resources.Wall_B);
-                wall.Position.X = wall.Image.Width / 2;
+                wall.Position.X = 0.5f * wall.Image.Width;
                 wall.Position.Y = (wall.Image.Height - 1) * i + wall.Image.Height / 2;
                 Objects.Add(wall);
 
@@ -64,6 +69,16 @@ namespace WorldOfTank.Class.Model
                 Objects.Add(wall);
             }
 
+            var random = new Random();
+            foreach (Tank tank in listTanks)
+            {
+                Objects.Add(tank);
+                do
+                {
+                    tank.Position.X = random.Next(Size.Width);
+                    tank.Position.Y = random.Next(Size.Height);
+                } while (tank.IsInvalidPosition(Objects));
+            }
         }
 
         /// <summary>
@@ -77,12 +92,7 @@ namespace WorldOfTank.Class.Model
                 if (Objects[i].NextFrame(Objects) == TypeResult.BeDestroyed)
                     Objects.RemoveAt(i--);
             }
-
-            int tankCount = 0;
-            foreach (ObjectGame obj in Objects)
-                if (obj.Type == TypeObject.Tank) tankCount++;
-            if (tankCount <= 1) return TypeResult.GameOver;
-            return TypeResult.Nothing;
+            return Objects.Count(obj => obj.Type == TypeObject.Tank) < 2 ? TypeResult.GameOver : TypeResult.Nothing;
         }
     }
 }

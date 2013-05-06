@@ -14,12 +14,13 @@ namespace WorldOfTank.Class.Components
         /// <returns>result image</returns>
         public static Bitmap RotateImage(Image img, float angle)
         {
-            Bitmap returnBitmap = new Bitmap(img.Width, img.Height + 1);
+            var returnBitmap = new Bitmap(img.Width, img.Height + 1);
             Graphics g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)img.Width / 2, (float)img.Height / 2);
             g.RotateTransform(angle);
             g.TranslateTransform(-(float)img.Width / 2, -(float)img.Height / 2);
             g.DrawImage(img, img.Width / 2 - img.Height / 2, img.Height / 2 - img.Width / 2, img.Height, img.Width);
+            g.Dispose();
             return returnBitmap;
         }
 
@@ -30,14 +31,14 @@ namespace WorldOfTank.Class.Components
         /// <returns>image's attributes</returns>
         public static ImageAttributes SemiTransparent(float value)
         {
-            ImageAttributes img = new ImageAttributes();
+            var img = new ImageAttributes();
             float[][] matrixItems = { 
                 new[] {1f, 0, 0, 0, 0},
                 new[] {0, 1f, 0, 0, 0},
                 new[] {0, 0, 1f, 0, 0},
                 new[] {0, 0, 0, value, 0}, 
                 new[] {0, 0, 0, 0, 1f}};
-            ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
+            var colorMatrix = new ColorMatrix(matrixItems);
             img.SetColorMatrix(
                 colorMatrix,
                 ColorMatrixFlag.Default,

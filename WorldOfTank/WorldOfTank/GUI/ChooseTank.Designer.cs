@@ -34,6 +34,7 @@
             this.pictureBoxYellowTank = new System.Windows.Forms.PictureBox();
             this.pictureBoxBlueTank = new System.Windows.Forms.PictureBox();
             this.pictureBoxGreenTank = new System.Windows.Forms.PictureBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRedTank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxYellowTank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBlueTank)).BeginInit();
@@ -52,7 +53,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(78, 227);
+            this.buttonOK.Location = new System.Drawing.Point(12, 227);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(126, 23);
             this.buttonOK.TabIndex = 7;
@@ -116,12 +117,23 @@
             this.pictureBoxGreenTank.MouseEnter += new System.EventHandler(this.pictureBoxGreenTank_MouseEnter);
             this.pictureBoxGreenTank.MouseLeave += new System.EventHandler(this.pictureBoxGreenTank_MouseLeave);
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(144, 227);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(126, 23);
+            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
             // ChooseTank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.richTextBoxInfor);
             this.Controls.Add(this.pictureBoxRedTank);
@@ -151,5 +163,6 @@
         private System.Windows.Forms.PictureBox pictureBoxRedTank;
         private System.Windows.Forms.RichTextBox richTextBoxInfor;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
