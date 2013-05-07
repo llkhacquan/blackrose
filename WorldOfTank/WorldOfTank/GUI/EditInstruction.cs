@@ -85,10 +85,10 @@ namespace WorldOfTank.GUI
                 if (condition.Type == TypeCondition.Unique)
                 {
                     comboBoxParameter.Enabled = true;
-                    comboBoxParameter.Text = condition.Comparision.Parameter.ToString();
+                    comboBoxParameter.Text = condition.Comparison.Parameter.ToString();
 
                     comboBoxOperator.Enabled = true;
-                    switch (condition.Comparision.Operator)
+                    switch (condition.Comparison.Operator)
                     {
                         case TypeOperator.GreaterEqual:
                             comboBoxOperator.Text = ">=";
@@ -111,7 +111,7 @@ namespace WorldOfTank.GUI
                     }
 
                     numericUpDownValue2.Enabled = true;
-                    numericUpDownValue2.Value = (decimal)condition.Comparision.Value;
+                    numericUpDownValue2.Value = (decimal)condition.Comparison.Value;
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace WorldOfTank.GUI
                 if (parent.Children.Count == 0)
                 {
                     parent.Type = TypeCondition.Unique;
-                    parent.Comparision = new Comparision();
+                    parent.Comparison = new Comparison();
                 }
 
             }
@@ -208,28 +208,28 @@ namespace WorldOfTank.GUI
             switch (comboBoxParameter.Text)
             {
                 case "GetPositionX":
-                    condition.Comparision.Parameter = TypeParameter.GetPositionX;
+                    condition.Comparison.Parameter = TypeParameter.GetPositionX;
                     break;
                 case "GetPositionY":
-                    condition.Comparision.Parameter = TypeParameter.GetPositionY;
+                    condition.Comparison.Parameter = TypeParameter.GetPositionY;
                     break;
                 case "GetDirection":
-                    condition.Comparision.Parameter = TypeParameter.GetDirection;
+                    condition.Comparison.Parameter = TypeParameter.GetDirection;
                     break;
                 case "GetCurrentHeal":
-                    condition.Comparision.Parameter = TypeParameter.GetCurrentHeal;
+                    condition.Comparison.Parameter = TypeParameter.GetCurrentHeal;
                     break;
                 case "GetEnemyCurrentHeal":
-                    condition.Comparision.Parameter = TypeParameter.GetEnemyCurrentHeal;
+                    condition.Comparison.Parameter = TypeParameter.GetEnemyCurrentHeal;
                     break;
                 case "GetEnemyDistance":
-                    condition.Comparision.Parameter = TypeParameter.GetEnemyDistance;
+                    condition.Comparison.Parameter = TypeParameter.GetEnemyDistance;
                     break;
                 case "GetEnemyDifferentAngle":
-                    condition.Comparision.Parameter = TypeParameter.GetEnemyDifferentAngle;
+                    condition.Comparison.Parameter = TypeParameter.GetEnemyDifferentAngle;
                     break;
                 case "GetBulletDifferentAngle":
-                    condition.Comparision.Parameter = TypeParameter.GetBulletDifferentAngle;
+                    condition.Comparison.Parameter = TypeParameter.GetBulletDifferentAngle;
                     break;
                 default:
                     break;
@@ -243,22 +243,22 @@ namespace WorldOfTank.GUI
             switch (comboBoxOperator.Text)
             {
                 case ">=":
-                    condition.Comparision.Operator = TypeOperator.GreaterEqual;
+                    condition.Comparison.Operator = TypeOperator.GreaterEqual;
                     break;
                 case ">":
-                    condition.Comparision.Operator = TypeOperator.Greater;
+                    condition.Comparison.Operator = TypeOperator.Greater;
                     break;
                 case "==":
-                    condition.Comparision.Operator = TypeOperator.Equal;
+                    condition.Comparison.Operator = TypeOperator.Equal;
                     break;
                 case "<":
-                    condition.Comparision.Operator = TypeOperator.Lower;
+                    condition.Comparison.Operator = TypeOperator.Lower;
                     break;
                 case "<=":
-                    condition.Comparision.Operator = TypeOperator.LowerEqual;
+                    condition.Comparison.Operator = TypeOperator.LowerEqual;
                     break;
                 case "!=":
-                    condition.Comparision.Operator = TypeOperator.NotEqual;
+                    condition.Comparison.Operator = TypeOperator.NotEqual;
                     break;
                 default:
                     break;
@@ -268,7 +268,7 @@ namespace WorldOfTank.GUI
 
         private void numericUpDownValue2_ValueChanged(object sender, EventArgs e)
         {
-            Node.Condition.Comparision.Value = (float)numericUpDownValue2.Value;
+            Node.Condition.Comparison.Value = (float)numericUpDownValue2.Value;
             ShowConditionInformation();
         }
 
@@ -279,7 +279,7 @@ namespace WorldOfTank.GUI
             {
                 case "Unique":
                     if (condition.Type == TypeCondition.Unique) break;
-                    condition.Comparision = new Comparision();
+                    condition.Comparison = new Comparison();
                     condition.Children.Clear();
                     break;
                 case "And":

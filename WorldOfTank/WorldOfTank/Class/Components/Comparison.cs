@@ -3,13 +3,23 @@ using WorldOfTank.Class.Model;
 
 namespace WorldOfTank.Class.Components
 {
+    /// <summary>
+    /// This class handles Comparison in Creating Brain Tool
+    /// </summary>
     [Serializable]
-    public class Comparision
+    public class Comparison
     {
         public TypeParameter Parameter;
         public TypeOperator Operator;
         public float Value;
 
+        /// <summary>
+        /// The turn the result of the Comparison
+        /// </summary>
+        /// <param name="yourTank"></param>
+        /// <param name="enemyTank"></param>
+        /// <param name="enemyBullet"></param>
+        /// <returns></returns>
         public bool GetResult(Tank yourTank, Tank enemyTank, Bullet enemyBullet)
         {
             float par = 0;
@@ -67,7 +77,11 @@ namespace WorldOfTank.Class.Components
             return false;
         }
 
-        public Comparision()
+
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public Comparison()
         {
             Parameter = TypeParameter.GetCurrentHeal;
             Operator = TypeOperator.LowerEqual;

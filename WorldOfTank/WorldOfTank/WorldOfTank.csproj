@@ -74,7 +74,7 @@
     <Compile Include="Class\Model\Background.cs" />
     <Compile Include="Class\Model\BattleField.cs" />
     <Compile Include="Class\Model\Bullet.cs" />
-    <Compile Include="Class\Components\Comparision.cs" />
+    <Compile Include="Class\Components\Comparison.cs" />
     <Compile Include="Class\Components\Condition.cs" />
     <Compile Include="Class\Components\GraphicsProcessor.cs" />
     <Compile Include="Class\Components\Instruction.cs" />

@@ -7,20 +7,30 @@ using WorldOfTank.Class.Model;
 
 namespace WorldOfTank.Class.Components
 {
+    /// <summary>
+    /// This class handle the Conditional Options when creating brain
+    /// </summary>
     [Serializable]
     public class Condition
     {
         public TypeCondition Type;
-        public Comparision Comparision;
+        public Comparison Comparison;
         public List<Condition> Children;
 
         public Condition()
         {
             Type = TypeCondition.Unique;
-            Comparision = new Comparision();
+            Comparison = new Comparison();
             Children = new List<Condition>();
         }
 
+        /// <summary>
+        /// Return the result of Conditional with some input
+        /// </summary>
+        /// <param name="yourTank">The current tank</param>
+        /// <param name="enemyTank">The enemy tank that the current tank "sees" </param>
+        /// <param name="enemyBullet">The bullet of enemy tank</param>
+        /// <returns></returns>
         public bool GetResult(Tank yourTank, Tank enemyTank, Bullet enemyBullet)
         {
             if (Type == TypeCondition.And)
@@ -29,17 +39,21 @@ namespace WorldOfTank.Class.Components
             if (Type == TypeCondition.Or)
                 return Children.Any(t => t.GetResult(yourTank, enemyTank, enemyBullet));
 
-            return Comparision.GetResult(yourTank, enemyTank, enemyBullet);
+            return Comparison.GetResult(yourTank, enemyTank, enemyBullet);
         }
 
+        /// <summary>
+        /// This method return a string that present the condition
+        /// </summary>
+        /// <returns></returns>
         public string Print()
         {
             string s = "";
             if (Type == TypeCondition.Unique)
             {
-                s += Comparision.Parameter.ToString();
+                s += Comparison.Parameter.ToString();
 
-                switch (Comparision.Operator)
+                switch (Comparison.Operator)
                 {
                     case TypeOperator.GreaterEqual:
                         s += " >= ";
@@ -61,7 +75,7 @@ namespace WorldOfTank.Class.Components
                         break;
                 }
 
-                s += Comparision.Value.ToString(CultureInfo.InvariantCulture);
+                s += Comparison.Value.ToString(CultureInfo.InvariantCulture);
             }
             else
             {
@@ -75,6 +89,10 @@ namespace WorldOfTank.Class.Components
             return s;
         }
 
+        /// <summary>
+        /// The method return a tree presents the conditional structure of the condition
+        /// </summary>
+        /// <returns></returns>
         public TreeNodePlus GetTreeNode()
         {
             if (Type != TypeCondition.Unique)
