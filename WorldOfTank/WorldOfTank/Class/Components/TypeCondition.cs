@@ -1,12 +1,12 @@
 ﻿namespace WorldOfTank.Class.Components
 {
     /// <summary>
-    /// This set hold kinds of Conditions
+    /// This set holds kinds of Conditions
     /// </summary>
     public enum TypeCondition
     {
-        Unique,
         And,
         Or,
+        Unique
     }
 }

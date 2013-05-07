@@ -5,9 +5,9 @@
     /// </summary>
     public enum TypeOperator
     {
-        GreaterEqual,
-        Greater,
         Equal,
+        Greater,
+        GreaterEqual,
         Lower,
         LowerEqual,
         NotEqual,

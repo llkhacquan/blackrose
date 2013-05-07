@@ -12,17 +12,17 @@ namespace WorldOfTank.Class.Model
     public class Bullet : DynamicObject
     {
         /// <summary>
-        ///     Damage of this bullet
+        /// Damage of this bullet
         /// </summary>
         public float Damage;
 
         /// <summary>
-        ///     Move speed of this bullet
+        /// Move speed of this bullet
         /// </summary>
         public float SpeedMove;
 
         /// <summary>
-        ///     Constructor
+        /// Constructor
         /// </summary>
         /// <param name="image">Image bullet</param>
         public Bullet(Image image)
@@ -31,9 +31,19 @@ namespace WorldOfTank.Class.Model
             Radius = 0.3f * Image.Width;
             SpeedMove = 8;
         }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="image">Image object</param>
+        /// <param name="type">Type object</param>
+        protected Bullet(Image image, TypeObject type)
+            : base(image, type)
+        {
+            
+        }
 
         /// <summary>
-        ///     Execute some change of this bullet in a frame in battlefield
+        /// Execute some change of this bullet in a frame in battlefield
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>
@@ -42,6 +52,7 @@ namespace WorldOfTank.Class.Model
             MoveForward(SpeedMove);
             var result = TypeResult.Nothing;
             foreach (ObjectGame obj in objects)
+            {
                 if (obj != this && IsCollided(obj))
                 {
                     if (obj.Type == TypeObject.Tank)
@@ -50,11 +61,21 @@ namespace WorldOfTank.Class.Model
                         tank.HealCur -= Damage;
                         tank.NewResult = TypeResult.BeAttacked;
                         tank.EnemyBullet = this;
-                        if (tank.HealCur < 0) tank.NewResult = TypeResult.BeDestroyed;
+                        if (tank.HealCur < 0)
+                        {
+                            tank.NewResult = TypeResult.BeDestroyed;
+                        }
                         result = TypeResult.BeDestroyed;
                     }
-                    else if (obj.Type == TypeObject.Wall) result = TypeResult.BeDestroyed;
+                    else
+                    {
+                        if (obj.Type == TypeObject.Wall)
+                        {
+                            result = TypeResult.BeDestroyed;
+                        }
+                    }
                 }
+            }
             return result;
         }
     }

@@ -65,26 +65,44 @@ namespace WorldOfTank.Class.Components
             switch (Operator)
             {
                 case TypeOperator.GreaterEqual:
-                    if (par >= Value) return true;
+                    if (par >= Value)
+                    {
+                        return true;
+                    }
                     break;
                 case TypeOperator.Greater:
-                    if (par > Value) return true;
+                    if (par > Value)
+                    {
+                        return true;
+                    }
                     break;
                 case TypeOperator.Equal:
-                    if (Math.Abs(par - Value) < epsilon) return true;
+                    if (Math.Abs(par - Value) < epsilon)
+                    {
+                        return true;
+                    }
                     break;
                 case TypeOperator.Lower:
-                    if (par < Value) return true;
+                    if (par < Value)
+                    {
+                        return true;
+                    }
                     break;
                 case TypeOperator.LowerEqual:
-                    if (par <= Value) return true;
+                    if (par <= Value)
+                    {
+                        return true;
+                    }
                     break;
                 case TypeOperator.NotEqual:
-                    if (Math.Abs(par - Value) > epsilon) return true;
+                    if (Math.Abs(par - Value) > epsilon)
+                    {
+                        return true;
+                    }
                     break;
             }
 
             return false;
-        }  
+        }
     }
 }

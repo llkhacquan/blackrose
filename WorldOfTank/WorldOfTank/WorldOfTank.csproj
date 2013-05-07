@@ -73,6 +73,7 @@
     <Compile Include="Class\Model\StaticObject.cs" />
     <Compile Include="Class\Model\Tank.cs" />
     <Compile Include="Class\Model\Wall.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GUI\BattleFieldForm.cs">
       <SubType>Form</SubType>
     </Compile>

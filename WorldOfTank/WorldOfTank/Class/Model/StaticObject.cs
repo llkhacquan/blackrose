@@ -9,7 +9,7 @@ namespace WorldOfTank.Class.Model
     public abstract class StaticObject : ObjectGame
     {
         /// <summary>
-        ///     Constructor
+        /// Constructor
         /// </summary>
         /// <param name="image">Image object</param>
         /// <param name="type">Type object</param>

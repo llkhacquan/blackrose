@@ -80,22 +80,23 @@ namespace WorldOfTank.GUI
 
         private new void Paint()
         {
-            if (_bmpGame != null) _bmpGame.Dispose();
+            if (_bmpGame != null)
+            {
+                _bmpGame.Dispose();
+            }
             _bmpGame = new Bitmap(_bufferBmpGame);
-            if (_gfx != null) _gfx.Dispose();
+            if (_gfx != null)
+            {
+                _gfx.Dispose();
+            }
             _gfx = Graphics.FromImage(_bmpGame);
             foreach (ObjectGame obj in _battleField.Objects)
-                if (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Bullet) obj.Paint(_gfx);
-
-            /*
-            Pen pen = new Pen(new SolidBrush(Color.Green));
-            foreach (ObjectGame obj in _battleField.Objects)
             {
-                RectangleF rec = new RectangleF(obj.Position.X - obj.Radius, obj.Position.Y - obj.Radius, obj.Radius * 2, obj.Radius * 2);
-                _gfx.DrawArc(pen, rec, 0, 360);
+                if (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Bullet)
+                {
+                    obj.Paint(_gfx);
+                }
             }
-            */
-
             panelView.CreateGraphics().DrawImage(_bmpGame, 0, 0);
         }
 
@@ -125,7 +126,12 @@ namespace WorldOfTank.GUI
                     _bufferBmpGame = new Bitmap(_battleField.Size.Width, _battleField.Size.Height);
                     _gfx = Graphics.FromImage(_bufferBmpGame);
                     foreach (ObjectGame obj in _battleField.Objects)
-                        if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall) obj.Paint(_gfx);
+                    {
+                        if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall)
+                        {
+                            obj.Paint(_gfx);
+                        }
+                    }
                     timerControl.Enabled = true;
                     _stateGame = TypeStateGame.Started;
                     break;
@@ -133,6 +139,8 @@ namespace WorldOfTank.GUI
                 case TypeStateGame.Paused:
                     timerControl.Enabled = false;
                     _stateGame = TypeStateGame.Restart;
+                    break;
+                default:
                     break;
             }
             ShowButtonControl();
@@ -150,13 +158,15 @@ namespace WorldOfTank.GUI
                     timerControl.Enabled = true;
                     _stateGame = TypeStateGame.Started;
                     break;
+                default:
+                    break;
             }
             ShowButtonControl();
         }
 
         private void timerControl_Tick(object sender, EventArgs e)
         {
-            TypeResult result = _battleField.NextFrame();
+            var result = _battleField.NextFrame();
             Paint();
             _time -= 1f / timerControl.Interval;
             ShowInformation();

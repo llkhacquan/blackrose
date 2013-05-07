@@ -18,42 +18,66 @@ namespace WorldOfTank.GUI
 
         private void pictureBoxGreenTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 0) pictureBoxGreenTank.BackColor = Color.LimeGreen;
+            if (_typeTank != 0)
+            {
+                pictureBoxGreenTank.BackColor = Color.LimeGreen;
+            }
         }
 
         private void pictureBoxGreenTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 0) pictureBoxGreenTank.BackColor = Color.Transparent;
+            if (_typeTank != 0)
+            {
+                pictureBoxGreenTank.BackColor = Color.Transparent;
+            }
         }
 
         private void pictureBoxBlueTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 1) pictureBoxBlueTank.BackColor = Color.LightSeaGreen;
+            if (_typeTank != 1)
+            {
+                pictureBoxBlueTank.BackColor = Color.LightSeaGreen;
+            }
         }
 
         private void pictureBoxBlueTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 1) pictureBoxBlueTank.BackColor = Color.Transparent;
+            if (_typeTank != 1)
+            {
+                pictureBoxBlueTank.BackColor = Color.Transparent;
+            }
         }
 
         private void pictureBoxYellowTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 2) pictureBoxYellowTank.BackColor = Color.Gold;
+            if (_typeTank != 2)
+            {
+                pictureBoxYellowTank.BackColor = Color.Gold;
+            }
         }
 
         private void pictureBoxYellowTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 2) pictureBoxYellowTank.BackColor = Color.Transparent;
+            if (_typeTank != 2)
+            {
+                pictureBoxYellowTank.BackColor = Color.Transparent;
+            }
         }
 
         private void pictureBoxRedTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 3) pictureBoxRedTank.BackColor = Color.LightCoral;
+            if (_typeTank != 3)
+            {
+                pictureBoxRedTank.BackColor = Color.LightCoral;
+            }
         }
 
         private void pictureBoxRedTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 3) pictureBoxRedTank.BackColor = Color.Transparent;
+            if (_typeTank != 3)
+            {
+                pictureBoxRedTank.BackColor = Color.Transparent;
+            }
         }
 
         private void ShowInformation()
@@ -79,6 +103,8 @@ namespace WorldOfTank.GUI
                 case 3:
                     richTextBoxInfor.Text = "You chose the red tank\n   Damage: 10 - 20\n   Heal: 100\n   Movement speed: 3\n   Rotation speed: 5\n   Attack speed: 1\n   Rada range: 300\n   Rada angle: 20";
                     pictureBoxRedTank.BackColor = Color.LightCoral;
+                    break;
+                default:
                     break;
             }
         }
@@ -128,6 +154,8 @@ namespace WorldOfTank.GUI
                     break;
                 case 3:
                     Tank = new Tank(Resources.Tank_D);
+                    break;
+                default:
                     break;
             }
 

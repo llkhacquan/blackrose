@@ -17,6 +17,15 @@ namespace WorldOfTank.Class.Model
             : base(image, TypeObject.Background)
         {
         }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="image">Image object</param>
+        /// <param name="type">Type object</param>
+        protected Background(Image image, TypeObject type)
+            : base(image, type)
+        {
+        }
 
         public override TypeResult NextFrame(List<ObjectGame> objects)
         {

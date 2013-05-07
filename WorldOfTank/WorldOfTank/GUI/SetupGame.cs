@@ -33,7 +33,10 @@ namespace WorldOfTank.GUI
                 {
                     IFormatter formatter = new BinaryFormatter();
                     Stream stream = new FileStream(opener.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    if (_listTanks[index] == null) _tankCount++;
+                    if (_listTanks[index] == null)
+                    {
+                        _tankCount++;
+                    }
                     _listTanks[index] = (Tank)formatter.Deserialize(stream);
                     stream.Close();
                     switch (index)
@@ -50,12 +53,16 @@ namespace WorldOfTank.GUI
                         case 3:
                             buttonAddTank4.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
                             break;
+                        default:
+                            break;
                     }
-
                 }
                 catch
                 {
-                    if (_listTanks[index] == null) _tankCount--;
+                    if (_listTanks[index] == null)
+                    {
+                        _tankCount--;
+                    }
                     MessageBox.Show("Cannot load this file!");
                 }
             }
@@ -63,7 +70,9 @@ namespace WorldOfTank.GUI
 
         public List<Tank> GetListTanks()
         {
-            return (from tank in _listTanks where tank != null select tank.Clone()).ToList();
+            return (from tank in _listTanks
+                             where tank != null
+                             select tank.Clone()).ToList();
         }
 
         public float GetTime()

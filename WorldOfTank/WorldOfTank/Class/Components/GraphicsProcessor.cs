@@ -9,7 +9,7 @@ namespace WorldOfTank.Class.Components
     public static class GraphicsProcessor
     {
         /// <summary>
-        ///     Rotate image (rotative center is the center of the image) (0 degree is North, clockwise is positive)
+        /// Rotate image (rotative center is the center of the image) (0 degree is North, clockwise is positive)
         ///
         /// </summary>
         /// <param name="img">image need to be rotated</param>
@@ -18,7 +18,7 @@ namespace WorldOfTank.Class.Components
         public static Bitmap RotateImage(Image img, float angle)
         {
             var returnBitmap = new Bitmap(img.Width, img.Height + 1);
-            Graphics g = Graphics.FromImage(returnBitmap);
+            var g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)img.Width / 2, (float)img.Height / 2);
             g.RotateTransform(angle);
             g.TranslateTransform(-(float)img.Width / 2, -(float)img.Height / 2);
@@ -28,19 +28,18 @@ namespace WorldOfTank.Class.Components
         }
 
         /// <summary>
-        ///     make image blur
+        /// make image blur
         /// </summary>
         /// <param name="value">blur value (0.0 -> 1.0)</param>
         /// <returns>image attributes</returns>
         public static ImageAttributes SemiTransparent(float value)
         {
             var img = new ImageAttributes();
-            float[][] matrixItems = { 
-                new[] {1f, 0, 0, 0, 0},
-                new[] {0, 1f, 0, 0, 0},
-                new[] {0, 0, 1f, 0, 0},
-                new[] {0, 0, 0, value, 0}, 
-                new[] {0, 0, 0, 0, 1f}};
+            var matrixItems = new float[][] { new [] { 1f, 0, 0, 0, 0 },
+                new [] { 0, 1f, 0, 0, 0 },
+                new [] { 0, 0, 1f, 0, 0 },
+                new [] { 0, 0, 0, value, 0 },
+                new [] { 0, 0, 0, 0, 1f } };
             var colorMatrix = new ColorMatrix(matrixItems);
             img.SetColorMatrix(
                 colorMatrix,

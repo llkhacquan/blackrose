@@ -25,27 +25,27 @@ namespace WorldOfTank.Class.Model
         private float _damageCur;
 
         /// <summary>
-        ///     Gets or sets move speed of this tank
+        /// Gets or sets move speed of this tank
         /// </summary>
         public float SpeedMove;
 
         /// <summary>
-        ///     Gets or sets rotate speed of this tank
+        /// Gets or sets rotate speed of this tank
         /// </summary>
         public float SpeedRotate;
 
         /// <summary>
-        ///     Gets or sets fire speed of this tank
+        /// Gets or sets fire speed of this tank
         /// </summary>
         public float SpeedFire;
 
         /// <summary>
-        ///     Gets or sets maximum heal of this tank
+        /// Gets or sets maximum heal of this tank
         /// </summary>
         public float HealMax;
 
         /// <summary>
-        ///     Gets or sets current heal of this tank
+        /// Gets or sets current heal of this tank
         /// </summary>
         public float HealCur;
 
@@ -56,47 +56,47 @@ namespace WorldOfTank.Class.Model
         public Instruction Instruction;
 
         /// <summary>
-        ///     Gets or sets instructions of this tank
+        /// Gets or sets instructions of this tank
         /// </summary>
         public List<Instruction> ListInstructions;
 
         /// <summary>
-        ///     Gets result of last frame
+        /// Gets result of last frame
         /// </summary>
         public TypeResult LastResult;
 
         /// <summary>
-        ///     Gets result of new frame
+        /// Gets result of new frame
         /// </summary>
         public TypeResult NewResult;
 
         /// <summary>
-        ///     List instructions of normal action
+        /// List instructions of normal action
         /// </summary>
         public List<Instruction> ActionNormal;
 
         /// <summary>
-        ///     List instructions of "cannot move forward" action
+        /// List instructions of "cannot move forward" action
         /// </summary>
         public List<Instruction> ActionCannotMoveForward;
 
         /// <summary>
-        ///     List instructions of "cannot move backward" action
+        /// List instructions of "cannot move backward" action
         /// </summary>
         public List<Instruction> ActionCannotMoveBackward;
 
         /// <summary>
-        ///     List instructions of "detected enemy" action
+        /// List instructions of "detected enemy" action
         /// </summary>
         public List<Instruction> ActionDetected;
 
         /// <summary>
-        ///     List instructions of "be attacked" action
+        /// List instructions of "be attacked" action
         /// </summary>
         public List<Instruction> ActionBeAttacked;
 
         /// <summary>
-        ///     Constructor
+        /// Constructor
         /// </summary>
         /// <param name="image">Image tank</param>
         public Tank(Image image)
@@ -130,9 +130,18 @@ namespace WorldOfTank.Class.Model
             ActionDetected = new List<Instruction>();
             ActionBeAttacked = new List<Instruction>();
         }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="image">Image object</param>
+        /// <param name="type">Type object</param>
+        protected Tank(Image image, TypeObject type)
+            : base(image, type)
+        {
+        }
 
         /// <summary>
-        ///     Set instructions in each frame (according to LastResult and NewResult)
+        /// Set instructions in each frame (according to LastResult and NewResult)
         /// </summary>
         public void SetListInstructions()
         {
@@ -157,13 +166,15 @@ namespace WorldOfTank.Class.Model
                     case TypeResult.BeAttacked:
                         ListInstructions = new List<Instruction>(ActionBeAttacked);
                         break;
+                    default:
+                        break;
                 }
                 LastResult = NewResult;
             }
         }
 
         /// <summary>
-        ///     Check if this tank is invalid position
+        /// Check if this tank is invalid position
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>True if this tank is invalid position</returns>
@@ -175,25 +186,30 @@ namespace WorldOfTank.Class.Model
         public void DetectedEnemy(List<ObjectGame> objects)
         {
             foreach (ObjectGame obj in objects)
+            {
                 if (obj != this && obj.Type == TypeObject.Tank)
                 {
-                    float distance = MathProcessor.CalDistance(Position, obj.Position);
-                    float direction = MathProcessor.CalPointAngle(Position, obj.Position);
-                    float differentAngle = MathProcessor.CalDifferentAngle(Direction, direction);
+                    var distance = MathProcessor.CalDistance(Position, obj.Position);
+                    var direction = MathProcessor.CalPointAngle(Position, obj.Position);
+                    var differentAngle = MathProcessor.CalDifferentAngle(Direction, direction);
                     if (distance < RadaRange && Math.Abs(differentAngle) < RadaAngle / 2)
                     {
                         EnemyTank = (Tank)obj;
                         break;
                     }
                 }
+            }
         }
 
         public void ExecuteInstruction(List<ObjectGame> objects)
         {
-            if (Instruction == null) return;
+            if (Instruction == null)
+            {
+                return;
+            }
             const float epsilon = 1e-6f;
             float value;
-            PointF oldPosition = Position;
+            var oldPosition = Position;
 
             switch (Instruction.Type)
             {
@@ -243,6 +259,8 @@ namespace WorldOfTank.Class.Model
                         objects.Add(bullet);
                     }
                     break;
+                default:
+                    break;
             }
             if (Math.Abs(Instruction.Value) < epsilon)
             {
@@ -252,28 +270,43 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        ///     Execute some change of object in a frame in battlefield
+        /// Execute some change of object in a frame in battlefield
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>
         public override TypeResult NextFrame(List<ObjectGame> objects)
         {
-            if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
+            if (NewResult == TypeResult.BeDestroyed)
+            {
+                return TypeResult.BeDestroyed;
+            }
             DetectedEnemy(objects);
-            if (EnemyTank != null) NewResult = TypeResult.Detected;
+            if (EnemyTank != null)
+            {
+                NewResult = TypeResult.Detected;
+            }
             if (Instruction == null || Instruction.Interruptible)
             {
                 SetListInstructions();
                 while (Instruction == null)
-                    if (ListInstructions.Count == 0) break;
+                {
+                    if (ListInstructions.Count == 0)
+                    {
+                        break;
+                    }
                     else
                     {
                         if (ListInstructions[0].Condition == null ||
                             ListInstructions[0].Condition.GetResult(this, EnemyTank, EnemyBullet))
+                        {
                             Instruction = ListInstructions[0].Clone();
+                        }
                         else
+                        {
                             ListInstructions.RemoveAt(0);
+                        }
                     }
+                }
             }
             NewResult = TypeResult.Normal;
             ExecuteInstruction(objects);

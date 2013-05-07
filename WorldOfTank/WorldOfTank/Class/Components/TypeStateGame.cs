@@ -2,10 +2,10 @@
 {
     public enum TypeStateGame
     {
-        UnCreate,
         Created,
-        Started,
         Paused,
         Restart,
+        Started,
+        UnCreate
     }
 }

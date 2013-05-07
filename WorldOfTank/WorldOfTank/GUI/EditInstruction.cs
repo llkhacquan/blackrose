@@ -19,7 +19,7 @@ namespace WorldOfTank.GUI
 
         public void ShowInstructionInformation()
         {
-            float value = Instruction.Value;
+            var value = Instruction.Value;
             comboBoxTypeInstruction.Text = Instruction.Type.ToString();
             switch (Instruction.Type)
             {
@@ -75,7 +75,7 @@ namespace WorldOfTank.GUI
             }
             else
             {
-                Condition condition = Node.Condition;
+                var condition = Node.Condition;
 
                 comboBoxTypeCondition.Enabled = true;
                 comboBoxTypeCondition.Text = condition.Type.ToString();
@@ -142,6 +142,8 @@ namespace WorldOfTank.GUI
                 case "Fire":
                     Instruction.Type = TypeInstruction.Fire;
                     break;
+                default:
+                    break;
             }
             ShowInstructionInformation();
         }
@@ -159,7 +161,7 @@ namespace WorldOfTank.GUI
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            Condition parent = Node.Parent != null ? ((TreeNodePlus)Node.Parent).Condition : null;
+            var parent = Node.Parent != null ? ((TreeNodePlus)Node.Parent).Condition : null;
             if (parent != null)
             {
                 parent.Children.Remove(Node.Condition);
@@ -168,9 +170,11 @@ namespace WorldOfTank.GUI
                     parent.Type = TypeCondition.Unique;
                     parent.Comparision = new Comparison();
                 }
-
             }
-            else Instruction.Condition = null;
+            else
+            {
+                Instruction.Condition = null;
+            }
             Node = null;
             ShowConditionInformation();
         }
@@ -203,7 +207,7 @@ namespace WorldOfTank.GUI
 
         private void comboBoxParameter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Condition condition = Node.Condition;
+            var condition = Node.Condition;
             switch (comboBoxParameter.Text)
             {
                 case "GetPositionX":
@@ -230,13 +234,15 @@ namespace WorldOfTank.GUI
                 case "GetBulletDifferentAngle":
                     condition.Comparision.Parameter = TypeParameter.GetBulletDifferentAngle;
                     break;
+                default:
+                    break;
             }
             ShowConditionInformation();
         }
 
         private void comboBoxOperator_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Condition condition = Node.Condition;
+            var condition = Node.Condition;
             switch (comboBoxOperator.Text)
             {
                 case ">=":
@@ -257,6 +263,8 @@ namespace WorldOfTank.GUI
                 case "!=":
                     condition.Comparision.Operator = TypeOperator.NotEqual;
                     break;
+                default:
+                    break;
             }
             ShowConditionInformation();
         }
@@ -269,21 +277,32 @@ namespace WorldOfTank.GUI
 
         private void comboBoxTypeCondition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Condition condition = Node.Condition;
+            var condition = Node.Condition;
             switch (comboBoxTypeCondition.Text)
             {
                 case "Unique":
-                    if (condition.Type == TypeCondition.Unique) break;
+                    if (condition.Type == TypeCondition.Unique)
+                    {
+                        break;
+                    }
                     condition.Comparision = new Comparison();
                     condition.Children.Clear();
                     break;
                 case "And":
                     condition.Type = TypeCondition.And;
-                    if (condition.Children.Count == 0) condition.Children.Add(new Condition());
+                    if (condition.Children.Count == 0)
+                    {
+                        condition.Children.Add(new Condition());
+                    }
                     break;
                 case "Or":
                     condition.Type = TypeCondition.Or;
-                    if (condition.Children.Count == 0) condition.Children.Add(new Condition());
+                    if (condition.Children.Count == 0)
+                    {
+                        condition.Children.Add(new Condition());
+                    }
+                    break;
+                default:
                     break;
             }
             ShowConditionInformation();
