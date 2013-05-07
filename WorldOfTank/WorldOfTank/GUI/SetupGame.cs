@@ -37,16 +37,18 @@ namespace WorldOfTank.GUI
                     switch (index)
                     {
                         case 0:
-                            buttonAddTank1.Text = "Tank '" + _listTank[index].Name + "' is loaded successfully";
+                            buttonAddTank1.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
                             break;
                         case 1:
-                            buttonAddTank2.Text = "Tank '" + _listTank[index].Name + "' is loaded successfully";
+                            buttonAddTank2.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
                             break;
                         case 2:
-                            buttonAddTank3.Text = "Tank '" + _listTank[index].Name + "' is loaded successfully";
+                            buttonAddTank3.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
                             break;
                         case 3:
-                            buttonAddTank4.Text = "Tank '" + _listTank[index].Name + "' is loaded successfully";
+                            buttonAddTank4.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
+                            break;
+                        default:
                             break;
                     }
 

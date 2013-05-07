@@ -23,14 +23,7 @@ namespace WorldOfTank.GUI
         public void ShowTankInformation()
         {
             pictureBoxTank.Image = Tank.Image;
-            richTextBoxTankInfor.Text = "Tank name: " + Tank.Name +
-                                        "\nDamage: " + Tank.DamageMin.ToString() + " - " + Tank.DamageMax.ToString() +
-                                        "\nHeal: " + Tank.HealMax.ToString() +
-                                        "\nMovement speed: " + Tank.SpeedMove.ToString() +
-                                        "\nRotation speed: " + Tank.SpeedRotate.ToString() +
-                                        "\nAttack speed: " + Tank.SpeedFire.ToString() +
-                                        "\nRada range: " + Tank.RadaRange.ToString() +
-                                        "\nRada angle: " + Tank.RadaAngle.ToString();
+            richTextBoxTankInfor.Text = String.Format("Tank name: {0}\nDamage: {1} - {2}\nHeal: {3}\nMovement speed: {4}\nRotation speed: {5}\nAttack speed: {6}\nRada range: {7}\nRada angle: {8}", Tank.Name, Tank.DamageMin, Tank.DamageMax, Tank.HealMax, Tank.SpeedMove, Tank.SpeedRotate, Tank.SpeedFire, Tank.RadaRange, Tank.RadaAngle);
         }
 
         public void ShowInstructionInformationList()
@@ -106,7 +99,8 @@ namespace WorldOfTank.GUI
                 Tank.Name = saver.FileName.Substring(saver.FileName.LastIndexOf('\\') + 1);
                 Tank.Name = Tank.Name.Substring(0, Tank.Name.LastIndexOf('.'));
                 IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream(saver.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                Stream stream = new FileStream(saver.FileName, FileMode.Create,
+                    FileAccess.Write, FileShare.None);
                 formatter.Serialize(stream, Tank);
                 stream.Close();
             }
@@ -125,7 +119,8 @@ namespace WorldOfTank.GUI
                 try
                 {
                     IFormatter formatter = new BinaryFormatter();
-                    Stream stream = new FileStream(opener.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    Stream stream = new FileStream(opener.FileName, FileMode.Open,
+                        FileAccess.Read, FileShare.Read);
                     Tank = (Tank)formatter.Deserialize(stream);
                     stream.Close();
                     panelTank.Visible = true;
@@ -274,15 +269,12 @@ namespace WorldOfTank.GUI
         private void toolStripButtonEdit_Click(object sender, EventArgs e)
         {
             int index = FindIndexInstruction();
-            var editInstruction = new EditInstruction
+            using (var editInstruction = new EditInstruction { Tank = Tank, ActionName = ActionName, Instruction = ActionInstruction[index] })
             {
-                Tank = Tank,
-                ActionName = ActionName,
-                Instruction = ActionInstruction[index]
-            };
-            editInstruction.ShowInstructionInformation();
-            editInstruction.ShowConditionInformation();
-            editInstruction.ShowDialog();
+                editInstruction.ShowInstructionInformation();
+                editInstruction.ShowConditionInformation();
+                editInstruction.ShowDialog();
+            }
             ShowInstructionInformationList();
             listViewInstruction.Focus();
             listViewInstruction.Items[index].Selected = true;

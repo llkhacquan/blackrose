@@ -80,6 +80,8 @@ namespace WorldOfTank.GUI
                     richTextBoxInfor.Text = "You chose the red tank\n   Damage: 10 - 20\n   Heal: 100\n   Movement speed: 3\n   Rotation speed: 5\n   Attack speed: 1\n   Rada range: 300\n   Rada angle: 20";
                     pictureBoxRedTank.BackColor = Color.LightCoral;
                     break;
+                default:
+                    break;
             }
         }
 
@@ -128,6 +130,8 @@ namespace WorldOfTank.GUI
                     break;
                 case 3:
                     Tank = new Tank(Resources.Tank_D);
+                    break;
+                default:
                     break;
             }
 

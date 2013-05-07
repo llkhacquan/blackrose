@@ -7,6 +7,9 @@ using WorldOfTank.Properties;
 
 namespace WorldOfTank.Class.Model
 {
+    /// <summary>
+    /// This class handles the BattleField object
+    /// </summary>
     public class BattleField
     {
         /// <summary>
@@ -33,6 +36,7 @@ namespace WorldOfTank.Class.Model
         /// </summary>
         public void SetupGame(List<Tank> listTanks)
         {
+            // Setup Grass for BattleField;
             for (int i = 0; i <= (Size.Width - 1) / Resources.Grass_A.Width; i++)
                 for (int j = 0; j <= (Size.Height - 1) / Resources.Grass_A.Height; j++)
                 {
@@ -42,6 +46,7 @@ namespace WorldOfTank.Class.Model
                     Objects.Add(background);
                 }
 
+            // Setup Walls (if exists) for BattleField
             Wall wall;
             for (int i = 0; i <= (Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
             {
@@ -69,6 +74,7 @@ namespace WorldOfTank.Class.Model
                 Objects.Add(wall);
             }
 
+            // Put tanks in the BattleField
             var random = new Random();
             foreach (Tank tank in listTanks)
             {
@@ -82,7 +88,7 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        ///     Execute some change in a frame in battefield
+        ///     Execute some change in a frame in battlefield
         /// </summary>
         /// <returns>Result of that frame</returns>
         public TypeResult NextFrame()

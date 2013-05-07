@@ -3,6 +3,9 @@ using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
+    /// <summary>
+    /// This class handles the static objects like: wall, trees...
+    /// </summary>
     public abstract class StaticObject : ObjectGame
     {
         /// <summary>

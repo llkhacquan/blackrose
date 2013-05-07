@@ -4,6 +4,9 @@ using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
+    /// <summary>
+    /// This class handles the Dynamic object like: tank, bullet, rocket...
+    /// </summary>
     [Serializable]
     public abstract class DynamicObject : ObjectGame
     {
@@ -20,7 +23,7 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Rotate left object
         /// </summary>
-        /// <param name="value">So goc' se quay</param>
+        /// <param name="value">The angel in degree that the image will be rotated</param>
         public void RotateLeft(float value)
         {
             Direction -= value;
@@ -29,7 +32,7 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Rotate right object
         /// </summary>
-        /// <param name="value">So goc' se quay</param>
+        /// <param name="value">The angel in degree that the image will be rotated</param>
         public void RotateRight(float value)
         {
             Direction += value;
@@ -38,7 +41,7 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Move forward object
         /// </summary>
-        /// <param name="value">so khoang cach di chuyen</param>
+        /// <param name="value">The distance of movement</param>
         public void MoveForward(float value)
         {
             double rad = Math.PI * Direction / 180;
@@ -49,7 +52,7 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Move backward object
         /// </summary>
-        /// <param name="value">so khoang cach di chuyen</param>
+        /// <param name="value">The distance of movement</param>
         public void MoveBackward(float value)
         {
             double rad = Math.PI * Direction / 180;

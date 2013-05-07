@@ -65,12 +65,12 @@ namespace WorldOfTank.Class.Components
             }
             else
             {
-                s = "(" + Children[0].Print() + ")";
+                s = String.Format("({0})", Children[0].Print());
                 for (int i = 1; i < Children.Count; i++)
                     if (Type == TypeCondition.And)
-                        s += " AND (" + Children[i].Print() + ")";
+                        s += String.Format(" AND ({0})", Children[i].Print());
                     else
-                        s += " OR (" + Children[i].Print() + ")";
+                        s += String.Format(" OR ({0})", Children[i].Print());
             }
             return s;
         }
@@ -87,12 +87,5 @@ namespace WorldOfTank.Class.Components
             }
             return new TreeNodePlus(Print(), this);
         }
-    }
-
-    public enum TypeCondition
-    {
-        Unique,
-        And,
-        Or,
     }
 }

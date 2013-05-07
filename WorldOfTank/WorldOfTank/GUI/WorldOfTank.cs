@@ -19,14 +19,20 @@ namespace WorldOfTank.GUI
         private void pictureBoxBattlefield_Click(object sender, EventArgs e)
         {
             Visible = false;
-            new BattleFieldForm().ShowDialog();
+            using (BattleFieldForm battleFieldForm = new BattleFieldForm())
+            {
+                battleFieldForm.ShowDialog();
+            }
             Visible = true;
         }
 
         private void pictureBoxTankCreator_Click(object sender, EventArgs e)
         {
             Visible = false;
-            new TankCreatorForm().ShowDialog();
+            using (TankCreatorForm tankCreatorForm = new TankCreatorForm())
+            {
+                tankCreatorForm.ShowDialog();
+            }
             Visible = true;
         }
 

@@ -3,16 +3,19 @@ using System.Drawing;
 
 namespace WorldOfTank.Class.Components
 {
+    /// <summary>
+    /// This class is used to calculate some geometric issue
+    /// </summary>
     public static class MathProcessor
     {
         /// <summary>
-        ///     Determine the relative direction of vector II to vector I
-        ///         vector i: p1-->p2
-        ///         vector ii: p2-->p3
+        /// Determine the relative direction of vector II to vector I
+        ///         vector I: p1-->p2
+        ///         vector II: p2-->p3
         /// </summary>
-        /// <param name="p1">First point</param>
-        /// <param name="p2">Second point</param>
-        /// <param name="p3">Third point</param>
+        /// <param name="p1">1st point</param>
+        /// <param name="p2">2nd point</param>
+        /// <param name="p3">3th point</param>
         /// <returns>1 if turn right, -1 if turn left, 0 if straight</returns>
         public static int CounterClockWise(PointF p1, PointF p2, PointF p3)
         {
@@ -21,9 +24,9 @@ namespace WorldOfTank.Class.Components
             float a2 = p3.X - p2.X;
             float b2 = p3.Y - p2.Y;
             float t = a1 * b2 - a2 * b1;
-            if (t > 0) return 1;            // Turn right
-            if (t < 0) return -1;           // Turn left
-            return 0;                       // Straight
+            if (t > 0) return 1;            // vector I turns right to have the same direction with vector II
+            if (t < 0) return -1;           // vector I turns left to have the same direction with vector II
+            return 0;                       // vector I does not turn to have the same direction with vector II
         }
 
         /// <summary>
@@ -43,12 +46,12 @@ namespace WorldOfTank.Class.Components
 
 
         /// <summary>
-        ///     Calculate the angle between input vector (determined by 2 points) and the j (0,1) vector unit
+        ///     Calculate the angle between input vector (determined by 2 points) and the j(0,1) vector unit
         ///     Clockwise is positive
         /// </summary>
         /// <param name="root">root of the vector</param>
         /// <param name="head">head of the vector</param>
-        /// <returns>angle in degre</returns>
+        /// <returns>angle in degree</returns>
         public static float CalPointAngle(PointF root, PointF head)
         {
             const float epsilon = 1e-6f;
@@ -64,12 +67,12 @@ namespace WorldOfTank.Class.Components
 
 
         /// <summary>
-        ///     Given vector's root, magnitude, directions (relative to North (0 degre))
+        ///     Given vector's root, magnitude, directions (relative to North (0 degree))
         ///     calculate the head's coordinates of the vector
         /// </summary>
-        /// <param name="root">goc' vector</param>
-        /// <param name="magnitude">do dai vector</param>
-        /// <param name="angle">huong' vector</param>
+        /// <param name="root">root of vector</param>
+        /// <param name="magnitude">magnitude of vector</param>
+        /// <param name="angle">vector's direction, determined by the angle between vector and North direction</param>
         /// <returns>head of the vector</returns>
         public static PointF CalPointPosition(PointF root, float magnitude, float angle)
         {
@@ -77,22 +80,33 @@ namespace WorldOfTank.Class.Components
             return new PointF(root.X + (float)Math.Sin(rad) * magnitude, root.Y - (float)Math.Cos(rad) * magnitude);
         }
 
-        // Calculate distance between p1 and p2
+        /// <summary>
+        /// Calculate distance between point 1 and point 2
+        /// </summary>
+        /// <param name="p1">Point 1</param>
+        /// <param name="p2">Point 2</param>
+        /// <returns>Distance (in value)</returns>
         public static float CalDistance(PointF p1, PointF p2)
         {
             float d = (p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y);
             return (float)Math.Sqrt(d);
         }
 
-        // Calculate different angle of anotherAngle with rootAngle
-        public static float CalDifferentAngle(float rootAngle, float anotherAngle)
+        /// <summary>
+        /// Calculate different angle of anotherAngle with rootAngle
+        /// </summary>
+        /// <param name="referenceAngle">Reference angle</param>
+        /// <param name="calculatedAngle">The angle need calculated</param>
+        /// <returns>The difference degree (smaller than 180 and greater than -180)</returns>
+        public static float CalDifferentAngle(float referenceAngle, float calculatedAngle)
         {
-            float dif = anotherAngle - rootAngle;
-            dif -= 360 * (int)(dif / 360);
-            // -180 < dif < 180
-            if (dif > 180) dif -= 360;
-            else if (dif < -180) dif += 360;
-            return dif;
+            float difference = calculatedAngle - referenceAngle;
+            difference -= 360 * (int)(difference / 360);
+            // -180 < difference < 180
+            if (difference > 180) difference -= 360;
+            else if (difference < -180) difference += 360;
+
+            return difference;
         }
     }
 }

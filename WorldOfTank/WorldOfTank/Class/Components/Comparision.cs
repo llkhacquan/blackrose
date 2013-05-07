@@ -74,28 +74,4 @@ namespace WorldOfTank.Class.Components
             Value = 100;
         }
     }
-
-    public enum TypeParameter
-    {
-        GetPositionX,
-        GetPositionY,
-        GetDirection,
-        GetCurrentHeal,
-
-        GetEnemyDistance,
-        GetEnemyDifferentAngle,
-        GetEnemyCurrentHeal,
-
-        GetBulletDifferentAngle,
-    }
-
-    public enum TypeOperator
-    {
-        GreaterEqual,
-        Greater,
-        Equal,
-        Lower,
-        LowerEqual,
-        NotEqual,
-    }
 }

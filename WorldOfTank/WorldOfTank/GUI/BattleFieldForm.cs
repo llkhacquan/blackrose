@@ -26,16 +26,6 @@ namespace WorldOfTank.GUI
             _gfx = Graphics.FromImage(_bmpGame);
             foreach (ObjectGame obj in _battleField.Objects)
                 if (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Bullet) obj.Paint(_gfx);
-
-            /*
-            Pen pen = new Pen(new SolidBrush(Color.Green));
-            foreach (ObjectGame obj in _battleField.Objects)
-            {
-                RectangleF rec = new RectangleF(obj.Position.X - obj.Radius, obj.Position.Y - obj.Radius, obj.Radius * 2, obj.Radius * 2);
-                _gfx.DrawArc(pen, rec, 0, 360);
-            }
-            */
-
             panelView.CreateGraphics().DrawImage(_bmpGame, 0, 0);
         }
 
@@ -46,15 +36,18 @@ namespace WorldOfTank.GUI
 
         private void buttonSetup_Click(object sender, EventArgs e)
         {
-            var setupGame = new SetupGame();
-            if (setupGame.ShowDialog() == DialogResult.OK)
+            using (var setupGame = new SetupGame())
             {
-                _battleField = new BattleField();
-                _battleField.SetupGame(setupGame.ListTanks);
-                _bufferBmpGame = new Bitmap(_battleField.Size.Width, _battleField.Size.Height);
-                _gfx = Graphics.FromImage(_bufferBmpGame);
-                foreach (ObjectGame obj in _battleField.Objects)
-                    if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall) obj.Paint(_gfx);
+                if (setupGame.ShowDialog() == DialogResult.OK)
+                {
+                    _battleField = new BattleField();
+                    _battleField.SetupGame(setupGame.ListTanks);
+                    _bufferBmpGame = new Bitmap(_battleField.Size.Width, _battleField.Size.Height);
+                    _gfx = Graphics.FromImage(_bufferBmpGame);
+                    foreach (ObjectGame obj in _battleField.Objects)
+                        if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall)
+                            obj.Paint(_gfx);
+                }
             }
         }
 

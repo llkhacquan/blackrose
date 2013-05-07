@@ -6,6 +6,9 @@ using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
+    /// <summary>
+    /// This class handles the tank object
+    /// </summary>
     [Serializable]
     public class Tank : DynamicObject
     {
@@ -89,7 +92,7 @@ namespace WorldOfTank.Class.Model
         public List<Instruction> ActionBeAttacked;
 
         /// <summary>
-        ///     Constructor
+        ///     Constructor with Image of the tank
         /// </summary>
         /// <param name="image">Image tank</param>
         public Tank(Image image)
@@ -123,6 +126,16 @@ namespace WorldOfTank.Class.Model
             ActionDetected = new List<Instruction>();
             ActionBeAttacked = new List<Instruction>();
         }
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="image">Image object</param>
+        /// <param name="type">Type object</param>
+        protected Tank(Image image, TypeObject type)
+            : base(image, type)
+        {
+            
+        }
 
         /// <summary>
         ///     Set instructions in each frame (according to LastResult and NewResult)
@@ -154,6 +167,8 @@ namespace WorldOfTank.Class.Model
                         break;
                     case TypeResult.BeAttacked:
                         ListInstructions = new List<Instruction>(ActionBeAttacked);
+                        break;
+                    default:
                         break;
                 }
                 LastResult = NewResult;
@@ -250,7 +265,7 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        ///     Execute some change of object in a frame in battefield
+        ///     Execute some change of object in a frame in battlefield
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>

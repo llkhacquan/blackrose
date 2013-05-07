@@ -5,8 +5,11 @@ using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
 {
+    /// <summary>
+    /// This class handle all objects in the game
+    /// </summary>
     [Serializable]
-    public abstract class ObjectGame
+    public abstract class ObjectGame : IDisposable
     {
         /// <summary>
         ///     Gets or sets Image
@@ -33,6 +36,15 @@ namespace WorldOfTank.Class.Model
         /// </summary>
         public float Radius;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+        public void Dispose()
+        {
+            if (Image != null)
+            {
+                Image.Dispose();
+                Image = null;
+            }
+        }
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -61,19 +73,19 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        ///     Paint in gfx
+        ///     Paint in graphics
         /// </summary>
-        /// <param name="gfx">Where it is painted</param>
-        public virtual void Paint(Graphics gfx)
+        /// <param name="graphics">Where it is painted</param>
+        public virtual void Paint(Graphics graphics)
         {
             Bitmap bmp = GraphicsProcessor.RotateImage(Image, Direction);
-            gfx.DrawImage(bmp, Position.X - 0.5f * Image.Width, Position.Y - 0.5f * Image.Height);
+            graphics.DrawImage(bmp, Position.X - 0.5f * Image.Width, Position.Y - 0.5f * Image.Height);
             bmp.Dispose();
 
         }
 
         /// <summary>
-        ///     Execute some change of object in a frame in battefield
+        ///     Execute some change of object in a frame in battlefield
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>

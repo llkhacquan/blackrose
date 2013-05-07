@@ -3,6 +3,9 @@ using System.Drawing.Imaging;
 
 namespace WorldOfTank.Class.Components
 {
+    /// <summary>
+    /// This class includes some static method to handle some work with image
+    /// </summary>
     public static class GraphicsProcessor
     {
         /// <summary>
@@ -10,7 +13,7 @@ namespace WorldOfTank.Class.Components
         ///
         /// </summary>
         /// <param name="img">image need to be rotated</param>
-        /// <param name="angle">rotative angle in deger</param>
+        /// <param name="angle">rotative angle in degree</param>
         /// <returns>result image</returns>
         public static Bitmap RotateImage(Image img, float angle)
         {
@@ -28,7 +31,7 @@ namespace WorldOfTank.Class.Components
         ///     make image blur
         /// </summary>
         /// <param name="value">blur value (0.0 -> 1.0)</param>
-        /// <returns>image's attributes</returns>
+        /// <returns>images attributes</returns>
         public static ImageAttributes SemiTransparent(float value)
         {
             var img = new ImageAttributes();

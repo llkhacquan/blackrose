@@ -5,6 +5,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace WorldOfTank.Class.Components
 {
+    /// <summary>
+    /// Instruction is a class that stores Instruction of Tank
+    /// </summary>
     [Serializable]
     public class Instruction
     {
@@ -12,6 +15,9 @@ namespace WorldOfTank.Class.Components
         public float Value;
         public Condition Condition;
 
+        /// <summary>
+        /// Default Instruction
+        /// </summary>
         public Instruction()
         {
             Type = TypeInstruction.MoveForward;

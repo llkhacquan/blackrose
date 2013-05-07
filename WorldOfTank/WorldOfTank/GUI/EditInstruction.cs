@@ -141,6 +141,8 @@ namespace WorldOfTank.GUI
                 case "Fire":
                     Instruction.Type = TypeInstruction.Fire;
                     break;
+                default:
+                    break;
             }
             ShowInstructionInformation();
         }
@@ -229,6 +231,8 @@ namespace WorldOfTank.GUI
                 case "GetBulletDifferentAngle":
                     condition.Comparision.Parameter = TypeParameter.GetBulletDifferentAngle;
                     break;
+                default:
+                    break;
             }
             ShowConditionInformation();
         }
@@ -255,6 +259,8 @@ namespace WorldOfTank.GUI
                     break;
                 case "!=":
                     condition.Comparision.Operator = TypeOperator.NotEqual;
+                    break;
+                default:
                     break;
             }
             ShowConditionInformation();
@@ -283,6 +289,8 @@ namespace WorldOfTank.GUI
                 case "Or":
                     condition.Type = TypeCondition.Or;
                     if (condition.Children.Count == 0) condition.Children.Add(new Condition());
+                    break;
+                default:
                     break;
             }
             ShowConditionInformation();

@@ -1,12 +1,22 @@
 ﻿using NUnit.Framework;
 using WorldOfTank.Class.Model;
+using System;
 
 namespace WorldOfTank.Test
 {
     [TestFixture]
-    class TestTank
+    class TestClassTank : IDisposable
     {
         private Tank _tank;
+
+        public void Dispose()
+        {
+            if (_tank != null)
+            {
+                _tank.Dispose();
+                _tank = null;
+            }
+        }
 
         [SetUp]
         public void Setup()
