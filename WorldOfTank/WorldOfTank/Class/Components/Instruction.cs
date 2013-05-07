@@ -13,6 +13,7 @@ namespace WorldOfTank.Class.Components
     {
         public TypeInstruction Type;
         public float Value;
+        public bool Interruptible;
         public Condition Condition;
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace WorldOfTank.Class.Components
             Type = TypeInstruction.MoveForward;
             Value = 100;
             Condition = null;
+            Interruptible = false;
         }
 
         public Instruction Clone()

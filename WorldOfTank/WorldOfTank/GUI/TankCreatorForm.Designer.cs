@@ -13,18 +13,10 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-{
-    if (components != null)
-    {
-        components.Dispose();
-    }
-    if (Tank != null)
-    {
-        Tank.Dispose();
-        Tank = null;
-    }
-}
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
@@ -369,7 +361,7 @@
             // richTextBoxTankInfor
             // 
             this.richTextBoxTankInfor.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.richTextBoxTankInfor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxTankInfor.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxTankInfor.Dock = System.Windows.Forms.DockStyle.Left;
             this.richTextBoxTankInfor.Location = new System.Drawing.Point(100, 0);
             this.richTextBoxTankInfor.Name = "richTextBoxTankInfor";

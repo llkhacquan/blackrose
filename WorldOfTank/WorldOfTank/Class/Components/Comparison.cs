@@ -14,6 +14,16 @@ namespace WorldOfTank.Class.Components
         public float Value;
 
         /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public Comparison()
+        {
+            Parameter = TypeParameter.GetCurrentHeal;
+            Operator = TypeOperator.LowerEqual;
+            Value = 100;
+        }
+
+        /// <summary>
         /// The turn the result of the Comparison
         /// </summary>
         /// <param name="yourTank"></param>
@@ -32,7 +42,7 @@ namespace WorldOfTank.Class.Components
                     par = yourTank.Position.Y;
                     break;
                 case TypeParameter.GetDirection:
-                    par = yourTank.Direction;
+                    par = MathProcessor.CalDifferentAngle(yourTank.Direction, 0);
                     break;
                 case TypeParameter.GetCurrentHeal:
                     par = yourTank.HealCur;
@@ -75,17 +85,6 @@ namespace WorldOfTank.Class.Components
             }
 
             return false;
-        }
-
-
-        /// <summary>
-        /// Default Constructor
-        /// </summary>
-        public Comparison()
-        {
-            Parameter = TypeParameter.GetCurrentHeal;
-            Operator = TypeOperator.LowerEqual;
-            Value = 100;
-        }
+        }  
     }
 }

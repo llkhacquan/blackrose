@@ -1,6 +1,4 @@
-using System;
-
-namespace WorldOfTank.Class.Components
+﻿namespace WorldOfTank.Class.Components
 {
     /// <summary>
     /// Type of all Operator that used by Comparison class

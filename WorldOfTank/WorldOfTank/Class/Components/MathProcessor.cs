@@ -10,12 +10,13 @@ namespace WorldOfTank.Class.Components
     {
         /// <summary>
         /// Determine the relative direction of vector II to vector I
-        ///         vector I: p1-->p2
-        ///         vector II: p2-->p3
+        ///     vector I: p1-->p2
+        ///     vector II: p2-->p3
+
         /// </summary>
         /// <param name="p1">1st point</param>
         /// <param name="p2">2nd point</param>
-        /// <param name="p3">3th point</param>
+        /// <param name="p3">3rd point</param>
         /// <returns>1 if turn right, -1 if turn left, 0 if straight</returns>
         public static int CounterClockWise(PointF p1, PointF p2, PointF p3)
         {
@@ -24,9 +25,9 @@ namespace WorldOfTank.Class.Components
             float a2 = p3.X - p2.X;
             float b2 = p3.Y - p2.Y;
             float t = a1 * b2 - a2 * b1;
-            if (t > 0) return 1;            // vector I turns right to have the same direction with vector II
-            if (t < 0) return -1;           // vector I turns left to have the same direction with vector II
-            return 0;                       // vector I does not turn to have the same direction with vector II
+            if (t > 0) return 1;            // Turn right
+            if (t < 0) return -1;           // Turn left
+            return 0;                       // Straight
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace WorldOfTank.Class.Components
 
 
         /// <summary>
-        ///     Calculate the angle between input vector (determined by 2 points) and the j(0,1) vector unit
+        ///     Calculate the angle between input vector (determined by 2 points) and the vector unit (North direction)
         ///     Clockwise is positive
         /// </summary>
         /// <param name="root">root of the vector</param>
@@ -85,7 +86,7 @@ namespace WorldOfTank.Class.Components
         /// </summary>
         /// <param name="p1">Point 1</param>
         /// <param name="p2">Point 2</param>
-        /// <returns>Distance (in value)</returns>
+        /// <returns></returns>
         public static float CalDistance(PointF p1, PointF p2)
         {
             float d = (p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y);
@@ -105,8 +106,8 @@ namespace WorldOfTank.Class.Components
             // -180 < difference < 180
             if (difference > 180) difference -= 360;
             else if (difference < -180) difference += 360;
-
             return difference;
         }
+
     }
 }

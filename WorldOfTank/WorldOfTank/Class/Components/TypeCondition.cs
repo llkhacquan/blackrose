@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace WorldOfTank.Class.Components
+﻿namespace WorldOfTank.Class.Components
 {
     /// <summary>
     /// This set hold kinds of Conditions

@@ -36,7 +36,7 @@ namespace WorldOfTank.Class.Model
         /// </summary>
         public void SetupGame(List<Tank> listTanks)
         {
-            // Setup Grass for BattleField;
+            // Setup background for BattleField;
             for (int i = 0; i <= (Size.Width - 1) / Resources.Grass_A.Width; i++)
                 for (int j = 0; j <= (Size.Height - 1) / Resources.Grass_A.Height; j++)
                 {
@@ -46,7 +46,7 @@ namespace WorldOfTank.Class.Model
                     Objects.Add(background);
                 }
 
-            // Setup Walls (if exists) for BattleField
+            // Setup walls for BattleField
             Wall wall;
             for (int i = 0; i <= (Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
             {
@@ -79,6 +79,7 @@ namespace WorldOfTank.Class.Model
             foreach (Tank tank in listTanks)
             {
                 Objects.Add(tank);
+                tank.Direction = random.Next(360);
                 do
                 {
                     tank.Position.X = random.Next(Size.Width);

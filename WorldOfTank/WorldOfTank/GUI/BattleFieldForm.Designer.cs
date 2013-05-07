@@ -13,28 +13,10 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-{
-    if (components != null)
-    {
-        components.Dispose();
-    }
-    if (_bufferBmpGame != null)
-    {
-        _bufferBmpGame.Dispose();
-        _bufferBmpGame = null;
-    }
-    if (_bmpGame != null)
-    {
-        _bmpGame.Dispose();
-        _bmpGame = null;
-    }
-    if (_gfx != null)
-    {
-        _gfx.Dispose();
-        _gfx = null;
-    }
-}
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
@@ -50,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BattleFieldForm));
             this.panelControl = new System.Windows.Forms.Panel();
             this.groupBoxInformation = new System.Windows.Forms.GroupBox();
+            this.richTextBoxInformation = new System.Windows.Forms.RichTextBox();
             this.groupBoxControl = new System.Windows.Forms.GroupBox();
             this.buttonSetup = new System.Windows.Forms.Button();
             this.buttonPause = new System.Windows.Forms.Button();
@@ -58,6 +41,7 @@
             this.panelView = new System.Windows.Forms.Panel();
             this.timerControl = new System.Windows.Forms.Timer(this.components);
             this.panelControl.SuspendLayout();
+            this.groupBoxInformation.SuspendLayout();
             this.groupBoxControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +58,7 @@
             // 
             // groupBoxInformation
             // 
+            this.groupBoxInformation.Controls.Add(this.richTextBoxInformation);
             this.groupBoxInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxInformation.Location = new System.Drawing.Point(0, 150);
             this.groupBoxInformation.Name = "groupBoxInformation";
@@ -81,6 +66,17 @@
             this.groupBoxInformation.TabIndex = 5;
             this.groupBoxInformation.TabStop = false;
             this.groupBoxInformation.Text = "Information";
+            // 
+            // richTextBoxInformation
+            // 
+            this.richTextBoxInformation.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.richTextBoxInformation.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBoxInformation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxInformation.Location = new System.Drawing.Point(3, 16);
+            this.richTextBoxInformation.Name = "richTextBoxInformation";
+            this.richTextBoxInformation.Size = new System.Drawing.Size(194, 431);
+            this.richTextBoxInformation.TabIndex = 0;
+            this.richTextBoxInformation.Text = "";
             // 
             // groupBoxControl
             // 
@@ -115,6 +111,7 @@
             this.buttonPause.TabIndex = 2;
             this.buttonPause.Text = "Pause";
             this.buttonPause.UseVisualStyleBackColor = true;
+            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // buttonExit
             // 
@@ -167,7 +164,9 @@
             this.Name = "BattleFieldForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Battlefield";
+            this.Load += new System.EventHandler(this.BattleFieldForm_Load);
             this.panelControl.ResumeLayout(false);
+            this.groupBoxInformation.ResumeLayout(false);
             this.groupBoxControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -184,5 +183,6 @@
         private System.Windows.Forms.GroupBox groupBoxControl;
         private System.Windows.Forms.GroupBox groupBoxInformation;
         private System.Windows.Forms.Button buttonSetup;
+        private System.Windows.Forms.RichTextBox richTextBoxInformation;
     }
 }

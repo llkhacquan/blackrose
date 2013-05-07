@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
@@ -10,8 +11,8 @@ namespace WorldOfTank.GUI
 {
     public partial class SetupGame : Form
     {
-        private readonly Tank[] _listTank = new Tank[4];
-        public List<Tank> ListTanks;
+        private readonly Tank[] _listTanks = new Tank[4];
+        private int _tankCount;
 
         public SetupGame()
         {
@@ -32,32 +33,42 @@ namespace WorldOfTank.GUI
                 {
                     IFormatter formatter = new BinaryFormatter();
                     Stream stream = new FileStream(opener.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    _listTank[index] = (Tank)formatter.Deserialize(stream);
+                    if (_listTanks[index] == null) _tankCount++;
+                    _listTanks[index] = (Tank)formatter.Deserialize(stream);
                     stream.Close();
                     switch (index)
                     {
                         case 0:
-                            buttonAddTank1.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
+                            buttonAddTank1.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
                             break;
                         case 1:
-                            buttonAddTank2.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
+                            buttonAddTank2.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
                             break;
                         case 2:
-                            buttonAddTank3.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
+                            buttonAddTank3.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
                             break;
                         case 3:
-                            buttonAddTank4.Text = String.Format("Tank '{0}' is loaded successfully", _listTank[index].Name);
-                            break;
-                        default:
+                            buttonAddTank4.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
                             break;
                     }
 
                 }
                 catch
                 {
+                    if (_listTanks[index] == null) _tankCount--;
                     MessageBox.Show("Cannot load this file!");
                 }
             }
+        }
+
+        public List<Tank> GetListTanks()
+        {
+            return (from tank in _listTanks where tank != null select tank.Clone()).ToList();
+        }
+
+        public float GetTime()
+        {
+            return (float)numericUpDownTime.Value;
         }
 
         private void buttonAddTank1_Click(object sender, EventArgs e)
@@ -82,10 +93,7 @@ namespace WorldOfTank.GUI
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            ListTanks = new List<Tank>();
-            foreach (Tank tank in _listTank)
-                if (tank != null) ListTanks.Add(tank);
-            if (ListTanks.Count < 2)
+            if (_tankCount < 2)
             {
                 MessageBox.Show("Be must at least 2 tanks. Please add more tank");
                 return;

@@ -14,22 +14,22 @@ namespace WorldOfTank.Class.Components
     public class Condition
     {
         public TypeCondition Type;
-        public Comparison Comparison;
+        public Comparison Comparision;
         public List<Condition> Children;
 
         public Condition()
         {
             Type = TypeCondition.Unique;
-            Comparison = new Comparison();
+            Comparision = new Comparison();
             Children = new List<Condition>();
         }
 
         /// <summary>
         /// Return the result of Conditional with some input
         /// </summary>
-        /// <param name="yourTank">The current tank</param>
-        /// <param name="enemyTank">The enemy tank that the current tank "sees" </param>
-        /// <param name="enemyBullet">The bullet of enemy tank</param>
+        /// <param name="yourTank"></param>
+        /// <param name="enemyTank"></param>
+        /// <param name="enemyBullet"></param>
         /// <returns></returns>
         public bool GetResult(Tank yourTank, Tank enemyTank, Bullet enemyBullet)
         {
@@ -39,7 +39,7 @@ namespace WorldOfTank.Class.Components
             if (Type == TypeCondition.Or)
                 return Children.Any(t => t.GetResult(yourTank, enemyTank, enemyBullet));
 
-            return Comparison.GetResult(yourTank, enemyTank, enemyBullet);
+            return Comparision.GetResult(yourTank, enemyTank, enemyBullet);
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace WorldOfTank.Class.Components
             string s = "";
             if (Type == TypeCondition.Unique)
             {
-                s += Comparison.Parameter.ToString();
+                s += Comparision.Parameter.ToString();
 
-                switch (Comparison.Operator)
+                switch (Comparision.Operator)
                 {
                     case TypeOperator.GreaterEqual:
                         s += " >= ";
@@ -75,16 +75,16 @@ namespace WorldOfTank.Class.Components
                         break;
                 }
 
-                s += Comparison.Value.ToString(CultureInfo.InvariantCulture);
+                s += Comparision.Value.ToString(CultureInfo.InvariantCulture);
             }
             else
             {
-                s = String.Format("({0})", Children[0].Print());
+                s = "(" + Children[0].Print() + ")";
                 for (int i = 1; i < Children.Count; i++)
                     if (Type == TypeCondition.And)
-                        s += String.Format(" AND ({0})", Children[i].Print());
+                        s += " AND (" + Children[i].Print() + ")";
                     else
-                        s += String.Format(" OR ({0})", Children[i].Print());
+                        s += " OR (" + Children[i].Print() + ")";
             }
             return s;
         }

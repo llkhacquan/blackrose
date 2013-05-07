@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using WorldOfTank.Class.Components;
 
 namespace WorldOfTank.Class.Model
@@ -92,13 +96,13 @@ namespace WorldOfTank.Class.Model
         public List<Instruction> ActionBeAttacked;
 
         /// <summary>
-        ///     Constructor with Image of the tank
+        ///     Constructor
         /// </summary>
         /// <param name="image">Image tank</param>
         public Tank(Image image)
             : base(image, TypeObject.Tank)
         {
-            Radius = 0.4f * Image.Width;
+            Radius = 0.35f * Image.Width;
 
             RadaRange = 300;
             RadaAngle = 20;
@@ -126,27 +130,12 @@ namespace WorldOfTank.Class.Model
             ActionDetected = new List<Instruction>();
             ActionBeAttacked = new List<Instruction>();
         }
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="image">Image object</param>
-        /// <param name="type">Type object</param>
-        protected Tank(Image image, TypeObject type)
-            : base(image, type)
-        {
-            
-        }
 
         /// <summary>
         ///     Set instructions in each frame (according to LastResult and NewResult)
         /// </summary>
         public void SetListInstructions()
         {
-            if (ActionCannotMoveForward.Count == 0) ActionCannotMoveForward = ActionNormal;
-            if (ActionCannotMoveBackward.Count == 0) ActionCannotMoveBackward = ActionNormal;
-            if (ActionDetected.Count == 0) ActionDetected = ActionNormal;
-            if (ActionBeAttacked.Count == 0) ActionBeAttacked = ActionNormal;
-
             if (ListInstructions.Count == 0 || LastResult != NewResult)
             {
                 Instruction = null;
@@ -167,8 +156,6 @@ namespace WorldOfTank.Class.Model
                         break;
                     case TypeResult.BeAttacked:
                         ListInstructions = new List<Instruction>(ActionBeAttacked);
-                        break;
-                    default:
                         break;
                 }
                 LastResult = NewResult;
@@ -274,16 +261,20 @@ namespace WorldOfTank.Class.Model
             if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
             DetectedEnemy(objects);
             if (EnemyTank != null) NewResult = TypeResult.Detected;
-            SetListInstructions();
-            while (Instruction == null)
-                if (ListInstructions.Count == 0) break;
-                else
-                {
-                    if (ListInstructions[0].Condition == null || ListInstructions[0].Condition.GetResult(this, EnemyTank, EnemyBullet))
-                        Instruction = ListInstructions[0].Clone();
+            if (Instruction == null || Instruction.Interruptible)
+            {
+                SetListInstructions();
+                while (Instruction == null)
+                    if (ListInstructions.Count == 0) break;
                     else
-                        ListInstructions.RemoveAt(0);
-                }
+                    {
+                        if (ListInstructions[0].Condition == null ||
+                            ListInstructions[0].Condition.GetResult(this, EnemyTank, EnemyBullet))
+                            Instruction = ListInstructions[0].Clone();
+                        else
+                            ListInstructions.RemoveAt(0);
+                    }
+            }
             NewResult = TypeResult.Normal;
             ExecuteInstruction(objects);
             EnemyTank = null;
@@ -299,6 +290,36 @@ namespace WorldOfTank.Class.Model
                 Position.X - RadaRange, Position.Y - RadaRange,
                 RadaRange * 2, RadaRange * 2,
                 Direction - 90 - RadaAngle / 2, RadaAngle);
+
+            var rect = new Rectangle(
+                (int)(Position.X - 0.5f * Image.Width) - 10, (int)(Position.Y + 0.5f * Image.Height),
+                Image.Width + 20, 12);
+
+            gfx.FillRectangle(new SolidBrush(Color.FromArgb(127, 255, 0, 0)), rect);
+            rect.Width = (int)(HealCur / HealMax * rect.Width);
+            gfx.FillRectangle(new SolidBrush(Color.Green), rect);
+            rect.Width = Image.Width + 20;
+            gfx.DrawRectangle(new Pen(Color.Gold), rect);
+
+            if (_damageCur > 0)
+            {
+                rect.Width = (int)(_damageCur / (_damageCur + Instruction.Value) * rect.Width);
+                gfx.FillRectangle(new SolidBrush(Color.FromArgb(63, 255, 255, 255)), rect);
+                rect.Width = Image.Width + 20;
+            }
+
+            rect.Height = 16;
+            var font = new Font(new FontFamily(GenericFontFamilies.SansSerif), 8);
+            gfx.DrawString(Name, font, new SolidBrush(Color.White), rect, new StringFormat { Alignment = StringAlignment.Center });
+        }
+
+        public Tank Clone()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream();
+            formatter.Serialize(stream, this);
+            stream.Seek(0, SeekOrigin.Begin);
+            return (Tank)formatter.Deserialize(stream);
         }
     }
 }

@@ -1,7 +1,4 @@
-using System;
-using WorldOfTank.Class.Model;
-
-namespace WorldOfTank.Class.Components
+﻿namespace WorldOfTank.Class.Components
 {
     /// <summary>
     /// All parameters' Get operators
@@ -24,7 +21,7 @@ namespace WorldOfTank.Class.Components
         GetEnemyCurrentHeal,
 
         /// <summary>
-        /// Bullet's information
+        /// Enemy bullet's information
         /// </summary>
         GetBulletDifferentAngle,
     }

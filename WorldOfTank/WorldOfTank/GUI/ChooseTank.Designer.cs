@@ -11,21 +11,12 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "Tank")]
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-{
-    if (components != null)
-    {
-        components.Dispose();
-    }
-    if (Tank != null)
-    {
-        Tank.Dispose();
-        Tank = null;
-    }
-}
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
@@ -52,7 +43,6 @@
             // 
             // richTextBoxInfor
             // 
-            this.richTextBoxInfor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxInfor.Location = new System.Drawing.Point(12, 78);
             this.richTextBoxInfor.Name = "richTextBoxInfor";
             this.richTextBoxInfor.ReadOnly = true;

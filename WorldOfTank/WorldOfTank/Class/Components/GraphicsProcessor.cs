@@ -31,7 +31,7 @@ namespace WorldOfTank.Class.Components
         ///     make image blur
         /// </summary>
         /// <param name="value">blur value (0.0 -> 1.0)</param>
-        /// <returns>images attributes</returns>
+        /// <returns>image attributes</returns>
         public static ImageAttributes SemiTransparent(float value)
         {
             var img = new ImageAttributes();

@@ -9,30 +9,15 @@ namespace WorldOfTank.Class.Model
     /// </summary>
     public class Background : StaticObject
     {
-
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="image">Image object</param>
+        /// <param name="image"></param>
         public Background(Image image)
             : base(image, TypeObject.Background)
         {
         }
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="image">Image object</param>
-        /// <param name="type">Type object</param>
-        protected Background(Image image, TypeObject type)
-            : base(image, type)
-        {
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objects"></param>
-        /// <returns></returns>
+
         public override TypeResult NextFrame(List<ObjectGame> objects)
         {
             return TypeResult.Nothing;

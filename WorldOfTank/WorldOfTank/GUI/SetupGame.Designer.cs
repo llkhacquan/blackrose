@@ -34,6 +34,9 @@
             this.buttonAddTank4 = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelTime = new System.Windows.Forms.Label();
+            this.numericUpDownTime = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTime)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAddTank1
@@ -78,7 +81,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(12, 147);
+            this.buttonOK.Location = new System.Drawing.Point(12, 177);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(125, 23);
             this.buttonOK.TabIndex = 4;
@@ -89,19 +92,52 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(147, 147);
+            this.buttonCancel.Location = new System.Drawing.Point(147, 177);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(125, 23);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
+            // labelTime
+            // 
+            this.labelTime.AutoSize = true;
+            this.labelTime.Location = new System.Drawing.Point(12, 141);
+            this.labelTime.Name = "labelTime";
+            this.labelTime.Size = new System.Drawing.Size(140, 13);
+            this.labelTime.TabIndex = 6;
+            this.labelTime.Text = "Maximum time for a game (s)";
+            // 
+            // numericUpDownTime
+            // 
+            this.numericUpDownTime.Location = new System.Drawing.Point(158, 139);
+            this.numericUpDownTime.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numericUpDownTime.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDownTime.Name = "numericUpDownTime";
+            this.numericUpDownTime.Size = new System.Drawing.Size(114, 20);
+            this.numericUpDownTime.TabIndex = 7;
+            this.numericUpDownTime.Value = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            // 
             // SetupGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 182);
+            this.ClientSize = new System.Drawing.Size(284, 212);
             this.ControlBox = false;
+            this.Controls.Add(this.numericUpDownTime);
+            this.Controls.Add(this.labelTime);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonAddTank4);
@@ -115,7 +151,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SetupGame";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTime)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -127,6 +165,8 @@
         private System.Windows.Forms.Button buttonAddTank4;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelTime;
+        private System.Windows.Forms.NumericUpDown numericUpDownTime;
 
     }
 }

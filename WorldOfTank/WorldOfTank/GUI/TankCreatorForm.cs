@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -23,7 +24,8 @@ namespace WorldOfTank.GUI
         public void ShowTankInformation()
         {
             pictureBoxTank.Image = Tank.Image;
-            richTextBoxTankInfor.Text = String.Format("Tank name: {0}\nDamage: {1} - {2}\nHeal: {3}\nMovement speed: {4}\nRotation speed: {5}\nAttack speed: {6}\nRada range: {7}\nRada angle: {8}", Tank.Name, Tank.DamageMin, Tank.DamageMax, Tank.HealMax, Tank.SpeedMove, Tank.SpeedRotate, Tank.SpeedFire, Tank.RadaRange, Tank.RadaAngle);
+            richTextBoxTankInfor.Text = String.Format("\n  Tank name: {0}\n  Damage: {1} - {2}\n  Heal: {3}\n  Movement speed: {4}\n  Rotation speed: {5}\n  Attack speed: {6}\n  Rada range: {7}\n  Rada angle: {8}",
+                Tank.Name, Tank.DamageMin, Tank.DamageMax, Tank.HealMax, Tank.SpeedMove, Tank.SpeedRotate, Tank.SpeedFire, Tank.RadaRange, Tank.RadaAngle);
         }
 
         public void ShowInstructionInformationList()
@@ -31,11 +33,13 @@ namespace WorldOfTank.GUI
             listViewInstruction.Items.Clear();
             foreach (Instruction instruction in ActionInstruction)
             {
-                listViewInstruction.Items.Add(new ListViewItem(new[] { 
+                var item = new ListViewItem(new[] { 
                     instruction.Type.ToString(),
                     instruction.Value.ToString(), 
                     instruction.Condition != null ? instruction.Condition.Print() : ""
-                }));
+                });
+                if (instruction.Interruptible) item.BackColor = Color.LightCoral;
+                listViewInstruction.Items.Add(item);
             }
         }
 
@@ -99,8 +103,7 @@ namespace WorldOfTank.GUI
                 Tank.Name = saver.FileName.Substring(saver.FileName.LastIndexOf('\\') + 1);
                 Tank.Name = Tank.Name.Substring(0, Tank.Name.LastIndexOf('.'));
                 IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream(saver.FileName, FileMode.Create,
-                    FileAccess.Write, FileShare.None);
+                Stream stream = new FileStream(saver.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
                 formatter.Serialize(stream, Tank);
                 stream.Close();
             }
@@ -119,8 +122,7 @@ namespace WorldOfTank.GUI
                 try
                 {
                     IFormatter formatter = new BinaryFormatter();
-                    Stream stream = new FileStream(opener.FileName, FileMode.Open,
-                        FileAccess.Read, FileShare.Read);
+                    Stream stream = new FileStream(opener.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                     Tank = (Tank)formatter.Deserialize(stream);
                     stream.Close();
                     panelTank.Visible = true;
@@ -269,12 +271,15 @@ namespace WorldOfTank.GUI
         private void toolStripButtonEdit_Click(object sender, EventArgs e)
         {
             int index = FindIndexInstruction();
-            using (var editInstruction = new EditInstruction { Tank = Tank, ActionName = ActionName, Instruction = ActionInstruction[index] })
+            var editInstruction = new EditInstruction
             {
-                editInstruction.ShowInstructionInformation();
-                editInstruction.ShowConditionInformation();
-                editInstruction.ShowDialog();
-            }
+                Tank = Tank,
+                ActionName = ActionName,
+                Instruction = ActionInstruction[index]
+            };
+            editInstruction.ShowInstructionInformation();
+            editInstruction.ShowConditionInformation();
+            editInstruction.ShowDialog();
             ShowInstructionInformationList();
             listViewInstruction.Focus();
             listViewInstruction.Items[index].Selected = true;

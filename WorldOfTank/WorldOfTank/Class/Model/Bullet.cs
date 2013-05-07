@@ -31,16 +31,6 @@ namespace WorldOfTank.Class.Model
             Radius = 0.3f * Image.Width;
             SpeedMove = 8;
         }
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="image">Image object</param>
-        /// <param name="type">Type object</param>
-        protected Bullet(Image image, TypeObject type)
-            : base(image, type)
-        {
-            
-        }
 
         /// <summary>
         ///     Execute some change of this bullet in a frame in battlefield
