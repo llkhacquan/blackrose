@@ -101,6 +101,7 @@ namespace WorldOfTank.GUI
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
+            timerControl.Enabled = false;
             Close();
         }
 
