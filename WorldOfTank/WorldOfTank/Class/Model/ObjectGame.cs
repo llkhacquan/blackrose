@@ -9,43 +9,35 @@ namespace WorldOfTank.Class.Model
     /// This class handle all objects in the game
     /// </summary>
     [Serializable]
-    public abstract class ObjectGame : IDisposable
+    public abstract class ObjectGame
     {
         /// <summary>
-        /// Gets or sets Image
+        ///     Gets or sets Image
         /// </summary>
         public Image Image;
 
         /// <summary>
-        /// Gets or sets Position in Battlefield
+        ///     Gets or sets Position in Battlefield
         /// </summary>
         public PointF Position;
 
         /// <summary>
-        /// Gets or sets Direction (0 degree is North, clockwise is positive)
+        ///     Gets or sets Direction (0 degree is North, clockwise is positive)
         /// </summary>
         public float Direction;
 
         /// <summary>
-        /// Gets Type
+        ///     Gets Type
         /// </summary>
         public TypeObject Type;
 
         /// <summary>
-        /// Gets Radius. Here we consider an object as a circle with center is Image center
+        ///     Gets Radius. Here we consider an object as a circle with center is Image center
         /// </summary>
         public float Radius;
 
-        public void Dispose()
-        {
-            if (Image != null)
-            {
-                Image.Dispose();
-                Image = null;
-            }
-        }
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="image">Image object</param>
         /// <param name="type">Type object</param>
@@ -59,34 +51,32 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        /// Check if the object is collided with another object    
+        ///     Check if the object is collided with another object    
         /// </summary>
         /// <param name="obj">another object need to check collision</param>
         /// <returns>True if collided, else False</returns>
         public bool IsCollided(ObjectGame obj)
         {
-            var distance = (Position.X - obj.Position.X) * (Position.X - obj.Position.X) +
-            (Position.Y - obj.Position.Y) * (Position.Y - obj.Position.Y);
-            if (Math.Sqrt(distance) < Radius + obj.Radius)
-            {
-                return true;
-            }
+            float distance = (Position.X - obj.Position.X) * (Position.X - obj.Position.X) +
+                             (Position.Y - obj.Position.Y) * (Position.Y - obj.Position.Y);
+            if (Math.Sqrt(distance) < Radius + obj.Radius) return true;
             return false;
         }
 
         /// <summary>
-        /// Paint in graphic
+        ///     Paint in gfx
         /// </summary>
-        /// <param name="graphic">Where it is painted</param>
-        public virtual void Paint(Graphics graphic)
+        /// <param name="gfx">Where it is painted</param>
+        public virtual void Paint(Graphics gfx)
         {
-            var bmp = GraphicsProcessor.RotateImage(Image, Direction);
-            graphic.DrawImage(bmp, Position.X - 0.5f * Image.Width, Position.Y - 0.5f * Image.Height);
+            Bitmap bmp = GraphicsProcessor.RotateImage(Image, Direction);
+            gfx.DrawImage(bmp, Position.X - 0.5f * Image.Width, Position.Y - 0.5f * Image.Height);
             bmp.Dispose();
+
         }
 
         /// <summary>
-        /// Execute some change of object in a frame in battlefield
+        ///     Execute some change of object in a frame in battlefield
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>

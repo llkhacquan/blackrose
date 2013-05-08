@@ -13,33 +13,10 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-{
-    if (components != null)
-    {
-        components.Dispose();
-    }
-    if (_setupGame != null)
-    {
-        _setupGame.Dispose();
-        _setupGame = null;
-    }
-    if (_bufferBmpGame != null)
-    {
-        _bufferBmpGame.Dispose();
-        _bufferBmpGame = null;
-    }
-    if (_bmpGame != null)
-    {
-        _bmpGame.Dispose();
-        _bmpGame = null;
-    }
-    if (_gfx != null)
-    {
-        _gfx.Dispose();
-        _gfx = null;
-    }
-}
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
             base.Dispose(disposing);
         }
 
@@ -170,7 +147,6 @@
             // 
             // timerControl
             // 
-            this.timerControl.Interval = 25;
             this.timerControl.Tick += new System.EventHandler(this.timerControl_Tick);
             // 
             // BattleFieldForm

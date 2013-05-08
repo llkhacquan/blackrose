@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using WorldOfTank.Class.Components;
 using WorldOfTank.Class.Model;
 using WorldOfTank.Properties;
 
@@ -11,6 +12,59 @@ namespace WorldOfTank.GUI
         public Tank Tank;
         private int _typeTank = -1;
 
+        // Standard Tank
+        public static Tank GreenTank = new Tank(Resources.Tank_A)
+            {
+                RadaColor = Color.FromArgb(31, 0, 255, 0),
+            };
+
+        // Speed Tank
+        public static Tank BlueTank = new Tank(Resources.Tank_B)
+            {
+                RadaColor = Color.FromArgb(31, 0, 0, 255),
+                // Buff
+                SpeedMove = 3.5f,
+                SpeedRotate = 6f,
+                SpeedFire = 1.2f,
+                DamageMin = 5f,
+                // Nerf
+                Armor = 0f,
+                RadaRange = 250f,
+                HealMax = 160f,
+                HealCur = 160f,
+            };
+
+        // Defense Tank
+        public static Tank YellowTank = new Tank(Resources.Tank_C)
+            {
+                RadaColor = Color.FromArgb(31, 255, 255, 0),
+                // Buff
+                HealMax = 220f,
+                HealCur = 220f,
+                Armor = 1.5f,
+                RadaAngle = 30f,
+                // Nerf
+                RadaRange = 200f,
+                SpeedMove = 2.5f,
+                SpeedRotate = 4f,
+                SpeedFire = 0.9f,
+            };
+
+        // Attack Tank
+        public static Tank RedTank = new Tank(Resources.Tank_D)
+            {
+                RadaColor = Color.FromArgb(31, 255, 0, 0),
+                // Buff
+                DamageMax = 20f,
+                RadaRange = 350f,
+                SpeedFire = 1.1f,
+                // Nerf
+                HealMax = 180f,
+                HealCur = 180f,
+                Armor = 0.5f,
+                RadaAngle = 15,
+            };
+
         public ChooseTank()
         {
             InitializeComponent();
@@ -18,66 +72,42 @@ namespace WorldOfTank.GUI
 
         private void pictureBoxGreenTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 0)
-            {
-                pictureBoxGreenTank.BackColor = Color.LimeGreen;
-            }
+            if (_typeTank != 0) pictureBoxGreenTank.BackColor = Color.LimeGreen;
         }
 
         private void pictureBoxGreenTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 0)
-            {
-                pictureBoxGreenTank.BackColor = Color.Transparent;
-            }
+            if (_typeTank != 0) pictureBoxGreenTank.BackColor = Color.Transparent;
         }
 
         private void pictureBoxBlueTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 1)
-            {
-                pictureBoxBlueTank.BackColor = Color.LightSeaGreen;
-            }
+            if (_typeTank != 1) pictureBoxBlueTank.BackColor = Color.LightSeaGreen;
         }
 
         private void pictureBoxBlueTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 1)
-            {
-                pictureBoxBlueTank.BackColor = Color.Transparent;
-            }
+            if (_typeTank != 1) pictureBoxBlueTank.BackColor = Color.Transparent;
         }
 
         private void pictureBoxYellowTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 2)
-            {
-                pictureBoxYellowTank.BackColor = Color.Gold;
-            }
+            if (_typeTank != 2) pictureBoxYellowTank.BackColor = Color.Gold;
         }
 
         private void pictureBoxYellowTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 2)
-            {
-                pictureBoxYellowTank.BackColor = Color.Transparent;
-            }
+            if (_typeTank != 2) pictureBoxYellowTank.BackColor = Color.Transparent;
         }
 
         private void pictureBoxRedTank_MouseEnter(object sender, EventArgs e)
         {
-            if (_typeTank != 3)
-            {
-                pictureBoxRedTank.BackColor = Color.LightCoral;
-            }
+            if (_typeTank != 3) pictureBoxRedTank.BackColor = Color.LightCoral;
         }
 
         private void pictureBoxRedTank_MouseLeave(object sender, EventArgs e)
         {
-            if (_typeTank != 3)
-            {
-                pictureBoxRedTank.BackColor = Color.Transparent;
-            }
+            if (_typeTank != 3) pictureBoxRedTank.BackColor = Color.Transparent;
         }
 
         private void ShowInformation()
@@ -89,22 +119,20 @@ namespace WorldOfTank.GUI
             switch (_typeTank)
             {
                 case 0:
-                    richTextBoxInfor.Text = "You chose the green tank\n   Damage: 10 - 20\n   Heal: 100\n   Movement speed: 3\n   Rotation speed: 5\n   Attack speed: 1\n   Rada range: 300\n   Rada angle: 20";
+                    richTextBoxInfor.Text = string.Format("You chose the green tank\n{0}", GlobalVariableGame.PrintTankInformation(Tank));
                     pictureBoxGreenTank.BackColor = Color.LimeGreen;
                     break;
                 case 1:
-                    richTextBoxInfor.Text = "You chose the blue tank\n   Damage: 10 - 20\n   Heal: 100\n   Movement speed: 3\n   Rotation speed: 5\n   Attack speed: 1\n   Rada range: 300\n   Rada angle: 20";
+                    richTextBoxInfor.Text = string.Format("You chose the blue tank\n{0}", GlobalVariableGame.PrintTankInformation(Tank));
                     pictureBoxBlueTank.BackColor = Color.LightSeaGreen;
                     break;
                 case 2:
-                    richTextBoxInfor.Text = "You chose the yellow tank\n   Damage: 10 - 20\n   Heal: 100\n   Movement speed: 3\n   Rotation speed: 5\n   Attack speed: 1\n   Rada range: 300\n   Rada angle: 20";
+                    richTextBoxInfor.Text = string.Format("You chose the yellow tank\n{0}", GlobalVariableGame.PrintTankInformation(Tank));
                     pictureBoxYellowTank.BackColor = Color.Gold;
                     break;
                 case 3:
-                    richTextBoxInfor.Text = "You chose the red tank\n   Damage: 10 - 20\n   Heal: 100\n   Movement speed: 3\n   Rotation speed: 5\n   Attack speed: 1\n   Rada range: 300\n   Rada angle: 20";
+                    richTextBoxInfor.Text = string.Format("You chose the red tank\n{0}", GlobalVariableGame.PrintTankInformation(Tank));
                     pictureBoxRedTank.BackColor = Color.LightCoral;
-                    break;
-                default:
                     break;
             }
         }
@@ -112,24 +140,28 @@ namespace WorldOfTank.GUI
         private void pictureBoxGreenTank_Click(object sender, EventArgs e)
         {
             _typeTank = 0;
+            Tank = GreenTank.Clone();
             ShowInformation();
         }
 
         private void pictureBoxBlueTank_Click(object sender, EventArgs e)
         {
             _typeTank = 1;
+            Tank = BlueTank.Clone();
             ShowInformation();
         }
 
         private void pictureBoxYellowTank_Click(object sender, EventArgs e)
         {
             _typeTank = 2;
+            Tank = YellowTank.Clone();
             ShowInformation();
         }
 
         private void pictureBoxRedTank_Click(object sender, EventArgs e)
         {
             _typeTank = 3;
+            Tank = RedTank.Clone();
             ShowInformation();
         }
 
@@ -140,25 +172,6 @@ namespace WorldOfTank.GUI
                 MessageBox.Show("Please choose a tank");
                 return;
             }
-
-            switch (_typeTank)
-            {
-                case 0:
-                    Tank = new Tank(Resources.Tank_A);
-                    break;
-                case 1:
-                    Tank = new Tank(Resources.Tank_B);
-                    break;
-                case 2:
-                    Tank = new Tank(Resources.Tank_C);
-                    break;
-                case 3:
-                    Tank = new Tank(Resources.Tank_D);
-                    break;
-                default:
-                    break;
-            }
-
             DialogResult = DialogResult.OK;
         }
     }

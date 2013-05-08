@@ -27,10 +27,6 @@ namespace WorldOfTank.Class.Components
             Interruptible = false;
         }
 
-        /// <summary>
-        /// Clone this Instruction
-        /// </summary>
-        /// <returns>a reference to a new Instruction with the same data fields</returns>
         public Instruction Clone()
         {
             IFormatter formatter = new BinaryFormatter();

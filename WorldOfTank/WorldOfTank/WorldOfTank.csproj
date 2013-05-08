@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Components\GlobalVariableGame.cs" />
     <Compile Include="Class\Components\TypeCondition.cs" />
     <Compile Include="Class\Components\TypeOperator.cs" />
     <Compile Include="Class\Components\TypeParameter.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Class\Model\StaticObject.cs" />
     <Compile Include="Class\Model\Tank.cs" />
     <Compile Include="Class\Model\Wall.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GUI\BattleFieldForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainIcon.ico" />
+    <None Include="Resources\Graphics\Icon\Copy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

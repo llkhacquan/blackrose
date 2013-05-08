@@ -11,7 +11,7 @@ namespace WorldOfTank.Class.Model
     public abstract class DynamicObject : ObjectGame
     {
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="image">Image object</param>
         /// <param name="type">Type object</param>
@@ -21,7 +21,7 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        /// Rotate left object
+        ///     Rotate left object
         /// </summary>
         /// <param name="value">The angel in degree that the image will be rotated</param>
         public void RotateLeft(float value)
@@ -30,7 +30,7 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        /// Rotate right object
+        ///     Rotate right object
         /// </summary>
         /// <param name="value">The angel in degree that the image will be rotated</param>
         public void RotateRight(float value)
@@ -39,23 +39,23 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        /// Move forward object
+        ///     Move forward object
         /// </summary>
         /// <param name="value">The distance of movement</param>
         public void MoveForward(float value)
         {
-            var rad = Math.PI * Direction / 180;
+            double rad = Math.PI * Direction / 180;
             Position.X += (float)Math.Sin(rad) * value;
             Position.Y -= (float)Math.Cos(rad) * value;
         }
 
         /// <summary>
-        /// Move backward object
+        ///     Move backward object
         /// </summary>
         /// <param name="value">The distance of movement</param>
         public void MoveBackward(float value)
         {
-            var rad = Math.PI * Direction / 180;
+            double rad = Math.PI * Direction / 180;
             Position.X -= (float)Math.Sin(rad) * value;
             Position.Y += (float)Math.Cos(rad) * value;
         }

@@ -6,21 +6,29 @@
     public enum TypeParameter
     {
         /// <summary>
-        /// Enemy bullet's information
+        /// Battlefield information
         /// </summary>
-        GetBulletDifferentAngle,
-        GetCurrentHeal,
-        GetDirection,
-        GetEnemyCurrentHeal,
-        GetEnemyDifferentAngle,
-        /// <summary>
-        /// Enemy's information
-        /// </summary>
-        GetEnemyDistance,
+        GetTimeRemaining,
+        GetNumberTank,
+
         /// <summary>
         /// Self information
         /// </summary>
         GetPositionX,
-        GetPositionY
+        GetPositionY,
+        GetDirection,
+        GetCurrentHeal,
+
+        /// <summary>
+        /// Enemy's information
+        /// </summary>
+        GetEnemyDistance,
+        GetEnemyDifferentAngle,
+        GetEnemyCurrentHeal,
+
+        /// <summary>
+        /// Enemy bullet's information
+        /// </summary>
+        GetBulletDifferentAngle,
     }
 }

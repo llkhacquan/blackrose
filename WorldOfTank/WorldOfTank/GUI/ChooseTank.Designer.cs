@@ -1,11 +1,17 @@
-﻿namespace WorldOfTank.GUI
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using WorldOfTank.Properties;
+
+namespace WorldOfTank.GUI
 {
     partial class ChooseTank
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -68,6 +74,7 @@
             this.pictureBoxRedTank.Location = new System.Drawing.Point(210, 12);
             this.pictureBoxRedTank.Name = "pictureBoxRedTank";
             this.pictureBoxRedTank.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxRedTank.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxRedTank.TabIndex = 3;
             this.pictureBoxRedTank.TabStop = false;
             this.pictureBoxRedTank.Click += new System.EventHandler(this.pictureBoxRedTank_Click);
@@ -82,6 +89,7 @@
             this.pictureBoxYellowTank.Location = new System.Drawing.Point(144, 12);
             this.pictureBoxYellowTank.Name = "pictureBoxYellowTank";
             this.pictureBoxYellowTank.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxYellowTank.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxYellowTank.TabIndex = 2;
             this.pictureBoxYellowTank.TabStop = false;
             this.pictureBoxYellowTank.Click += new System.EventHandler(this.pictureBoxYellowTank_Click);
@@ -96,6 +104,7 @@
             this.pictureBoxBlueTank.Location = new System.Drawing.Point(78, 12);
             this.pictureBoxBlueTank.Name = "pictureBoxBlueTank";
             this.pictureBoxBlueTank.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxBlueTank.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxBlueTank.TabIndex = 1;
             this.pictureBoxBlueTank.TabStop = false;
             this.pictureBoxBlueTank.Click += new System.EventHandler(this.pictureBoxBlueTank_Click);
@@ -110,6 +119,7 @@
             this.pictureBoxGreenTank.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxGreenTank.Name = "pictureBoxGreenTank";
             this.pictureBoxGreenTank.Size = new System.Drawing.Size(60, 60);
+            this.pictureBoxGreenTank.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxGreenTank.TabIndex = 0;
             this.pictureBoxGreenTank.TabStop = false;
             this.pictureBoxGreenTank.Click += new System.EventHandler(this.pictureBoxGreenTank_Click);
@@ -128,8 +138,6 @@
             // 
             // ChooseTank
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.ControlBox = false;
             this.Controls.Add(this.buttonCancel);
@@ -139,7 +147,6 @@
             this.Controls.Add(this.pictureBoxYellowTank);
             this.Controls.Add(this.pictureBoxBlueTank);
             this.Controls.Add(this.pictureBoxGreenTank);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ChooseTank";
             this.ShowIcon = false;
@@ -156,12 +163,12 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBoxGreenTank;
-        private System.Windows.Forms.PictureBox pictureBoxBlueTank;
-        private System.Windows.Forms.PictureBox pictureBoxYellowTank;
-        private System.Windows.Forms.PictureBox pictureBoxRedTank;
-        private System.Windows.Forms.RichTextBox richTextBoxInfor;
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
+        private PictureBox pictureBoxGreenTank;
+        private PictureBox pictureBoxBlueTank;
+        private PictureBox pictureBoxYellowTank;
+        private PictureBox pictureBoxRedTank;
+        private RichTextBox richTextBoxInfor;
+        private Button buttonOK;
+        private Button buttonCancel;
     }
 }

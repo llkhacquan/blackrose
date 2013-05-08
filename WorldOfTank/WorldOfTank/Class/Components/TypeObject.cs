@@ -5,9 +5,9 @@
     /// </summary>
     public enum TypeObject
     {
-        Background,
         Bullet,
+        Wall,
         Tank,
-        Wall
+        Background,
     }
 }

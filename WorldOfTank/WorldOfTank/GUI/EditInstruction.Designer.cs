@@ -196,6 +196,8 @@
             this.comboBoxParameter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxParameter.FormattingEnabled = true;
             this.comboBoxParameter.Items.AddRange(new object[] {
+            "GetTimeRemaining",
+            "GetNumberTank",
             "GetPositionX",
             "GetPositionY",
             "GetDirection",

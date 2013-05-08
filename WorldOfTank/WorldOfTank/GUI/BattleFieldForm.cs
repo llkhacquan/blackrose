@@ -16,8 +16,7 @@ namespace WorldOfTank.GUI
         private Bitmap _bmpGame;
         private Graphics _gfx;
         private TypeStateGame _stateGame;
-        private float _time;
-
+        private List<Tank> _listTanks;
 
         public BattleFieldForm()
         {
@@ -75,28 +74,28 @@ namespace WorldOfTank.GUI
 
         private void ShowInformation()
         {
-            richTextBoxInformation.Text = String.Format(" Time remaining: {0:0.0}s", _time);
+            String str = String.Format(" Time remaining: {0:0.0}s\n\n", GlobalVariableGame.TimeRemaining);
+            str = _listTanks.Aggregate(str, (current, tank) =>
+                current + String.Format(" Tank: {0}\n Heal: {1}/{2}\tScore: {3:0.0}\n\n", tank.Name, tank.HealCur, tank.HealMax, tank.Score));
+            richTextBoxInformation.Text = str;
         }
 
         private new void Paint()
         {
-            if (_bmpGame != null)
-            {
-                _bmpGame.Dispose();
-            }
+            if (_bmpGame != null) _bmpGame.Dispose();
             _bmpGame = new Bitmap(_bufferBmpGame);
-            if (_gfx != null)
-            {
-                _gfx.Dispose();
-            }
+            if (_gfx != null) _gfx.Dispose();
             _gfx = Graphics.FromImage(_bmpGame);
             foreach (ObjectGame obj in _battleField.Objects)
+                if (obj.Type != TypeObject.Background && obj.Type != TypeObject.Wall) obj.Paint(_gfx);
+
+            /*Pen pen = new Pen(new SolidBrush(Color.Green));
+            foreach (ObjectGame obj in _battleField.Objects)
             {
-                if (obj.Type == TypeObject.Tank || obj.Type == TypeObject.Bullet)
-                {
-                    obj.Paint(_gfx);
-                }
-            }
+                RectangleF rec = new RectangleF(obj.Position.X - obj.Radius, obj.Position.Y - obj.Radius, obj.Radius * 2, obj.Radius * 2);
+                _gfx.DrawArc(pen, rec, 0, 360);
+            }*/
+
             panelView.CreateGraphics().DrawImage(_bmpGame, 0, 0);
         }
 
@@ -109,6 +108,7 @@ namespace WorldOfTank.GUI
         {
             if (_setupGame.ShowDialog() == DialogResult.OK)
             {
+                timerControl.Interval = (int)(1000 / GlobalVariableGame.FramePerSecond);
                 _stateGame = TypeStateGame.Created;
                 ShowButtonControl();
             }
@@ -120,18 +120,15 @@ namespace WorldOfTank.GUI
             {
                 case TypeStateGame.Created:
                 case TypeStateGame.Restart:
-                    _time = _setupGame.GetTime();
                     _battleField = new BattleField();
-                    _battleField.SetupGame(new List<Tank>(_setupGame.GetListTanks()));
+                    _battleField.SetupGame(_setupGame.GetListTanks());
+                    _listTanks = (from obj in _battleField.Objects where obj.Type == TypeObject.Tank select (Tank)obj).ToList();
                     _bufferBmpGame = new Bitmap(_battleField.Size.Width, _battleField.Size.Height);
                     _gfx = Graphics.FromImage(_bufferBmpGame);
                     foreach (ObjectGame obj in _battleField.Objects)
-                    {
-                        if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall)
-                        {
-                            obj.Paint(_gfx);
-                        }
-                    }
+                        if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall) obj.Paint(_gfx);
+                    GlobalVariableGame.TimeRemaining = _setupGame.GetTime();
+                    GlobalVariableGame.NumberTank = _setupGame.GetNumberTank();
                     timerControl.Enabled = true;
                     _stateGame = TypeStateGame.Started;
                     break;
@@ -139,8 +136,6 @@ namespace WorldOfTank.GUI
                 case TypeStateGame.Paused:
                     timerControl.Enabled = false;
                     _stateGame = TypeStateGame.Restart;
-                    break;
-                default:
                     break;
             }
             ShowButtonControl();
@@ -158,24 +153,42 @@ namespace WorldOfTank.GUI
                     timerControl.Enabled = true;
                     _stateGame = TypeStateGame.Started;
                     break;
-                default:
-                    break;
             }
             ShowButtonControl();
         }
 
         private void timerControl_Tick(object sender, EventArgs e)
         {
-            var result = _battleField.NextFrame();
+            _battleField.NextFrame();
             Paint();
-            _time -= 1f / timerControl.Interval;
+            GlobalVariableGame.TimeRemaining -= 1f / GlobalVariableGame.FramePerSecond;
             ShowInformation();
-            if (_time <= 0 || result == TypeResult.GameOver)
+            if (GlobalVariableGame.TimeRemaining <= 0 || GlobalVariableGame.NumberTank < 2)
             {
                 timerControl.Enabled = false;
                 _stateGame = TypeStateGame.Restart;
                 ShowButtonControl();
-                MessageBox.Show("Game Over");
+                foreach (Tank tank in _listTanks)
+                    if (tank.HealCur > 0) tank.Score += tank.HealCur + GlobalVariableGame.BonusScoreKiller;
+
+                for (int i = 0; i < _listTanks.Count - 1; i++)
+                    for (int j = i + 1; j < _listTanks.Count; j++)
+                        if (_listTanks[i].Score < _listTanks[j].Score)
+                        {
+                            Tank temp = _listTanks[i];
+                            _listTanks[i] = _listTanks[j];
+                            _listTanks[j] = temp;
+                        }
+
+                int rank = 0;
+                string rankStr = "Summary\n\n";
+                for (int i = 0; i < _listTanks.Count; i++)
+                {
+                    if (i == 0 || _listTanks[i - 1].Score > _listTanks[i].Score) rank++;
+                    rankStr += string.Format("Rank {0}:   {1:0.00}\t{2}\n", rank, _listTanks[i].Score, _listTanks[i].Name);
+                }
+
+                MessageBox.Show(rankStr, "GameOver");
             }
         }
     }

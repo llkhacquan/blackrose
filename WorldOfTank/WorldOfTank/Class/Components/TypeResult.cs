@@ -5,13 +5,12 @@
     /// </summary>
     public enum TypeResult
     {
-        BeAttacked,
+        Nothing,
         BeDestroyed,
-        CannotMoveBackward,
-        CannotMoveForward,
-        Detected,
-        GameOver,
         Normal,
-        Nothing
+        CannotMoveForward,
+        CannotMoveBackward,
+        Detected,
+        BeAttacked,
     }
 }

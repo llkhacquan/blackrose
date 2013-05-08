@@ -58,6 +58,7 @@
             this.buttonActionNormal = new System.Windows.Forms.Button();
             this.richTextBoxTankInfor = new System.Windows.Forms.RichTextBox();
             this.pictureBoxTank = new System.Windows.Forms.PictureBox();
+            this.toolStripButtonCopy = new System.Windows.Forms.ToolStripButton();
             this.panelControl.SuspendLayout();
             this.groupBoxControl.SuspendLayout();
             this.panelView.SuspendLayout();
@@ -214,6 +215,7 @@
             this.toolStripActionControl.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.toolStripActionControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonAdd,
+            this.toolStripButtonCopy,
             this.toolStripButtonDelete,
             this.toolStripButtonMoveUp,
             this.toolStripButtonMoveDown,
@@ -384,6 +386,16 @@
             this.pictureBoxTank.TabStop = false;
             this.pictureBoxTank.Click += new System.EventHandler(this.pictureBoxTank_Click);
             // 
+            // toolStripButtonCopy
+            // 
+            this.toolStripButtonCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonCopy.Image = global::WorldOfTank.Properties.Resources.Copy;
+            this.toolStripButtonCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCopy.Name = "toolStripButtonCopy";
+            this.toolStripButtonCopy.Size = new System.Drawing.Size(44, 44);
+            this.toolStripButtonCopy.Text = "Copy Instruction";
+            this.toolStripButtonCopy.Click += new System.EventHandler(this.toolStripButtonCopy_Click);
+            // 
             // TankCreatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,5 +454,6 @@
         private System.Windows.Forms.ColumnHeader columnHeaderValue;
         private System.Windows.Forms.ColumnHeader columnHeaderCondition;
         private System.Windows.Forms.ToolStripButton toolStripButtonEdit;
+        private System.Windows.Forms.ToolStripButton toolStripButtonCopy;
     }
 }

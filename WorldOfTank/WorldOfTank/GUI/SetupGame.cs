@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,7 +12,7 @@ namespace WorldOfTank.GUI
 {
     public partial class SetupGame : Form
     {
-        private readonly Tank[] _listTanks = new Tank[4];
+        private readonly Tank[] _listTanks = new Tank[8];
         private int _tankCount;
 
         public SetupGame()
@@ -33,36 +34,18 @@ namespace WorldOfTank.GUI
                 {
                     IFormatter formatter = new BinaryFormatter();
                     Stream stream = new FileStream(opener.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    if (_listTanks[index] == null)
-                    {
-                        _tankCount++;
-                    }
+                    if (_listTanks[index] == null) _tankCount++;
                     _listTanks[index] = (Tank)formatter.Deserialize(stream);
                     stream.Close();
-                    switch (index)
-                    {
-                        case 0:
-                            buttonAddTank1.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
-                            break;
-                        case 1:
-                            buttonAddTank2.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
-                            break;
-                        case 2:
-                            buttonAddTank3.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
-                            break;
-                        case 3:
-                            buttonAddTank4.Text = String.Format("Tank '{0}' is loaded successfully", _listTanks[index].Name);
-                            break;
-                        default:
-                            break;
-                    }
+
+                    var button = (Button)Controls[string.Format("buttonAddTank{0}", index)];
+                    button.Text = _listTanks[index].Name;
+                    button.Image = _listTanks[index].Image;
+                    button.TextAlign = ContentAlignment.BottomCenter;
                 }
                 catch
                 {
-                    if (_listTanks[index] == null)
-                    {
-                        _tankCount--;
-                    }
+                    if (_listTanks[index] == null) _tankCount--;
                     MessageBox.Show("Cannot load this file!");
                 }
             }
@@ -70,9 +53,12 @@ namespace WorldOfTank.GUI
 
         public List<Tank> GetListTanks()
         {
-            return (from tank in _listTanks
-                             where tank != null
-                             select tank.Clone()).ToList();
+            return (from tank in _listTanks where tank != null select tank).ToList();
+        }
+
+        public int GetNumberTank()
+        {
+            return _tankCount;
         }
 
         public float GetTime()
@@ -80,24 +66,44 @@ namespace WorldOfTank.GUI
             return (float)numericUpDownTime.Value;
         }
 
-        private void buttonAddTank1_Click(object sender, EventArgs e)
+        private void buttonAddTank0_Click(object sender, EventArgs e)
         {
             AddTank(0);
         }
 
-        private void buttonAddTank2_Click(object sender, EventArgs e)
+        private void buttonAddTank1_Click(object sender, EventArgs e)
         {
             AddTank(1);
         }
 
-        private void buttonAddTank3_Click(object sender, EventArgs e)
+        private void buttonAddTank2_Click(object sender, EventArgs e)
         {
             AddTank(2);
         }
 
-        private void buttonAddTank4_Click(object sender, EventArgs e)
+        private void buttonAddTank3_Click(object sender, EventArgs e)
         {
             AddTank(3);
+        }
+
+        private void buttonAddTank4_Click(object sender, EventArgs e)
+        {
+            AddTank(4);
+        }
+
+        private void buttonAddTank5_Click(object sender, EventArgs e)
+        {
+            AddTank(5);
+        }
+
+        private void buttonAddTank6_Click(object sender, EventArgs e)
+        {
+            AddTank(6);
+        }
+
+        private void buttonAddTank7_Click(object sender, EventArgs e)
+        {
+            AddTank(7);
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

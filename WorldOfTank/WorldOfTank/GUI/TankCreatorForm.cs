@@ -24,8 +24,7 @@ namespace WorldOfTank.GUI
         public void ShowTankInformation()
         {
             pictureBoxTank.Image = Tank.Image;
-            richTextBoxTankInfor.Text = String.Format("\n  Tank name: {0}\n  Damage: {1} - {2}\n  Heal: {3}\n  Movement speed: {4}\n  Rotation speed: {5}\n  Attack speed: {6}\n  Rada range: {7}\n  Rada angle: {8}",
-                Tank.Name, Tank.DamageMin, Tank.DamageMax, Tank.HealMax, Tank.SpeedMove, Tank.SpeedRotate, Tank.SpeedFire, Tank.RadaRange, Tank.RadaAngle);
+            richTextBoxTankInfor.Text = String.Format("\n  Tank name: {0}\n{1}", Tank.Name, GlobalVariableGame.PrintTankInformation(Tank));
         }
 
         public void ShowInstructionInformationList()
@@ -33,12 +32,12 @@ namespace WorldOfTank.GUI
             listViewInstruction.Items.Clear();
             foreach (Instruction instruction in ActionInstruction)
             {
-                var item = new ListViewItem(new [] { instruction.Type.ToString(),
-                    instruction.Value.ToString(),
+                var item = new ListViewItem(new[] { 
+                    instruction.Type.ToString(),
+                    instruction.Value.ToString(), 
                     instruction.Condition != null ? instruction.Condition.Print() : ""
                 });
-                if (instruction.Interruptible)
-                    item.BackColor = Color.LightCoral;
+                if (instruction.Interruptible) item.BackColor = Color.LightCoral;
                 listViewInstruction.Items.Add(item);
             }
         }
@@ -47,24 +46,21 @@ namespace WorldOfTank.GUI
         {
             toolStripLabelName.Text = ActionName;
             int index = FindIndexInstruction();
+            toolStripButtonCopy.Enabled = false;
             toolStripButtonDelete.Enabled = false;
             toolStripButtonMoveUp.Enabled = false;
             toolStripButtonMoveDown.Enabled = false;
             toolStripButtonEdit.Enabled = false;
-            if (index != -1)
-                toolStripButtonDelete.Enabled = true;
-            if (index != -1)
-                toolStripButtonEdit.Enabled = true;
-            if (index > 0)
-                toolStripButtonMoveUp.Enabled = true;
-            if (index >= 0 && index < ActionInstruction.Count - 1)
-                toolStripButtonMoveDown.Enabled = true;
+            if (index != -1) toolStripButtonCopy.Enabled = true;
+            if (index != -1) toolStripButtonDelete.Enabled = true;
+            if (index != -1) toolStripButtonEdit.Enabled = true;
+            if (index > 0) toolStripButtonMoveUp.Enabled = true;
+            if (index >= 0 && index < ActionInstruction.Count - 1) toolStripButtonMoveDown.Enabled = true;
         }
 
         public int FindIndexInstruction()
         {
-            if (!listViewInstruction.Focused)
-                return -1;
+            if (!listViewInstruction.Focused) return -1;
             for (int index = 0; index < listViewInstruction.Items.Count; index++)
             {
                 if (listViewInstruction.Items[index].Selected)
@@ -214,13 +210,24 @@ namespace WorldOfTank.GUI
             ShowInstructionInformationButton();
         }
 
+        private void toolStripButtonCopy_Click(object sender, EventArgs e)
+        {
+            int index = FindIndexInstruction();
+            ActionInstruction.Insert(index, ActionInstruction[index].Clone());
+            ShowInstructionInformationList();
+            listViewInstruction.Focus();
+            listViewInstruction.Items[index + 1].Selected = true;
+            listViewInstruction.Items[index + 1].Focused = true;
+            listViewInstruction.Items[index + 1].EnsureVisible();
+            ShowInstructionInformationButton();
+        }
+
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
             int index = FindIndexInstruction();
             ActionInstruction.RemoveAt(index);
             ShowInstructionInformationList();
-            if (index >= ActionInstruction.Count)
-                index--;
+            if (index >= ActionInstruction.Count) index--;
             if (index >= 0)
             {
                 listViewInstruction.Focus();
@@ -268,6 +275,7 @@ namespace WorldOfTank.GUI
 
         private void listViewInstruction_Leave(object sender, EventArgs e)
         {
+            toolStripButtonCopy.Enabled = false;
             toolStripButtonDelete.Enabled = false;
             toolStripButtonMoveUp.Enabled = false;
             toolStripButtonMoveDown.Enabled = false;
@@ -277,12 +285,15 @@ namespace WorldOfTank.GUI
         private void toolStripButtonEdit_Click(object sender, EventArgs e)
         {
             int index = FindIndexInstruction();
-            using (var editInstruction = new EditInstruction { Tank = Tank, ActionName = ActionName, Instruction = ActionInstruction[index] })
+            var editInstruction = new EditInstruction
             {
-                editInstruction.ShowInstructionInformation();
-                editInstruction.ShowConditionInformation();
-                editInstruction.ShowDialog();
-            }
+                Tank = Tank,
+                ActionName = ActionName,
+                Instruction = ActionInstruction[index]
+            };
+            editInstruction.ShowInstructionInformation();
+            editInstruction.ShowConditionInformation();
+            editInstruction.ShowDialog();
             ShowInstructionInformationList();
             listViewInstruction.Focus();
             listViewInstruction.Items[index].Selected = true;

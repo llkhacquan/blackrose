@@ -12,38 +12,35 @@ namespace WorldOfTank.Class.Model
     public class Bullet : DynamicObject
     {
         /// <summary>
-        /// Damage of this bullet
+        ///     Damage of this bullet
         /// </summary>
         public float Damage;
 
         /// <summary>
-        /// Move speed of this bullet
+        ///     Move speed of this bullet
         /// </summary>
         public float SpeedMove;
 
         /// <summary>
-        /// Constructor
+        /// This bullet of OwnTank
+        /// </summary>
+        public Tank OwnTank;
+
+        /// <summary>
+        ///     Constructor
         /// </summary>
         /// <param name="image">Image bullet</param>
-        public Bullet(Image image)
+        /// <param name="tank">Own tank </param>
+        public Bullet(Image image, Tank tank)
             : base(image, TypeObject.Bullet)
         {
             Radius = 0.3f * Image.Width;
             SpeedMove = 8;
-        }
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="image">Image object</param>
-        /// <param name="type">Type object</param>
-        protected Bullet(Image image, TypeObject type)
-            : base(image, type)
-        {
-            
+            OwnTank = tank;
         }
 
         /// <summary>
-        /// Execute some change of this bullet in a frame in battlefield
+        ///     Execute some change of this bullet in a frame in battlefield
         /// </summary>
         /// <param name="objects">Objects are battlefield</param>
         /// <returns>Result of that frame</returns>
@@ -52,30 +49,24 @@ namespace WorldOfTank.Class.Model
             MoveForward(SpeedMove);
             var result = TypeResult.Nothing;
             foreach (ObjectGame obj in objects)
-            {
                 if (obj != this && IsCollided(obj))
                 {
                     if (obj.Type == TypeObject.Tank)
                     {
+                        OwnTank.Score += Damage;
                         var tank = (Tank)obj;
-                        tank.HealCur -= Damage;
+                        tank.HealCur -= Math.Max(Damage - tank.Armor, 0);
                         tank.NewResult = TypeResult.BeAttacked;
                         tank.EnemyBullet = this;
-                        if (tank.HealCur < 0)
+                        if (tank.HealCur <= 0)
                         {
+                            OwnTank.Score += GlobalVariableGame.BonusScoreKiller;
                             tank.NewResult = TypeResult.BeDestroyed;
                         }
                         result = TypeResult.BeDestroyed;
                     }
-                    else
-                    {
-                        if (obj.Type == TypeObject.Wall)
-                        {
-                            result = TypeResult.BeDestroyed;
-                        }
-                    }
+                    else if (obj.Type == TypeObject.Wall) result = TypeResult.BeDestroyed;
                 }
-            }
             return result;
         }
     }

@@ -5,10 +5,10 @@
     /// </summary>
     public enum TypeInstruction
     {
-        Fire,
-        MoveBackward,
-        MoveForward,
         RotateLeft,
-        RotateRight
+        RotateRight,
+        MoveForward,
+        MoveBackward,
+        Fire,
     }
 }

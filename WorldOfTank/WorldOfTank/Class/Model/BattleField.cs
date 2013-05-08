@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using WorldOfTank.Class.Components;
 using WorldOfTank.Properties;
 
@@ -13,17 +12,17 @@ namespace WorldOfTank.Class.Model
     public class BattleField
     {
         /// <summary>
-        /// Objects are this battlefield
+        ///     Objects are this battlefield
         /// </summary>
         public List<ObjectGame> Objects;
 
         /// <summary>
-        /// Gets or sets size of this battlefield
+        ///     Gets or sets size of this battlefield
         /// </summary>
         public Size Size;
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         public BattleField()
         {
@@ -32,26 +31,23 @@ namespace WorldOfTank.Class.Model
         }
 
         /// <summary>
-        /// Setup game
+        ///     Setup game
         /// </summary>
         public void SetupGame(List<Tank> listTanks)
         {
-
-            // Put grass background in the BattleField;
-            for (var i = 0; i <= (Size.Width - 1) / Resources.Grass_A.Width; i++)
-            {
-                for (var j = 0; j <= (Size.Height - 1) / Resources.Grass_A.Height; j++)
+            // Setup background for BattleField;
+            for (int i = 0; i <= (Size.Width - 1) / Resources.Grass_A.Width; i++)
+                for (int j = 0; j <= (Size.Height - 1) / Resources.Grass_A.Height; j++)
                 {
                     var background = new Background(Resources.Grass_A);
                     background.Position.X = background.Image.Width * i + background.Image.Width / 2;
                     background.Position.Y = background.Image.Height * j + background.Image.Height / 2;
                     Objects.Add(background);
                 }
-            }
 
-            // Put walls in the BattleField
+            // Setup walls for BattleField
             Wall wall;
-            for (var i = 0; i <= (Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
+            for (int i = 0; i <= (Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)
             {
                 wall = new Wall(Resources.Wall_A);
                 wall.Position.X = (wall.Image.Width - 1) * i + wall.Image.Width / 2;
@@ -64,7 +60,7 @@ namespace WorldOfTank.Class.Model
                 Objects.Add(wall);
             }
 
-            for (var i = 0; i <= (Size.Height - 1) / (Resources.Wall_B.Height - 1); i++)
+            for (int i = 0; i <= (Size.Height - 1) / (Resources.Wall_B.Height - 1); i++)
             {
                 wall = new Wall(Resources.Wall_B);
                 wall.Position.X = 0.5f * wall.Image.Width;
@@ -77,35 +73,35 @@ namespace WorldOfTank.Class.Model
                 Objects.Add(wall);
             }
 
-            // Put tanks randomly in BattleField
+            // Put tanks in the BattleField
             var random = new Random();
-            foreach (Tank tank in listTanks)
+            foreach (Tank rootTank in listTanks)
             {
+                Tank tank = rootTank.Clone();
                 Objects.Add(tank);
                 tank.Direction = random.Next(360);
                 do
                 {
                     tank.Position.X = random.Next(Size.Width);
                     tank.Position.Y = random.Next(Size.Height);
-                }
-                while (tank.IsInvalidPosition(Objects));
+                } while (tank.IsInvalidPosition(Objects));
             }
         }
 
         /// <summary>
-        /// Execute some change in a frame in battlefield
+        ///     Execute some change in a frame in battlefield
         /// </summary>
         /// <returns>Result of that frame</returns>
-        public TypeResult NextFrame()
+        public void NextFrame()
         {
-            for (var i = 0; i < Objects.Count; i++)
+            for (int i = 0; i < Objects.Count; i++)
             {
                 if (Objects[i].NextFrame(Objects) == TypeResult.BeDestroyed)
                 {
+                    if (Objects[i].Type == TypeObject.Tank) GlobalVariableGame.NumberTank--;
                     Objects.RemoveAt(i--);
                 }
             }
-            return Objects.Count(obj => obj.Type == TypeObject.Tank) < 2 ? TypeResult.GameOver : TypeResult.Nothing;
         }
     }
 }

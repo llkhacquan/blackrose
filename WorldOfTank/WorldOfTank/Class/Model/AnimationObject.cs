@@ -6,7 +6,7 @@ namespace WorldOfTank.Class.Model
     public abstract class AnimationObject : ObjectGame
     {
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="image">Image object</param>
         /// <param name="type">Type object</param>

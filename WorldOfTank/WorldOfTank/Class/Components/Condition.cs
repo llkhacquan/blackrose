@@ -34,13 +34,11 @@ namespace WorldOfTank.Class.Components
         public bool GetResult(Tank yourTank, Tank enemyTank, Bullet enemyBullet)
         {
             if (Type == TypeCondition.And)
-            {
                 return Children.All(t => t.GetResult(yourTank, enemyTank, enemyBullet));
-            }
+
             if (Type == TypeCondition.Or)
-            {
                 return Children.Any(t => t.GetResult(yourTank, enemyTank, enemyBullet));
-            }
+
             return Comparision.GetResult(yourTank, enemyTank, enemyBullet);
         }
 
@@ -50,7 +48,7 @@ namespace WorldOfTank.Class.Components
         /// <returns></returns>
         public string Print()
         {
-            var s = string.Empty;
+            string s = "";
             if (Type == TypeCondition.Unique)
             {
                 s += Comparision.Parameter.ToString();
@@ -81,18 +79,12 @@ namespace WorldOfTank.Class.Components
             }
             else
             {
-                s = String.Format("({0})", Children[0].Print());
-                for (var i = 1; i < Children.Count; i++)
-                {
+                s = "(" + Children[0].Print() + ")";
+                for (int i = 1; i < Children.Count; i++)
                     if (Type == TypeCondition.And)
-                    {
-                        s += String.Format(" AND ({0})", Children[i].Print());
-                    }
+                        s += " AND (" + Children[i].Print() + ")";
                     else
-                    {
-                        s += String.Format(" OR ({0})", Children[i].Print());
-                    }
-                }
+                        s += " OR (" + Children[i].Print() + ")";
             }
             return s;
         }
@@ -106,18 +98,10 @@ namespace WorldOfTank.Class.Components
             if (Type != TypeCondition.Unique)
             {
                 var childrenNodes = new TreeNode[Children.Count];
-                for (var i = 0; i < Children.Count; i++)
-                {
+                for (int i = 0; i < Children.Count; i++)
                     childrenNodes[i] = Children[i].GetTreeNode();
-                }
-                if (Type == TypeCondition.And)
-                {
-                    return new TreeNodePlus("AND", childrenNodes, this);
-                }
-                if (Type == TypeCondition.Or)
-                {
-                    return new TreeNodePlus("OR", childrenNodes, this);
-                }
+                if (Type == TypeCondition.And) return new TreeNodePlus("AND", childrenNodes, this);
+                if (Type == TypeCondition.Or) return new TreeNodePlus("OR", childrenNodes, this);
             }
             return new TreeNodePlus(Print(), this);
         }
