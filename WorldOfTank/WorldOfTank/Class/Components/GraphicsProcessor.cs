@@ -18,12 +18,12 @@ namespace WorldOfTank.Class.Components
         public static Bitmap RotateImage(Image img, float angle)
         {
             var returnBitmap = new Bitmap(img.Width, img.Height + 1);
-            Graphics g = Graphics.FromImage(returnBitmap);
-            g.TranslateTransform((float)img.Width / 2, (float)img.Height / 2);
-            g.RotateTransform(angle);
-            g.TranslateTransform(-(float)img.Width / 2, -(float)img.Height / 2);
-            g.DrawImage(img, img.Width / 2 - img.Height / 2, img.Height / 2 - img.Width / 2, img.Height, img.Width);
-            g.Dispose();
+            Graphics gfx = Graphics.FromImage(returnBitmap);
+            gfx.TranslateTransform((float)img.Width / 2, (float)img.Height / 2);
+            gfx.RotateTransform(angle);
+            gfx.TranslateTransform(-(float)img.Width / 2, -(float)img.Height / 2);
+            gfx.DrawImage(img, img.Width / 2 - img.Height / 2, img.Height / 2 - img.Width / 2, img.Height, img.Width);
+            gfx.Dispose();
             return returnBitmap;
         }
 

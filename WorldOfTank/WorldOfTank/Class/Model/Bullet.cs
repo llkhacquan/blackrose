@@ -34,7 +34,7 @@ namespace WorldOfTank.Class.Model
         public Bullet(Image image, Tank tank)
             : base(image, TypeObject.Bullet)
         {
-            Radius = 0.3f * Image.Width;
+            Radius = 0.3f * Image.Width; // Circle is handled by 60% real image size
             SpeedMove = 8;
             OwnTank = tank;
         }

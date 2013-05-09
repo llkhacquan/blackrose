@@ -55,10 +55,9 @@ namespace WorldOfTank.Class.Components
         /// <returns>angle in degree</returns>
         public static float CalPointAngle(PointF root, PointF head)
         {
-            const float epsilon = 1e-6f;
             float x = head.X - root.X;
             float y = root.Y - head.Y;
-            if (Math.Abs(y) < epsilon)
+            if (Math.Abs(y) < GlobalVariableGame.EPSILON)
                 if (x > 0) return 90;
                 else return -90;
             var deg = (float)(Math.Atan(x / y) * 180 / Math.PI);

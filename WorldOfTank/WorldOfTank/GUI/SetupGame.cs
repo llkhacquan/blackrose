@@ -7,17 +7,38 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using WorldOfTank.Class.Model;
+using WorldOfTank.Properties;
 
 namespace WorldOfTank.GUI
 {
     public partial class SetupGame : Form
     {
+        private Image[] _listBackground = new Image[]
+        {
+            Resources.Grass_A, 
+            Resources.Grass_B, 
+            Resources.Ice_A, 
+            Resources.Land_A, 
+            Resources.Ocean_A, 
+            Resources.Sky_A
+        };
+
+        private int _indexBackground;
+        public Size SizeBattlefield = new Size(600, 600);
+
+
         private readonly Tank[] _listTanks = new Tank[8];
         private int _tankCount;
 
         public SetupGame()
         {
             InitializeComponent();
+        }
+
+        private void SetupGame_Load(object sender, EventArgs e)
+        {
+            comboBoxSize.Text = string.Format("{0} x {1}", SizeBattlefield.Width, SizeBattlefield.Height);
+            pictureBoxBackground.Image = _listBackground[_indexBackground];
         }
 
         private void AddTank(int index)
@@ -49,6 +70,11 @@ namespace WorldOfTank.GUI
                     MessageBox.Show("Cannot load this file!");
                 }
             }
+        }
+
+        public Image GetBackground()
+        {
+            return _listBackground[_indexBackground];
         }
 
         public List<Tank> GetListTanks()
@@ -115,5 +141,39 @@ namespace WorldOfTank.GUI
             }
             DialogResult = DialogResult.OK;
         }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            _indexBackground = (_indexBackground + 1) % _listBackground.Length;
+            pictureBoxBackground.Image = _listBackground[_indexBackground];
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            _indexBackground = (_indexBackground + _listBackground.Length - 1) % _listBackground.Length;
+            pictureBoxBackground.Image = _listBackground[_indexBackground];
+        }
+
+        private void comboBoxSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxSize.Text)
+            {
+                case "600 x 600":
+                    SizeBattlefield = new Size(600, 600);
+                    break;
+                case "800 x 600":
+                    SizeBattlefield = new Size(800, 600);
+                    break;
+                case "1000 x 600":
+                    SizeBattlefield = new Size(1000, 600);
+                    break;
+            }
+        }
+
+        private void SetupGame_Load()
+        {
+
+        }
+
     }
 }

@@ -40,13 +40,20 @@
             this.buttonAddTank4 = new System.Windows.Forms.Button();
             this.buttonAddTank7 = new System.Windows.Forms.Button();
             this.buttonAddTank6 = new System.Windows.Forms.Button();
+            this.labelSize = new System.Windows.Forms.Label();
+            this.comboBoxSize = new System.Windows.Forms.ComboBox();
+            this.pictureBoxBackground = new System.Windows.Forms.PictureBox();
+            this.labelBackground = new System.Windows.Forms.Label();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBackground)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAddTank0
             // 
             this.buttonAddTank0.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank0.Location = new System.Drawing.Point(12, 12);
+            this.buttonAddTank0.Location = new System.Drawing.Point(12, 216);
             this.buttonAddTank0.Name = "buttonAddTank0";
             this.buttonAddTank0.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank0.TabIndex = 0;
@@ -57,9 +64,9 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(12, 247);
+            this.buttonOK.Location = new System.Drawing.Point(12, 377);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(150, 23);
+            this.buttonOK.Size = new System.Drawing.Size(212, 23);
             this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -68,9 +75,9 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(174, 247);
+            this.buttonCancel.Location = new System.Drawing.Point(236, 377);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(150, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(212, 23);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -78,15 +85,15 @@
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(118, 99);
+            this.labelTime.Location = new System.Drawing.Point(15, 76);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(83, 13);
+            this.labelTime.Size = new System.Drawing.Size(97, 13);
             this.labelTime.TabIndex = 6;
-            this.labelTime.Text = "Time for a game";
+            this.labelTime.Text = "Time for a game (s)";
             // 
             // numericUpDownTime
             // 
-            this.numericUpDownTime.Location = new System.Drawing.Point(118, 115);
+            this.numericUpDownTime.Location = new System.Drawing.Point(124, 74);
             this.numericUpDownTime.Maximum = new decimal(new int[] {
             300,
             0,
@@ -109,7 +116,7 @@
             // buttonAddTank3
             // 
             this.buttonAddTank3.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank3.Location = new System.Drawing.Point(12, 88);
+            this.buttonAddTank3.Location = new System.Drawing.Point(348, 216);
             this.buttonAddTank3.Name = "buttonAddTank3";
             this.buttonAddTank3.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank3.TabIndex = 8;
@@ -121,7 +128,7 @@
             // buttonAddTank5
             // 
             this.buttonAddTank5.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank5.Location = new System.Drawing.Point(12, 164);
+            this.buttonAddTank5.Location = new System.Drawing.Point(124, 292);
             this.buttonAddTank5.Name = "buttonAddTank5";
             this.buttonAddTank5.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank5.TabIndex = 9;
@@ -133,7 +140,7 @@
             // buttonAddTank1
             // 
             this.buttonAddTank1.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank1.Location = new System.Drawing.Point(118, 12);
+            this.buttonAddTank1.Location = new System.Drawing.Point(124, 216);
             this.buttonAddTank1.Name = "buttonAddTank1";
             this.buttonAddTank1.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank1.TabIndex = 10;
@@ -145,7 +152,7 @@
             // buttonAddTank2
             // 
             this.buttonAddTank2.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank2.Location = new System.Drawing.Point(224, 12);
+            this.buttonAddTank2.Location = new System.Drawing.Point(236, 216);
             this.buttonAddTank2.Name = "buttonAddTank2";
             this.buttonAddTank2.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank2.TabIndex = 11;
@@ -157,7 +164,7 @@
             // buttonAddTank4
             // 
             this.buttonAddTank4.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank4.Location = new System.Drawing.Point(224, 88);
+            this.buttonAddTank4.Location = new System.Drawing.Point(12, 292);
             this.buttonAddTank4.Name = "buttonAddTank4";
             this.buttonAddTank4.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank4.TabIndex = 12;
@@ -169,7 +176,7 @@
             // buttonAddTank7
             // 
             this.buttonAddTank7.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank7.Location = new System.Drawing.Point(224, 164);
+            this.buttonAddTank7.Location = new System.Drawing.Point(348, 292);
             this.buttonAddTank7.Name = "buttonAddTank7";
             this.buttonAddTank7.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank7.TabIndex = 13;
@@ -181,7 +188,7 @@
             // buttonAddTank6
             // 
             this.buttonAddTank6.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonAddTank6.Location = new System.Drawing.Point(118, 164);
+            this.buttonAddTank6.Location = new System.Drawing.Point(236, 292);
             this.buttonAddTank6.Name = "buttonAddTank6";
             this.buttonAddTank6.Size = new System.Drawing.Size(100, 70);
             this.buttonAddTank6.TabIndex = 14;
@@ -190,12 +197,80 @@
             this.buttonAddTank6.UseVisualStyleBackColor = false;
             this.buttonAddTank6.Click += new System.EventHandler(this.buttonAddTank6_Click);
             // 
+            // labelSize
+            // 
+            this.labelSize.AutoSize = true;
+            this.labelSize.Location = new System.Drawing.Point(15, 103);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(87, 13);
+            this.labelSize.TabIndex = 15;
+            this.labelSize.Text = "Size of battlefield";
+            // 
+            // comboBoxSize
+            // 
+            this.comboBoxSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSize.FormattingEnabled = true;
+            this.comboBoxSize.Items.AddRange(new object[] {
+            "600 x 600",
+            "800 x 600",
+            "1000 x 600"});
+            this.comboBoxSize.Location = new System.Drawing.Point(124, 100);
+            this.comboBoxSize.Name = "comboBoxSize";
+            this.comboBoxSize.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxSize.TabIndex = 16;
+            this.comboBoxSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxSize_SelectedIndexChanged);
+            // 
+            // pictureBoxBackground
+            // 
+            this.pictureBoxBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxBackground.Location = new System.Drawing.Point(236, 25);
+            this.pictureBoxBackground.Name = "pictureBoxBackground";
+            this.pictureBoxBackground.Size = new System.Drawing.Size(212, 153);
+            this.pictureBoxBackground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxBackground.TabIndex = 18;
+            this.pictureBoxBackground.TabStop = false;
+            // 
+            // labelBackground
+            // 
+            this.labelBackground.AutoSize = true;
+            this.labelBackground.Location = new System.Drawing.Point(233, 9);
+            this.labelBackground.Name = "labelBackground";
+            this.labelBackground.Size = new System.Drawing.Size(65, 13);
+            this.labelBackground.TabIndex = 19;
+            this.labelBackground.Text = "Background";
+            // 
+            // buttonBack
+            // 
+            this.buttonBack.Location = new System.Drawing.Point(236, 184);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(100, 23);
+            this.buttonBack.TabIndex = 20;
+            this.buttonBack.Text = "<< Back";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.Location = new System.Drawing.Point(348, 184);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(100, 23);
+            this.buttonNext.TabIndex = 21;
+            this.buttonNext.Text = "Next >>";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
             // SetupGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 282);
+            this.ClientSize = new System.Drawing.Size(459, 412);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.buttonBack);
+            this.Controls.Add(this.labelBackground);
+            this.Controls.Add(this.pictureBoxBackground);
+            this.Controls.Add(this.comboBoxSize);
+            this.Controls.Add(this.labelSize);
             this.Controls.Add(this.buttonAddTank6);
             this.Controls.Add(this.buttonAddTank7);
             this.Controls.Add(this.buttonAddTank4);
@@ -215,7 +290,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SetupGame";
+            this.Load += new System.EventHandler(this.SetupGame_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBackground)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,6 +312,12 @@
         private System.Windows.Forms.Button buttonAddTank4;
         private System.Windows.Forms.Button buttonAddTank7;
         private System.Windows.Forms.Button buttonAddTank6;
+        private System.Windows.Forms.Label labelSize;
+        private System.Windows.Forms.ComboBox comboBoxSize;
+        private System.Windows.Forms.PictureBox pictureBoxBackground;
+        private System.Windows.Forms.Label labelBackground;
+        private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.Button buttonNext;
 
     }
 }

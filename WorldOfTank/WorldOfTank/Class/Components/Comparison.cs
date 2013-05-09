@@ -67,7 +67,6 @@ namespace WorldOfTank.Class.Components
                     break;
             }
 
-            const float epsilon = 1e-6f;
             switch (Operator)
             {
                 case TypeOperator.GreaterEqual:
@@ -77,7 +76,7 @@ namespace WorldOfTank.Class.Components
                     if (par > Value) return true;
                     break;
                 case TypeOperator.Equal:
-                    if (Math.Abs(par - Value) < epsilon) return true;
+                    if (Math.Abs(par - Value) < GlobalVariableGame.EPSILON) return true;
                     break;
                 case TypeOperator.Lower:
                     if (par < Value) return true;
@@ -86,7 +85,7 @@ namespace WorldOfTank.Class.Components
                     if (par <= Value) return true;
                     break;
                 case TypeOperator.NotEqual:
-                    if (Math.Abs(par - Value) > epsilon) return true;
+                    if (Math.Abs(par - Value) > GlobalVariableGame.EPSILON) return true;
                     break;
             }
 

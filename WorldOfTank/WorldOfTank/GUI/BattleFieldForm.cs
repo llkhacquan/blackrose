@@ -121,10 +121,10 @@ namespace WorldOfTank.GUI
             {
                 case TypeStateGame.Created:
                 case TypeStateGame.Restart:
-                    _battleField = new BattleField();
+                    _battleField = new BattleField(_setupGame.SizeBattlefield);
                     _battleField.SetupGame(_setupGame.GetListTanks());
                     _listTanks = (from obj in _battleField.Objects where obj.Type == TypeObject.Tank select (Tank)obj).ToList();
-                    _bufferBmpGame = new Bitmap(_battleField.Size.Width, _battleField.Size.Height);
+                    _bufferBmpGame = new Bitmap(_setupGame.GetBackground(), _setupGame.SizeBattlefield);
                     _gfx = Graphics.FromImage(_bufferBmpGame);
                     foreach (ObjectGame obj in _battleField.Objects)
                         if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall) obj.Paint(_gfx);
@@ -132,6 +132,7 @@ namespace WorldOfTank.GUI
                     GlobalVariableGame.NumberTank = _setupGame.GetNumberTank();
                     timerControl.Enabled = true;
                     _stateGame = TypeStateGame.Started;
+                    Size = new Size(_battleField.Size.Width + 206, _battleField.Size.Height + 28);
                     break;
                 case TypeStateGame.Started:
                 case TypeStateGame.Paused:

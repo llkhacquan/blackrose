@@ -15,13 +15,13 @@ namespace WorldOfTank.GUI
         // Standard Tank
         public static Tank GreenTank = new Tank(Resources.Tank_A)
             {
-                RadaColor = Color.FromArgb(31, 0, 255, 0),
+                RadaColor = Color.FromArgb(63, 0, 255, 0),
             };
 
         // Speed Tank
         public static Tank BlueTank = new Tank(Resources.Tank_B)
             {
-                RadaColor = Color.FromArgb(31, 0, 0, 255),
+                RadaColor = Color.FromArgb(63, 0, 0, 255),
                 // Buff
                 SpeedMove = 3.5f,
                 SpeedRotate = 6f,
@@ -37,7 +37,7 @@ namespace WorldOfTank.GUI
         // Defense Tank
         public static Tank YellowTank = new Tank(Resources.Tank_C)
             {
-                RadaColor = Color.FromArgb(31, 255, 255, 0),
+                RadaColor = Color.FromArgb(63, 255, 255, 0),
                 // Buff
                 HealMax = 220f,
                 HealCur = 220f,
@@ -53,7 +53,7 @@ namespace WorldOfTank.GUI
         // Attack Tank
         public static Tank RedTank = new Tank(Resources.Tank_D)
             {
-                RadaColor = Color.FromArgb(31, 255, 0, 0),
+                RadaColor = Color.FromArgb(63, 255, 0, 0),
                 // Buff
                 DamageMax = 20f,
                 RadaRange = 350f,

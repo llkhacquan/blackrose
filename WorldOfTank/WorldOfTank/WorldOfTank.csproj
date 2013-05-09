@@ -57,7 +57,6 @@
     <Compile Include="Class\Components\TypeParameter.cs" />
     <Compile Include="Class\Components\TypeStateGame.cs" />
     <Compile Include="Class\Model\AnimationObject.cs" />
-    <Compile Include="Class\Model\Background.cs" />
     <Compile Include="Class\Model\BattleField.cs" />
     <Compile Include="Class\Model\Bullet.cs" />
     <Compile Include="Class\Components\Comparison.cs" />
@@ -221,6 +220,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainIcon.ico" />
+    <None Include="Resources\Graphics\Background\Ice_A.jpg" />
+    <None Include="Resources\Graphics\Background\Grass_B.jpg" />
+    <None Include="Resources\Graphics\Background\Grass_A.jpg" />
+    <None Include="Resources\Graphics\Background\Sky_A.jpg" />
+    <None Include="Resources\Graphics\Background\Ocean_A.jpg" />
+    <None Include="Resources\Graphics\Background\Land_A.jpg" />
+    <None Include="Resources\Graphics\Background\Desert_A.png" />
+    <None Include="Resources\Graphics\Background\Land_A.png" />
+    <None Include="Resources\Graphics\Background\Ice_A.png" />
+    <None Include="Resources\Graphics\Background\Grass_C.png" />
+    <None Include="Resources\Graphics\Background\Grass_B.png" />
     <None Include="Resources\Graphics\Icon\Copy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

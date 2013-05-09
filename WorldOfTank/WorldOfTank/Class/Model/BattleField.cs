@@ -24,10 +24,10 @@ namespace WorldOfTank.Class.Model
         /// <summary>
         ///     Constructor
         /// </summary>
-        public BattleField()
+        public BattleField(Size size)
         {
             Objects = new List<ObjectGame>();
-            Size = new Size(600, 600);
+            Size = size;
         }
 
         /// <summary>
@@ -35,16 +35,6 @@ namespace WorldOfTank.Class.Model
         /// </summary>
         public void SetupGame(List<Tank> listTanks)
         {
-            // Setup background for BattleField;
-            for (int i = 0; i <= (Size.Width - 1) / Resources.Grass_A.Width; i++)
-                for (int j = 0; j <= (Size.Height - 1) / Resources.Grass_A.Height; j++)
-                {
-                    var background = new Background(Resources.Grass_A);
-                    background.Position.X = background.Image.Width * i + background.Image.Width / 2;
-                    background.Position.Y = background.Image.Height * j + background.Image.Height / 2;
-                    Objects.Add(background);
-                }
-
             // Setup walls for BattleField
             Wall wall;
             for (int i = 0; i <= (Size.Width - 1) / (Resources.Wall_A.Width - 1); i++)

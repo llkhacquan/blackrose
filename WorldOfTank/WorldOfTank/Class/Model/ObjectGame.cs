@@ -47,7 +47,7 @@ namespace WorldOfTank.Class.Model
             Position = new PointF(0, 0);
             Direction = 0;
             Type = type;
-            Radius = 0.5f * Image.Width;
+            Radius = 0.5f * Image.Width; // Circle is handled by 100% real image size
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace WorldOfTank.Class.Model
         public virtual void Paint(Graphics gfx)
         {
             Bitmap bmp = GraphicsProcessor.RotateImage(Image, Direction);
-            gfx.DrawImage(bmp, Position.X - 0.5f * Image.Width, Position.Y - 0.5f * Image.Height);
+            gfx.DrawImage(bmp, Position.X - Image.Width / 2f, Position.Y - Image.Height / 2f);
             bmp.Dispose();
 
         }

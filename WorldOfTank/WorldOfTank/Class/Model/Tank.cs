@@ -104,11 +104,11 @@ namespace WorldOfTank.Class.Model
         public Tank(Image image)
             : base(image, TypeObject.Tank)
         {
-            Radius = 0.35f * Image.Width;
+            Radius = 0.35f * Image.Width; // Circle is handled by 70% real image size
 
             RadaRange = 300;
             RadaAngle = 20;
-            RadaColor = Color.FromArgb(31, 255, 255, 255);
+            RadaColor = Color.FromArgb(63, 255, 255, 255);
 
             DamageMin = 10;
             DamageMax = 15;
@@ -197,10 +197,8 @@ namespace WorldOfTank.Class.Model
         public void ExecuteInstruction(List<ObjectGame> objects)
         {
             if (Instruction == null) return;
-            const float epsilon = 1e-6f;
             float value;
             PointF oldPosition = Position;
-
             switch (Instruction.Type)
             {
                 case TypeInstruction.MoveForward:
@@ -237,11 +235,11 @@ namespace WorldOfTank.Class.Model
                     value = Math.Min(Instruction.Value, SpeedFire);
                     Instruction.Value -= value;
                     _damageCur += value;
-                    if (Math.Abs(Instruction.Value) < epsilon)
+                    if (Math.Abs(Instruction.Value) < GlobalVariableGame.EPSILON)
                     {
                         var bullet = new Bullet(Properties.Resources.Bullet_A, this)
                             {
-                                Position = MathProcessor.CalPointPosition(Position, 0.5f * Image.Width, Direction),
+                                Position = MathProcessor.CalPointPosition(Position, Image.Width / 2f, Direction),
                                 Direction = Direction,
                                 Damage = _damageCur - GlobalVariableGame.TimeDelayAttack
                             };
@@ -251,7 +249,7 @@ namespace WorldOfTank.Class.Model
                     }
                     break;
             }
-            if (Math.Abs(Instruction.Value) < epsilon)
+            if (Math.Abs(Instruction.Value) < GlobalVariableGame.EPSILON)
             {
                 Instruction = null;
                 ListInstructions.RemoveAt(0);
@@ -304,7 +302,7 @@ namespace WorldOfTank.Class.Model
                 Direction - 90 - RadaAngle / 2, RadaAngle);
 
             var rect = new Rectangle(
-                (int)(Position.X - 0.5f * Image.Width) - 10, (int)(Position.Y + 0.5f * Image.Height),
+                (int)(Position.X - Image.Width / 2f) - 10, (int)(Position.Y + Image.Height / 2f),
                 Image.Width + 20, 12);
 
             gfx.FillRectangle(new SolidBrush(Color.FromArgb(127, 255, 0, 0)), rect);
