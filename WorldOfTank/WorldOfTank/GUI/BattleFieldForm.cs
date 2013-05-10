@@ -76,7 +76,7 @@ namespace WorldOfTank.GUI
         {
             String str = String.Format(" Time remaining: {0:0.0}s\n\n", GlobalVariableGame.TimeRemaining);
             str = _listTanks.Aggregate(str, (current, tank) =>
-                current + String.Format(" Tank: {0}\n Heal: {1}/{2}\tScore: {3:0.0}\n\n", tank.Name, tank.HealCur, tank.HealMax, tank.Score));
+                current + String.Format(" Tank: {0}\n Heal: {1:0.0}/{2:0.0}\tScore: {3:0.0}\n\n", tank.Name, tank.HealCur, tank.HealMax, tank.Score));
             richTextBoxInformation.Text = str;
         }
 

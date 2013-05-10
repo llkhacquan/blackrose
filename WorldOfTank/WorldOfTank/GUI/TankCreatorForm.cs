@@ -127,6 +127,7 @@ namespace WorldOfTank.GUI
                     Tank = (Tank)formatter.Deserialize(stream);
                     stream.Close();
                     Tank.Name = opener.FileName.Substring(opener.FileName.LastIndexOf('\\') + 1);
+                    Tank.Name = Tank.Name.Substring(0, Tank.Name.LastIndexOf('.'));
                     panelTank.Visible = true;
                     panelAction.Visible = true;
                     buttonSave.Enabled = true;

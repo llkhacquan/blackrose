@@ -57,6 +57,7 @@ namespace WorldOfTank.GUI
                     _listTanks[index] = (Tank)formatter.Deserialize(stream);
                     stream.Close();
                     _listTanks[index].Name = opener.FileName.Substring(opener.FileName.LastIndexOf('\\') + 1);
+                    _listTanks[index].Name = _listTanks[index].Name.Substring(0, _listTanks[index].Name.LastIndexOf('.'));
                     var button = (Button)Controls[string.Format("buttonAddTank{0}", index)];
                     button.Text = _listTanks[index].Name;
                     button.Image = _listTanks[index].Image;

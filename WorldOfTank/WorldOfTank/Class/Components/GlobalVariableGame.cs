@@ -10,8 +10,8 @@ namespace WorldOfTank.Class.Components
         public static float FramePerSecond = 40;
         public static float BonusScoreAlive = 0.025f;   // each frame
         public static float BonusScoreKiller = 10;
-        public static float CostPerAttack = 1;          // score
-        public static float TimeDelayAttack = 4;        // frames
+        public static float CostPerAttack = 0.5f;       // score
+        public static float TimeDelayAttack = 2;        // frames
 
         public static float TimeRemaining;
         public static int NumberTank;

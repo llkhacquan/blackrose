@@ -28,10 +28,8 @@ namespace WorldOfTank.GUI
                 SpeedFire = 1.2f,
                 DamageMin = 5f,
                 // Nerf
-                Armor = 0f,
+                Armor = 0.5f,
                 RadaRange = 250f,
-                HealMax = 160f,
-                HealCur = 160f,
             };
 
         // Defense Tank

@@ -266,7 +266,7 @@ namespace WorldOfTank.Class.Model
             if (NewResult == TypeResult.BeDestroyed) return TypeResult.BeDestroyed;
             Score += GlobalVariableGame.BonusScoreAlive;
             DetectedEnemy(objects);
-            if (EnemyTank != null) NewResult = TypeResult.Detected;
+            if (EnemyTank != null && NewResult != TypeResult.BeAttacked) NewResult = TypeResult.Detected;
             if (Instruction == null || Instruction.Interruptible)
             {
                 SetListInstructions();
