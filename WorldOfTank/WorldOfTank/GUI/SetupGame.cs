@@ -13,14 +13,12 @@ namespace WorldOfTank.GUI
 {
     public partial class SetupGame : Form
     {
-        private Image[] _listBackground = new Image[]
+        private readonly Image[] _listBackground = new Image[]
         {
             Resources.Grass_A, 
             Resources.Grass_B, 
             Resources.Ice_A, 
-            Resources.Land_A, 
             Resources.Ocean_A, 
-            Resources.Sky_A
         };
 
         private int _indexBackground;
@@ -58,7 +56,7 @@ namespace WorldOfTank.GUI
                     if (_listTanks[index] == null) _tankCount++;
                     _listTanks[index] = (Tank)formatter.Deserialize(stream);
                     stream.Close();
-
+                    _listTanks[index].Name = opener.FileName.Substring(opener.FileName.LastIndexOf('\\') + 1);
                     var button = (Button)Controls[string.Format("buttonAddTank{0}", index)];
                     button.Text = _listTanks[index].Name;
                     button.Image = _listTanks[index].Image;
@@ -170,10 +168,17 @@ namespace WorldOfTank.GUI
             }
         }
 
-        private void SetupGame_Load()
+        private void buttonReset_Click(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < _listTanks.Length; i++)
+            {
+                _listTanks[i] = null;
+                var button = (Button)Controls[string.Format("buttonAddTank{0}", i)];
+                button.Text = "Add a tank";
+                button.Image = null;
+                button.TextAlign = ContentAlignment.MiddleCenter;
+            }
+            _tankCount = 0;
         }
-
     }
 }

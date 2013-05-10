@@ -1,13 +1,11 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeOperator.cs" caret="120" fromTop="3" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:Wall.cs" caret="583" fromTop="12" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:EditInstruction.cs" caret="8260" fromTop="90" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeStateGame.cs" caret="150" fromTop="7" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeResult.cs" caret="190" fromTop="9" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/f:Program.cs" caret="264" fromTop="11" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/f:packages.config" caret="129" fromTop="3" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:TankCreatorForm.cs" caret="727" fromTop="10" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeParameter.cs" caret="637" fromTop="26" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:ChooseTank.Designer.cs" caret="8361" fromTop="10" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:Condition.cs" caret="3245" fromTop="2" />
@@ -25,11 +23,13 @@
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:ObjectGame.cs" caret="1380" fromTop="10" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:ChooseTank.cs" caret="1660" fromTop="16" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:Tank.cs" caret="3190" fromTop="0" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.Designer.cs" caret="15244" fromTop="11" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.cs" caret="1020" fromTop="39" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.Designer.cs" caret="15866" fromTop="11" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:BattleField.cs" caret="747" fromTop="3" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:BattleFieldForm.Designer.cs" caret="0" fromTop="0" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:BattleFieldForm.cs" caret="5127" fromTop="6" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeObject.cs" caret="200" fromTop="10" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:TankCreatorForm.cs" caret="4987" fromTop="16" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:BattleFieldForm.cs" caret="7826" fromTop="62" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.cs" caret="1931" fromTop="14" />
   </RecentFiles>
   <RecentEdits>
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TreeNodePlus.cs" caret="426" fromTop="11" />
@@ -38,7 +38,6 @@
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:Instruction.cs" caret="526" fromTop="19" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeInstruction.cs" caret="93" fromTop="3" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeCondition.cs" caret="103" fromTop="3" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeObject.cs" caret="96" fromTop="3" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeOperator.cs" caret="120" fromTop="3" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:DynamicObject.cs" caret="1698" fromTop="18" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:StaticObject.cs" caret="185" fromTop="6" />
@@ -47,7 +46,6 @@
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:EditInstruction.cs" caret="8260" fromTop="19" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeResult.cs" caret="190" fromTop="9" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeParameter.cs" caret="637" fromTop="17" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:TankCreatorForm.cs" caret="774" fromTop="10" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:ChooseTank.Designer.cs" caret="8361" fromTop="10" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:Comparison.cs" caret="3461" fromTop="17" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:MathProcessor.cs" caret="2362" fromTop="15" />
@@ -57,9 +55,11 @@
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:ObjectGame.cs" caret="2463" fromTop="15" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:Tank.cs" caret="3190" fromTop="14" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:ChooseTank.cs" caret="1660" fromTop="16" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.Designer.cs" caret="15244" fromTop="11" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.cs" caret="5814" fromTop="11" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.Designer.cs" caret="15866" fromTop="11" />
     <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Model/f:BattleField.cs" caret="688" fromTop="7" />
-    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:BattleFieldForm.cs" caret="5605" fromTop="12" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:Class/d:Components/f:TypeObject.cs" caret="200" fromTop="10" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:BattleFieldForm.cs" caret="7826" fromTop="14" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:TankCreatorForm.cs" caret="4954" fromTop="16" />
+    <File id="BDF3B3EE-1A45-453E-829A-9EE99DF3B20D/d:GUI/f:SetupGame.cs" caret="1931" fromTop="14" />
   </RecentEdits>
 </RecentFiles>

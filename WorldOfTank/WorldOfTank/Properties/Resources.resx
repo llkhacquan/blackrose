@@ -160,9 +160,6 @@
   <data name="Ice_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Background\Ice_A.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Land_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Graphics\Background\Land_A.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="MainBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Background\MainBackground.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -177,9 +174,6 @@
   </data>
   <data name="Ocean_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Background\Ocean_A.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sky_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Graphics\Background\Sky_A.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tank_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphics\Tank\Tank_A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

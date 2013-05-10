@@ -203,16 +203,6 @@ namespace WorldOfTank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Land_A {
-            get {
-                object obj = ResourceManager.GetObject("Land_A", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap MainBackground {
             get {
                 object obj = ResourceManager.GetObject("MainBackground", resourceCulture);
@@ -256,16 +246,6 @@ namespace WorldOfTank.Properties {
         internal static System.Drawing.Bitmap Ocean_A {
             get {
                 object obj = ResourceManager.GetObject("Ocean_A", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sky_A {
-            get {
-                object obj = ResourceManager.GetObject("Sky_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

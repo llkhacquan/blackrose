@@ -87,7 +87,7 @@ namespace WorldOfTank.GUI
             if (_gfx != null) _gfx.Dispose();
             _gfx = Graphics.FromImage(_bmpGame);
             foreach (ObjectGame obj in _battleField.Objects)
-                if (obj.Type != TypeObject.Background && obj.Type != TypeObject.Wall) obj.Paint(_gfx);
+                if (obj.Type != TypeObject.Wall) obj.Paint(_gfx);
 
             /*Pen pen = new Pen(new SolidBrush(Color.Green));
             foreach (ObjectGame obj in _battleField.Objects)
@@ -127,7 +127,7 @@ namespace WorldOfTank.GUI
                     _bufferBmpGame = new Bitmap(_setupGame.GetBackground(), _setupGame.SizeBattlefield);
                     _gfx = Graphics.FromImage(_bufferBmpGame);
                     foreach (ObjectGame obj in _battleField.Objects)
-                        if (obj.Type == TypeObject.Background || obj.Type == TypeObject.Wall) obj.Paint(_gfx);
+                        if (obj.Type == TypeObject.Wall) obj.Paint(_gfx);
                     GlobalVariableGame.TimeRemaining = _setupGame.GetTime();
                     GlobalVariableGame.NumberTank = _setupGame.GetNumberTank();
                     timerControl.Enabled = true;
@@ -183,11 +183,11 @@ namespace WorldOfTank.GUI
                         }
 
                 int rank = 0;
-                string rankStr = "Summary\n\n";
+                string rankStr = "Summary\n\nRank\tScore\tTank\n";
                 for (int i = 0; i < _listTanks.Count; i++)
                 {
                     if (i == 0 || _listTanks[i - 1].Score > _listTanks[i].Score) rank++;
-                    rankStr += string.Format("Rank {0}:   {1:0.00}\t{2}\n", rank, _listTanks[i].Score, _listTanks[i].Name);
+                    rankStr += string.Format("   {0}\t {1:0.00}\t {2}\n", rank, _listTanks[i].Score, _listTanks[i].Name);
                 }
 
                 MessageBox.Show(rankStr, "GameOver");

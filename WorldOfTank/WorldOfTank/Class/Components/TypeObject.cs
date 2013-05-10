@@ -8,6 +8,5 @@
         Bullet,
         Wall,
         Tank,
-        Background,
     }
 }

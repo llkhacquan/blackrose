@@ -46,6 +46,7 @@
             this.labelBackground = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBackground)).BeginInit();
             this.SuspendLayout();
@@ -85,7 +86,7 @@
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(15, 76);
+            this.labelTime.Location = new System.Drawing.Point(9, 76);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(97, 13);
             this.labelTime.TabIndex = 6;
@@ -200,7 +201,7 @@
             // labelSize
             // 
             this.labelSize.AutoSize = true;
-            this.labelSize.Location = new System.Drawing.Point(15, 103);
+            this.labelSize.Location = new System.Drawing.Point(9, 103);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(87, 13);
             this.labelSize.TabIndex = 15;
@@ -259,12 +260,23 @@
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(12, 184);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(212, 23);
+            this.buttonReset.TabIndex = 22;
+            this.buttonReset.Text = "Reset tank";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // SetupGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 412);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.labelBackground);
@@ -318,6 +330,7 @@
         private System.Windows.Forms.Label labelBackground;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonReset;
 
     }
 }

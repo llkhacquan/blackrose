@@ -126,6 +126,7 @@ namespace WorldOfTank.GUI
                     Stream stream = new FileStream(opener.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                     Tank = (Tank)formatter.Deserialize(stream);
                     stream.Close();
+                    Tank.Name = opener.FileName.Substring(opener.FileName.LastIndexOf('\\') + 1);
                     panelTank.Visible = true;
                     panelAction.Visible = true;
                     buttonSave.Enabled = true;
